@@ -23,8 +23,8 @@ Cores organizadas do mais escuro para o mais claro:
 #CFE0BC - Verde acinzentado pastel
 #99CD85 - Verde claro, com um tom pastel suave
 
-  ## Sensação que transmite:
-  Essa paleta traz uma sensação de equilíbrio, calma e conexão com a natureza. Os tons mais escuros representam estabilidade e sofisticação, enquanto os mais claros transmitem      leveza e frescor. Ideal para projetos que buscam um visual orgânico, relaxante e elegante. 🌿💚
+### Sensação que transmite:
+Essa paleta traz uma sensação de equilíbrio, calma e conexão com a natureza. Os tons mais escuros representam estabilidade e sofisticação, enquanto os mais claros transmitem      leveza e frescor. Ideal para projetos que buscam um visual orgânico, relaxante e elegante. 🌿💚
 
 ## 📌 Como Contribuir
 1. Faça um **fork** deste repositório  
