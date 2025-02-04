@@ -17,11 +17,11 @@ Este repositório contém o código-fonte do site oficial da **Secretaria Munici
 
 ## Nome da Paleta Cores: Verde Serenidade 🌿
 Cores organizadas do mais escuro para o mais claro:
-#1F2E1E - Verde profundo e intenso
-#63783D - Verde escuro militar
-#7FA653 - Verde médio terroso
-#CFE0BC - Verde acinzentado pastel
-#99CD85 - Verde claro, com um tom pastel suave
+- #1F2E1E - Verde profundo e intenso
+- #63783D - Verde escuro militar
+- #7FA653 - Verde médio terroso
+- #CFE0BC - Verde acinzentado pastel
+- #99CD85 - Verde claro, com um tom pastel suave
 
 ### Sensação que transmite:
 Essa paleta traz uma sensação de equilíbrio, calma e conexão com a natureza. Os tons mais escuros representam estabilidade e sofisticação, enquanto os mais claros transmitem      leveza e frescor. Ideal para projetos que buscam um visual orgânico, relaxante e elegante. 🌿💚
