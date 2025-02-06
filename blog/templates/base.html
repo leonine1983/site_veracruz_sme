@@ -237,59 +237,51 @@ footer {
         </div>
       </div>
       <!--- ******************************** CARROSSEL ******************************** -->
-      <div id="myCarousel" class="carousel slide" data-bs-ride="carousel m-0">
+      
+
+    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel m-0">
         <div class="carousel-indicators">
-          <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-          <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-          <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            {% for i in context %}
+                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}" aria-label="Slide {{ forloop.counter }}"></button>
+            {% endfor %}
         </div>
+
         <div class="carousel-inner">
-          <div class="carousel-item active">
-            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
-              <rect width="100%" height="100%" fill="var(--bs-secondary-color)"/>
-            </svg>
-            <div class="container">
-              <div class="carousel-caption text-start">
-                <h1>Transforme sua Educação</h1>
-                <p class="opacity-75">Explore cursos online e desenvolva novas habilidades em diversas áreas do conhecimento.</p>
-                <p><a class="btn btn-lg btn-primary" href="#">Matricule-se hoje</a></p>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
-              <rect width="100%" height="100%" fill="var(--bs-secondary-color)"/>
-            </svg>
-            <div class="container">
-              <div class="carousel-caption">
-                <h1>Aprenda no Seu Ritmo</h1>
-                <p>Descubra como cursos flexíveis e online podem se adaptar à sua agenda e estilo de vida.</p>
-                <p><a class="btn btn-lg btn-primary" href="#">Saiba mais</a></p>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
-              <rect width="100%" height="100%" fill="var(--bs-secondary-color)"/>
-            </svg>
-            <div class="container">
-              <div class="carousel-caption text-end">
-                <h1>Prepare-se para o Futuro</h1>
-                <p>Obtenha certificados e diplomas reconhecidos, aprimorando sua carreira e alcançando novos objetivos.</p>
-                <p><a class="btn btn-lg btn-primary" href="#">Veja nossa galeria de cursos</a></p>
-              </div>
-            </div>
-          </div>
-        </div>      
+            {% for publicacao in context %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                    {% if publicacao.video %}
+                        <video class="d-block w-100" controls>
+                            <source src="{{ publicacao.video.url }}" type="video/mp4">
+                            Seu navegador não suporta o elemento de vídeo.
+                        </video>
+                    {% elif publicacao.imagem %}
+                    <img src="{{ publicacao.imagem.url }}" class="d-block w-100" alt="{{ publicacao.titulo }}">
+                    
+                    {% else %}
+                        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+                            <rect width="100%" height="100%" fill="var(--bs-secondary-color)"/>
+                        </svg>
+                    {% endif %}
+                    <div class="container">
+                        <div class="carousel-caption text-start">
+                            <h1>{{ publicacao.titulo }}</h1>
+                            <p class="opacity-75">{{ publicacao.descricao|slice:":150"|safe }}...</p>
+                            <p><a class="btn btn-lg btn-primary" href="#">Leia mais  </a></p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
         <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Anterior</span>
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Anterior</span>
         </button>
         <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Próximo</span>
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Próximo</span>
         </button>
-      </div> 
+    </div>
       <!--- ******************************** CARROSSEL ******************************** -->
     </header>      
     
