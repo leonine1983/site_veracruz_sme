@@ -65,7 +65,6 @@
       .nav-scroller .nav {
         display: flex;
         flex-wrap: nowrap;
-        padding-bottom: 1rem;
         margin-top: -1px;
         overflow-x: auto;
         text-align: center;
@@ -98,9 +97,10 @@
         display: block !important;
       }
 
-      body{padding-top: 0;}      
-      header{width: 100vw; margin-top: 0!important; }
-      .logo{width: 10rem !important;}
+      body{padding: 0!important;}      
+      header{width: 100vw; margin: 0!important;  padding: 0!important; }
+      .navbar{min-width: 100vw;}
+      
       .container{
       box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
       }
@@ -118,27 +118,56 @@
         color: #13520c !important;;
       }
 
-      @media screen and (min-width: 430px) {
-      .logo {
-        width: 6rem !important; /* Apliquei !important aqui por precaução */
-      }
-      
-      #title_sme {
-        font-family: "EB Garamond", serif !important;
-        text-transform: uppercase !important;
-        font-size: 0.8rem !important;
-        font-weight: 900 !important;
-        padding: 0px !important;
+      .logo{
+        height: 90px; 
+        margin-right: 20px;
       }
 
-      #subtitle_sme {
-        font-size: 0.75rem !important;
-        font-weight: 500 !important;
-        padding: 0px !important;
+      @media screen and (max-width: 768px) {    
+        .logo{
+          height: 80px; 
+        } 
       }
-    }
+      @media screen and (max-width: 450px) {    
+        .logo{
+          height: 55px; 
+        } 
+      }
+      @media screen and (max-width: 395px) {    
+        .logo{
+          height: 45px; 
+        } 
+      }
+
+      @media screen and (max-width: 360px) {    
+        .logo{
+          height: 40px; 
+        } 
+      }
+
+      @media screen and (max-width: 320px) {    
+        .logo{
+          height: 33px; 
+        } 
+      }
+
+      
+      .navbar-header {
+    background: url('https://www.transparenttextures.com/patterns/beige-paper.png');
+}
+footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    background: #365436;
+    z-index: 10;
+    margin: 0px!important;
+    padding: 0px!important;
+    
+}
 
     </style>
+    
 
     
     <!-- Custom styles for this template -->
@@ -146,24 +175,22 @@
     <!-- Custom styles for this template -->
     <link href="{% static 'css/blog.css' %}" rel="stylesheet">
   </head>
-  <body>
+  <body >    
     <!--Botão de muda tema-->
     {% include "partial_base/svg_mode.html" %} 
     <header>
-      <nav class="navbar navbar-expand-lg bg-body-tertiary rounded p-2 shadow shadow-sm" aria-label="Eleventh navbar example">
-        <div class="container-fluid">
+      <nav class="navbar-header navbar navbar-expand-lg rounded p-2 shadow shadow-sm bg-success-subtle" aria-label="Eleventh navbar example">
+        <div class="container-fluid ">
           <div class="logo_header p-2 p d-flex">
-            <img  src="{% static 'sme.svg' %}" class='logo pe-2' alt="">
-            <div class="border-start border-2 border-success px-2">
-              <span id="title_sme" class=" text-success px-1">Secretaria Municipal da Educação</span><br>
-              <span id="subtitle_sme" class="text-success px-1">Município de Vera Cruz</span>
-            </div>
+            <img  src="{% static 'prefeitura.png' %}" class='logo pe-2' alt="">
+            <img  src="{% static 'SME.png' %}" class='logo pe-2' alt="">           
+            
           </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
   
-          <div class="collapse navbar-collapse " id="navbarsExample09">
+          <div class="collapse navbar-collapse  " id="navbarsExample09">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">       
               <!--
               <li class="nav-item">
@@ -184,336 +211,338 @@
           </div>
         </div>
       </nav>
-    </header> 
-    <div class="container" >
-      <div class="nav-scroller py-1 mb-3 border-bottom">
-        <nav class="nav nav-underline justify-content-between">
-          <a class="nav-item nav-link link-body-emphasis border-end p-2" href="#">
-            <i class="fa-solid fa-person-chalkboard"></i><br>
-            Formação de Professores</a>
-          <a class="nav-item nav-link link-body-emphasis border-end p-2" href="#">
-            <i class="fa-solid fa-microchip"></i><br>
-            Tecnologia Educacional</a>
-          <a class="nav-item nav-link link-body-emphasis border-end p-2" href="#">
-            <i class="fa-solid fa-book-open-reader"></i><br>
-            Projetos Educacionais</a>
-          <a class="nav-item nav-link link-body-emphasis border-end p-2" href="#">
-            <i class="fa-solid fa-utensils text-center"></i><br>
-            Alimentação Escolar
-          </a>
-          <a class="nav-item nav-link link-body-emphasis border-end p-2" href="#">
-            <i class="fa-solid fa-user-tie"></i><br>
-            Gestão Escolar</a>
-          <a class="nav-item nav-link link-body-emphasis border-end p-2" href="#">
-            <i class="fa-brands fa-accessible-icon"></i><br>
-            Educação Inclusiva</a>          
-          <a class="nav-item nav-link link-body-emphasis border-end p-2" href="#">
-            <i class="fa-solid fa-notes-medical"></i><br>
-            Saúde do Estudante</a>
-          <a class="nav-item nav-link link-body-emphasis border-end p-2" href="#">
-            <i class="fa-solid fa-van-shuttle"></i><br>
-            Transporte Escolar</a>
-        </nav>
+      <div class="border bg-light-subtle">
+        <div class="nav-scroller border-bottom">
+          <nav class="nav nav-underline justify-content-center">
+            <a class="nav-item nav-link link-body-emphasis border-end p-2 text-center" href="#">
+              <i class="fa-solid fa-person-chalkboard"></i><br>
+              Formação de Professores</a>
+            <a class="nav-item nav-link link-body-emphasis border-end p-2" href="#">
+              <i class="fa-solid fa-microchip"></i><br>
+              Tecnologia Educacional</a>
+            <a class="nav-item nav-link link-body-emphasis border-end p-2" href="#">
+              <i class="fa-solid fa-book-open-reader"></i><br>
+              Projetos Educacionais</a>
+            <a class="nav-item nav-link link-body-emphasis border-end p-2" href="#">
+              <i class="fa-solid fa-utensils text-center"></i><br>
+              Alimentação Escolar
+            </a>
+            <a class="nav-item nav-link link-body-emphasis border-end p-2" href="#">
+              <i class="fa-solid fa-user-tie"></i><br>
+              Gestão Escolar</a>
+            <a class="nav-item nav-link link-body-emphasis border-end p-2" href="#">
+              <i class="fa-brands fa-accessible-icon"></i><br>
+              Educação Inclusiva</a>         
+          </nav>
+        </div>
       </div>
-    </div>
+      <!--- ******************************** CARROSSEL ******************************** -->
+      <div id="myCarousel" class="carousel slide" data-bs-ride="carousel m-0">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+              <rect width="100%" height="100%" fill="var(--bs-secondary-color)"/>
+            </svg>
+            <div class="container">
+              <div class="carousel-caption text-start">
+                <h1>Transforme sua Educação</h1>
+                <p class="opacity-75">Explore cursos online e desenvolva novas habilidades em diversas áreas do conhecimento.</p>
+                <p><a class="btn btn-lg btn-primary" href="#">Matricule-se hoje</a></p>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+              <rect width="100%" height="100%" fill="var(--bs-secondary-color)"/>
+            </svg>
+            <div class="container">
+              <div class="carousel-caption">
+                <h1>Aprenda no Seu Ritmo</h1>
+                <p>Descubra como cursos flexíveis e online podem se adaptar à sua agenda e estilo de vida.</p>
+                <p><a class="btn btn-lg btn-primary" href="#">Saiba mais</a></p>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+              <rect width="100%" height="100%" fill="var(--bs-secondary-color)"/>
+            </svg>
+            <div class="container">
+              <div class="carousel-caption text-end">
+                <h1>Prepare-se para o Futuro</h1>
+                <p>Obtenha certificados e diplomas reconhecidos, aprimorando sua carreira e alcançando novos objetivos.</p>
+                <p><a class="btn btn-lg btn-primary" href="#">Veja nossa galeria de cursos</a></p>
+              </div>
+            </div>
+          </div>
+        </div>      
+        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Próximo</span>
+        </button>
+      </div> 
+      <!--- ******************************** CARROSSEL ******************************** -->
+    </header>      
+    
+    <main class="container pt-5 bg-light">
 
- <!--- ******************************** CARROSSEL ******************************** -->
-    <div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel">
-      <div class="carousel-indicators">
-        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      <!--CARROSSEL 
+      <div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></svg>
+            <div class="container">
+              <div class="carousel-caption text-start">
+                <h1>Example headline.</h1>
+                <p class="opacity-75">Some representative placeholder content for the first slide of the carousel.</p>
+                <p><a class="btn btn-lg btn-primary" href="#">Sign up today</a></p>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></svg>
+            <div class="container">
+              <div class="carousel-caption">
+                <h1>Another example headline.</h1>
+                <p>Some representative placeholder content for the second slide of the carousel.</p>
+                <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></svg>
+            <div class="container">
+              <div class="carousel-caption text-end">
+                <h1>One more for good measure.</h1>
+                <p>Some representative placeholder content for the third slide of this carousel.</p>
+                <p><a class="btn btn-lg btn-primary" href="#">Browse gallery</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
       </div>
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
-            <rect width="100%" height="100%" fill="var(--bs-secondary-color)"/>
-          </svg>
-          <div class="container">
-            <div class="carousel-caption text-start">
-              <h1>Transforme sua Educação</h1>
-              <p class="opacity-75">Explore cursos online e desenvolva novas habilidades em diversas áreas do conhecimento.</p>
-              <p><a class="btn btn-lg btn-primary" href="#">Matricule-se hoje</a></p>
+      
+      CARROCEL END-->
+
+
+
+      <div class="row mb-2">
+        <div class="col-md-6">
+          <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+            <div class="col p-4 d-flex flex-column position-static">
+              <strong class="d-inline-block mb-2 text-primary-emphasis">Educação</strong>
+              <h3 class="mb-0">Postagem em Destaque</h3>
+              <div class="mb-1 text-body-secondary">12 Nov</div>
+              <p class="card-text mb-auto">Este é um exemplo de postagem educacional com um texto de apoio abaixo, como uma introdução para mais conteúdo.</p>
+              <a href="#" class="icon-link gap-1 icon-link-hover stretched-link">
+                Continuar lendo
+                <svg class="bi"><use xlink:href="#chevron-right"/></svg>
+              </a>
+            </div>
+            <div class="col-auto d-none d-lg-block">
+              <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
             </div>
           </div>
         </div>
-        <div class="carousel-item">
-          <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
-            <rect width="100%" height="100%" fill="var(--bs-secondary-color)"/>
-          </svg>
-          <div class="container">
-            <div class="carousel-caption">
-              <h1>Aprenda no Seu Ritmo</h1>
-              <p>Descubra como cursos flexíveis e online podem se adaptar à sua agenda e estilo de vida.</p>
-              <p><a class="btn btn-lg btn-primary" href="#">Saiba mais</a></p>
+        <div class="col-md-6">
+          <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+            <div class="col p-4 d-flex flex-column position-static">
+              <strong class="d-inline-block mb-2 text-success-emphasis">Métodos de Ensino</strong>
+              <h3 class="mb-0">Título do Post</h3>
+              <div class="mb-1 text-body-secondary">11 Nov</div>
+              <p class="mb-auto">Este é outro exemplo de postagem educacional com um texto de apoio abaixo.</p>
+              <a href="#" class="icon-link gap-1 icon-link-hover stretched-link">
+                Continuar lendo
+                <svg class="bi"><use xlink:href="#chevron-right"/></svg>
+              </a>
             </div>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
-            <rect width="100%" height="100%" fill="var(--bs-secondary-color)"/>
-          </svg>
-          <div class="container">
-            <div class="carousel-caption text-end">
-              <h1>Prepare-se para o Futuro</h1>
-              <p>Obtenha certificados e diplomas reconhecidos, aprimorando sua carreira e alcançando novos objetivos.</p>
-              <p><a class="btn btn-lg btn-primary" href="#">Veja nossa galeria de cursos</a></p>
+            <div class="col-auto d-none d-lg-block">
+              <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
             </div>
           </div>
         </div>
       </div>
       
-    <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Anterior</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Próximo</span>
-    </button>
-  </div>
-  <!--- ******************************** CARROSSEL ******************************** -->
-
-  <main class="container">
-
-    <!--CARROSSEL 
-    <div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel">
-      <div class="carousel-indicators">
-        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-      </div>
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></svg>
-          <div class="container">
-            <div class="carousel-caption text-start">
-              <h1>Example headline.</h1>
-              <p class="opacity-75">Some representative placeholder content for the first slide of the carousel.</p>
-              <p><a class="btn btn-lg btn-primary" href="#">Sign up today</a></p>
-            </div>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></svg>
-          <div class="container">
-            <div class="carousel-caption">
-              <h1>Another example headline.</h1>
-              <p>Some representative placeholder content for the second slide of the carousel.</p>
-              <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>
-            </div>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></svg>
-          <div class="container">
-            <div class="carousel-caption text-end">
-              <h1>One more for good measure.</h1>
-              <p>Some representative placeholder content for the third slide of this carousel.</p>
-              <p><a class="btn btn-lg btn-primary" href="#">Browse gallery</a></p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    </div>
-    
-    CARROCEL END-->
-
-
-
-    <div class="row mb-2">
-      <div class="col-md-6">
-        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-          <div class="col p-4 d-flex flex-column position-static">
-            <strong class="d-inline-block mb-2 text-primary-emphasis">Educação</strong>
-            <h3 class="mb-0">Postagem em Destaque</h3>
-            <div class="mb-1 text-body-secondary">12 Nov</div>
-            <p class="card-text mb-auto">Este é um exemplo de postagem educacional com um texto de apoio abaixo, como uma introdução para mais conteúdo.</p>
-            <a href="#" class="icon-link gap-1 icon-link-hover stretched-link">
-              Continuar lendo
-              <svg class="bi"><use xlink:href="#chevron-right"/></svg>
-            </a>
-          </div>
-          <div class="col-auto d-none d-lg-block">
-            <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-          <div class="col p-4 d-flex flex-column position-static">
-            <strong class="d-inline-block mb-2 text-success-emphasis">Métodos de Ensino</strong>
-            <h3 class="mb-0">Título do Post</h3>
-            <div class="mb-1 text-body-secondary">11 Nov</div>
-            <p class="mb-auto">Este é outro exemplo de postagem educacional com um texto de apoio abaixo.</p>
-            <a href="#" class="icon-link gap-1 icon-link-hover stretched-link">
-              Continuar lendo
-              <svg class="bi"><use xlink:href="#chevron-right"/></svg>
-            </a>
-          </div>
-          <div class="col-auto d-none d-lg-block">
-            <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="row g-5">
-      <div class="col-md-8">
-        <h3 class="pb-4 mb-4 fst-italic border-bottom">
-          Do Fluxo de Conhecimento
-        </h3>
-    
-        <article class="blog-post">
-          <h2 class="display-5 link-body-emphasis mb-1">Postagem de Exemplo</h2>
-          <p class="blog-post-meta">1 Jan 2025 por <a href="#">Mark</a></p>
-    
-          <p>Esta postagem de blog mostra diferentes tipos de conteúdo que são suportados e estilizados com Bootstrap. Tipografia básica, listas, tabelas, imagens, código, entre outros, são todos suportados como esperado.</p>
-          <hr>
-          <p>Este é um conteúdo adicional de preenchimento. Foi escrito para preencher o espaço disponível e mostrar como um trecho maior de texto afeta o conteúdo ao redor. Vamos repeti-lo várias vezes para manter a demonstração fluindo, então fique atento a essa string exata de texto.</p>
-          <h2>Citações</h2>
-          <p>Este é um exemplo de citação em ação:</p>
-          <blockquote class="blockquote">
-            <p>Texto citado vai aqui.</p>
-          </blockquote>
-          <p>Este é mais um trecho de conteúdo adicional. Foi escrito para preencher o espaço disponível e mostrar como trechos maiores de texto afetam o conteúdo ao redor.</p>
-          <h3>Exemplo de Listas</h3>
-          <p>Este é um exemplo de lista não ordenada:</p>
-          <ul>
-            <li>Primeiro item da lista</li>
-            <li>Segundo item da lista com uma descrição mais longa</li>
-            <li>Terceiro item da lista para finalizar</li>
-          </ul>
-          <p>E este é um exemplo de lista ordenada:</p>
-          <ol>
-            <li>Primeiro item da lista</li>
-            <li>Segundo item da lista com uma descrição mais longa</li>
-            <li>Terceiro item da lista para finalizar</li>
-          </ol>
-          <p>Também temos uma lista de definições:</p>
-          <dl>
-            <dt>HTML (HyperText Markup Language)</dt>
-            <dd>A linguagem usada para descrever e definir o conteúdo de uma página web</dd>
-            <dt>CSS (Cascading Style Sheets)</dt>
-            <dd>Usado para descrever a aparência do conteúdo web</dd>
-            <dt>JavaScript (JS)</dt>
-            <dd>A linguagem de programação usada para construir sites e aplicações web avançadas</dd>
-          </dl>
-          <h2>Elementos HTML Inline</h2>
-          <p>HTML define uma longa lista de tags inline, uma lista completa pode ser encontrada na <a href="https://developer.mozilla.org/pt-BR/docs/Web/HTML/Elemento">Mozilla Developer Network</a>.</p>
-          <ul>
-            <li><strong>Para deixar o texto em negrito</strong>, use <code class="language-plaintext highlighter-rouge">&lt;strong&gt;</code>.</li>
-            <li><em>Para deixar o texto em itálico</em>, use <code class="language-plaintext highlighter-rouge">&lt;em&gt;</code>.</li>
-            <li>Abreviações, como <abbr title="HyperText Markup Language">HTML</abbr>, devem usar <code class="language-plaintext highlighter-rouge">&lt;abbr&gt;</code>, com um atributo <code class="language-plaintext highlighter-rouge">title</code> opcional para a frase completa.</li>
-            <li>Citações, como <cite>— Mark Otto</cite>, devem usar <code class="language-plaintext highlighter-rouge">&lt;cite&gt;</code>.</li>
-            <li><del>Texto apagado</del> deve usar <code class="language-plaintext highlighter-rouge">&lt;del&gt;</code> e <ins>texto inserido</ins> deve usar <code class="language-plaintext highlighter-rouge">&lt;ins&gt;</code>.</li>
-            <li>Texto em sobrescrito <sup>exemplo</sup> usa <code class="language-plaintext highlighter-rouge">&lt;sup&gt;</code> e texto em subscrito <sub>exemplo</sub> usa <code class="language-plaintext highlighter-rouge">&lt;sub&gt;</code>.</li>
-          </ul>
-          <p>A maioria desses elementos são estilizados pelos navegadores com poucas modificações da nossa parte.</p>
-          <h2>Título</h2>
-          <p>Este é mais um conteúdo adicional de preenchimento.</p>
-          <h3>Subtítulo</h3>
-          <p>Este é mais um trecho de conteúdo.</p>
-          <pre><code>Exemplo de bloco de código</code></pre>
-          <p>Este é mais um conteúdo adicional.</p>
-        </article>
-    
-        <nav class="blog-pagination" aria-label="Paginação">
-          <a class="btn btn-outline-primary rounded-pill" href="#">Mais antigos</a>
-          <a class="btn btn-outline-secondary rounded-pill disabled" aria-disabled="true">Mais novos</a>
-        </nav>
-    
-      </div>
-    
-      <div class="col-md-4">
-        <div class="position-sticky" style="top: 2rem;">
-          <div class="p-4 mb-3 bg-body-tertiary rounded">
-            <h4 class="fst-italic">Sobre</h4>
-            <p class="mb-0">Personalize esta seção para contar aos seus visitantes um pouco sobre sua publicação, autores, conteúdo, ou algo totalmente diferente. Fica a seu critério.</p>
-          </div>
-    
-          <div>
-            <h4 class="fst-italic">Postagens Recentes</h4>
-            <ul class="list-unstyled">
-              <li>
-                <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
-                  <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
-                  <div class="col-lg-8">
-                    <h6 class="mb-0">Título do Post de Exemplo</h6>
-                    <small class="text-body-secondary">15 Jan 2024</small>
-                  </div>
-                </a>
-              </li>
-              <li>
-                <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
-                  <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
-                  <div class="col-lg-8">
-                    <h6 class="mb-0">Este é outro título de post</h6>
-                    <small class="text-body-secondary">14 Jan 2024</small>
-                  </div>
-                </a>
-              </li>
-              <li>
-                <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
-                  <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
-                  <div class="col-lg-8">
-                    <h6 class="mb-0">Título mais longo do post: Este tem múltiplas linhas!</h6>
-                    <small class="text-body-secondary">13 Jan 2024</small>
-                  </div>
-                </a>
-              </li>
+      <div class="row g-5">
+        <div class="col-md-8">
+          <h3 class="pb-4 mb-4 fst-italic border-bottom">
+            Do Fluxo de Conhecimento
+          </h3>
+      
+          <article class="blog-post">
+            <h2 class="display-5 link-body-emphasis mb-1">Postagem de Exemplo</h2>
+            <p class="blog-post-meta">1 Jan 2025 por <a href="#">Mark</a></p>
+      
+            <p>Esta postagem de blog mostra diferentes tipos de conteúdo que são suportados e estilizados com Bootstrap. Tipografia básica, listas, tabelas, imagens, código, entre outros, são todos suportados como esperado.</p>
+            <hr>
+            <p>Este é um conteúdo adicional de preenchimento. Foi escrito para preencher o espaço disponível e mostrar como um trecho maior de texto afeta o conteúdo ao redor. Vamos repeti-lo várias vezes para manter a demonstração fluindo, então fique atento a essa string exata de texto.</p>
+            <h2>Citações</h2>
+            <p>Este é um exemplo de citação em ação:</p>
+            <blockquote class="blockquote">
+              <p>Texto citado vai aqui.</p>
+            </blockquote>
+            <p>Este é mais um trecho de conteúdo adicional. Foi escrito para preencher o espaço disponível e mostrar como trechos maiores de texto afetam o conteúdo ao redor.</p>
+            <h3>Exemplo de Listas</h3>
+            <p>Este é um exemplo de lista não ordenada:</p>
+            <ul>
+              <li>Primeiro item da lista</li>
+              <li>Segundo item da lista com uma descrição mais longa</li>
+              <li>Terceiro item da lista para finalizar</li>
             </ul>
-          </div>
-    
-          <div class="p-4">
-            <h4 class="fst-italic">Arquivos</h4>
-            <ol class="list-unstyled mb-0">
-              <li><a href="#">Março 2025</a></li>
-              <li><a href="#">Fevereiro 2025</a></li>
-              <li><a href="#">Janeiro 2025</a></li>
-              <li><a href="#">Dezembro 2025</a></li>
-              <li><a href="#">Novembro 2025</a></li>
-              <li><a href="#">Outubro 2025</a></li>
-              <li><a href="#">Setembro 2025</a></li>
-              <li><a href="#">Agosto 2025</a></li>
-              <li><a href="#">Julho 2025</a></li>
-              <li><a href="#">Junho 2025</a></li>
-              <li><a href="#">Maio 2025</a></li>
-              <li><a href="#">Abril 2025</a></li>
+            <p>E este é um exemplo de lista ordenada:</p>
+            <ol>
+              <li>Primeiro item da lista</li>
+              <li>Segundo item da lista com uma descrição mais longa</li>
+              <li>Terceiro item da lista para finalizar</li>
             </ol>
+            <p>Também temos uma lista de definições:</p>
+            <dl>
+              <dt>HTML (HyperText Markup Language)</dt>
+              <dd>A linguagem usada para descrever e definir o conteúdo de uma página web</dd>
+              <dt>CSS (Cascading Style Sheets)</dt>
+              <dd>Usado para descrever a aparência do conteúdo web</dd>
+              <dt>JavaScript (JS)</dt>
+              <dd>A linguagem de programação usada para construir sites e aplicações web avançadas</dd>
+            </dl>
+            <h2>Elementos HTML Inline</h2>
+            <p>HTML define uma longa lista de tags inline, uma lista completa pode ser encontrada na <a href="https://developer.mozilla.org/pt-BR/docs/Web/HTML/Elemento">Mozilla Developer Network</a>.</p>
+            <ul>
+              <li><strong>Para deixar o texto em negrito</strong>, use <code class="language-plaintext highlighter-rouge">&lt;strong&gt;</code>.</li>
+              <li><em>Para deixar o texto em itálico</em>, use <code class="language-plaintext highlighter-rouge">&lt;em&gt;</code>.</li>
+              <li>Abreviações, como <abbr title="HyperText Markup Language">HTML</abbr>, devem usar <code class="language-plaintext highlighter-rouge">&lt;abbr&gt;</code>, com um atributo <code class="language-plaintext highlighter-rouge">title</code> opcional para a frase completa.</li>
+              <li>Citações, como <cite>— Mark Otto</cite>, devem usar <code class="language-plaintext highlighter-rouge">&lt;cite&gt;</code>.</li>
+              <li><del>Texto apagado</del> deve usar <code class="language-plaintext highlighter-rouge">&lt;del&gt;</code> e <ins>texto inserido</ins> deve usar <code class="language-plaintext highlighter-rouge">&lt;ins&gt;</code>.</li>
+              <li>Texto em sobrescrito <sup>exemplo</sup> usa <code class="language-plaintext highlighter-rouge">&lt;sup&gt;</code> e texto em subscrito <sub>exemplo</sub> usa <code class="language-plaintext highlighter-rouge">&lt;sub&gt;</code>.</li>
+            </ul>
+            <p>A maioria desses elementos são estilizados pelos navegadores com poucas modificações da nossa parte.</p>
+            <h2>Título</h2>
+            <p>Este é mais um conteúdo adicional de preenchimento.</p>
+            <h3>Subtítulo</h3>
+            <p>Este é mais um trecho de conteúdo.</p>
+            <pre><code>Exemplo de bloco de código</code></pre>
+            <p>Este é mais um conteúdo adicional.</p>
+          </article>
+      
+          <nav class="blog-pagination" aria-label="Paginação">
+            <a class="btn btn-outline-primary rounded-pill" href="#">Mais antigos</a>
+            <a class="btn btn-outline-secondary rounded-pill disabled" aria-disabled="true">Mais novos</a>
+          </nav>
+      
+        </div>
+      
+        <div class="col-md-4">
+          <div class="position-sticky" style="top: 2rem;">
+            <div class="p-4 mb-3 bg-body-tertiary rounded">
+              <h4 class="fst-italic">Sobre</h4>
+              <p class="mb-0">Personalize esta seção para contar aos seus visitantes um pouco sobre sua publicação, autores, conteúdo, ou algo totalmente diferente. Fica a seu critério.</p>
+            </div>
+      
+            <div>
+              <h4 class="fst-italic">Postagens Recentes</h4>
+              <ul class="list-unstyled">
+                <li>
+                  <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
+                    <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+                    <div class="col-lg-8">
+                      <h6 class="mb-0">Título do Post de Exemplo</h6>
+                      <small class="text-body-secondary">15 Jan 2024</small>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
+                    <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+                    <div class="col-lg-8">
+                      <h6 class="mb-0">Este é outro título de post</h6>
+                      <small class="text-body-secondary">14 Jan 2024</small>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
+                    <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+                    <div class="col-lg-8">
+                      <h6 class="mb-0">Título mais longo do post: Este tem múltiplas linhas!</h6>
+                      <small class="text-body-secondary">13 Jan 2024</small>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+      
+            <div class="p-4">
+              <h4 class="fst-italic">Arquivos</h4>
+              <ol class="list-unstyled mb-0">
+                <li><a href="#">Março 2025</a></li>
+                <li><a href="#">Fevereiro 2025</a></li>
+                <li><a href="#">Janeiro 2025</a></li>
+                <li><a href="#">Dezembro 2025</a></li>
+                <li><a href="#">Novembro 2025</a></li>
+                <li><a href="#">Outubro 2025</a></li>
+                <li><a href="#">Setembro 2025</a></li>
+                <li><a href="#">Agosto 2025</a></li>
+                <li><a href="#">Julho 2025</a></li>
+                <li><a href="#">Junho 2025</a></li>
+                <li><a href="#">Maio 2025</a></li>
+                <li><a href="#">Abril 2025</a></li>
+              </ol>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    
+      
 
-          <div class="p-4">
-            <h4 class="fst-italic">Elsewhere</h4>
-            <ol class="list-unstyled">
-              <li><a href="#">GitHub</a></li>
-              <li><a href="#">Twitter</a></li>
-              <li><a href="#">Facebook</a></li>
-            </ol>
+            <div class="p-4">
+              <h4 class="fst-italic">Elsewhere</h4>
+              <ol class="list-unstyled">
+                <li><a href="#">GitHub</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">Facebook</a></li>
+              </ol>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </main>
+    </main>
 
-  <footer class="py-5 text-center text-body-secondary bg-body-tertiary">
-    <p>Blog template built for <a href="https://getbootstrap.com/">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
-    <p class="mb-0">
-      <a href="#">Back to top</a>
-    </p>
-  </footer>
+  
+      <footer class="row row-cols-1 row-cols-sm-1 row-cols-md-5 py-5 mt-5 border-top text-light justify-content-center" >
+        <div class="col mb-3 text-center">
+            <img src="{% static 'prefeitura-branco.png' %}" alt=""width="130" srcset=""><br>
+            &copy; 2025
+        </div>
+        <!--
+        <div class="col mb-3">
+          <h5>Section</h5>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Home</a></li>
+          </ul>
+        </div>    
+        -->
+      </footer>
+       
   <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 
 </body>
