@@ -1,0 +1,8 @@
+1 - Publicação de informações de forma dinâmica - O usuario tem um espaço específico para fazer as publicação no site
+2 - Destaques - o usuário escolhe qual postagem ficara fixada como destaque
+
+
+
+
+informações
+1 - bacgroud usado do site https://www.transparenttextures.com

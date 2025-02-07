@@ -1,0 +1,271 @@
+{% extends "base.html" %}
+{% load static %}
+{% block carrocel %}
+  <div id="myCarousel" class="carousel slide " style='border:5px solid #78aeaf' data-bs-ride="carousel m-0">      
+      <div class="carousel-indicators">
+          {% for i in context %}
+              <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}" aria-label="Slide {{ forloop.counter }}"></button>
+          {% endfor %}
+      </div>
+
+      <div class="carousel-inner">
+          {% for publicacao in context %}
+              <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                  {% if publicacao.video %}
+                      <video class="d-block w-100" controls>
+                          <source src="{{ publicacao.video.url }}" type="video/mp4">
+                          Seu navegador não suporta o elemento de vídeo.
+                      </video>
+                  {% elif publicacao.imagem %}
+                  <img src="{{ publicacao.imagem.url }}" class="d-block image-publi" alt="{{ publicacao.titulo }}">
+                  
+                  {% else %}
+                      <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+                          <rect width="100%" height="100%" fill="var(--bs-secondary-color)"/>
+                      </svg>
+                  {% endif %}
+                  <div class="container container-caption">
+                      <div class="carousel-caption container-caption text-start">
+                          <h1>{{ publicacao.titulo }}</h1>
+                          <p class="opacity-75">{{ publicacao.descricao|slice:":150"|safe }}...</p>
+                          <a class="btn btn-lg btn-primary" href="#">Leia mais...</a>
+                      </div>
+                  </div>
+              </div>
+          {% endfor %}
+      </div>
+
+      <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Anterior</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Próximo</span>
+      </button>
+  </div>
+{% endblock carrocel %}
+       
+{% block main %}  
+<!--Carrocel Interno 
+<div id="myCarousel" class="carousel slide" style='border:5px solid #78aeaf' data-bs-ride="carousel m-0">      
+  <div class="carousel-indicators">
+      {% for i in context %}
+          <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}" aria-label="Slide {{ forloop.counter }}"></button>
+      {% endfor %}
+  </div>
+
+  <div class="carousel-inner">
+      {% for publicacao in context %}
+          <div class="carousel-item {% if forloop.first %}active{% endif %}">
+              {% if publicacao.video %}
+                  <video class="d-block w-100" controls>
+                      <source src="{{ publicacao.video.url }}" type="video/mp4">
+                      Seu navegador não suporta o elemento de vídeo.
+                  </video>
+              {% elif publicacao.imagem %}
+              <img src="{{ publicacao.imagem.url }}" class="d-block image-publi" alt="{{ publicacao.titulo }}">
+              
+              {% else %}
+                  <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+                      <rect width="100%" height="100%" fill="var(--bs-secondary-color)"/>
+                  </svg>
+              {% endif %}
+              <div class="container container-caption">
+                  <div class="carousel-caption container-caption text-start">
+                      <h1>{{ publicacao.titulo }}</h1>
+                      <p class="opacity-75">{{ publicacao.descricao|slice:":150"|safe }}...</p>
+                      <a class="btn btn-lg btn-primary" href="#">Leia mais...</a>
+                  </div>
+              </div>
+          </div>
+      {% endfor %}
+  </div>
+
+  <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Anterior</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Próximo</span>
+  </button>
+</div>
+-->
+<div class="row mb-2">
+  {% for publicacao in context %}
+    {% if publicacao.em_destaque %}
+      <div class="col-md-6">
+        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+          <div class="col p-4 d-flex flex-column position-static">
+            <strong class="d-inline-block mb-2 text-primary-emphasis">{{ publicacao.tipo_publicacao }}</strong>
+            <h3 class="mb-0">{{ publicacao.titulo }}</h3>
+            <div class="mb-1 text-body-secondary">12 Nov</div>
+            <p class="card-text mb-auto">Este é um exemplo de postagem educacional com um texto de apoio abaixo, como uma introdução para mais conteúdo.</p>
+            <a href="#" class="icon-link gap-1 icon-link-hover stretched-link">
+              Continuar lendo
+              <svg class="bi"><use xlink:href="#chevron-right"/></svg>
+            </a>
+          </div>
+          <div class="col-auto d-none d-lg-block bg-secondary">
+            {% if publicacao.video %}
+                  <video class="d-block w-100" controls>
+                      <source src="{{ publicacao.video.url }}" type="video/mp4">
+                      Seu navegador não suporta o elemento de vídeo.
+                  </video>
+              {% elif publicacao.imagem %}
+                  <div style="width: 200px; height: 250px; overflow: hidden;">
+                    <img src="{{ publicacao.imagem.url }}" class="d-block" alt="{{ publicacao.titulo }}" style="width: 100%; height: 100%; object-fit: cover;">
+                  </div>  
+              {% else %}
+              <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+              {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
+
+<div class="row g-5">
+  <div class="col-md-8">
+    <h3 class="pb-4 mb-4 fst-italic border-bottom">
+      Do Fluxo de Conhecimento
+    </h3>
+
+    <article class="blog-post">
+      <h2 class="display-5 link-body-emphasis mb-1">Postagem de Exemplo</h2>
+      <p class="blog-post-meta">1 Jan 2025 por <a href="#">Mark</a></p>
+
+      <p>Esta postagem de blog mostra diferentes tipos de conteúdo que são suportados e estilizados com Bootstrap. Tipografia básica, listas, tabelas, imagens, código, entre outros, são todos suportados como esperado.</p>
+      <hr>
+      <p>Este é um conteúdo adicional de preenchimento. Foi escrito para preencher o espaço disponível e mostrar como um trecho maior de texto afeta o conteúdo ao redor. Vamos repeti-lo várias vezes para manter a demonstração fluindo, então fique atento a essa string exata de texto.</p>
+      <h2>Citações</h2>
+      <p>Este é um exemplo de citação em ação:</p>
+      <blockquote class="blockquote">
+        <p>Texto citado vai aqui.</p>
+      </blockquote>
+      <p>Este é mais um trecho de conteúdo adicional. Foi escrito para preencher o espaço disponível e mostrar como trechos maiores de texto afetam o conteúdo ao redor.</p>
+      <h3>Exemplo de Listas</h3>
+      <p>Este é um exemplo de lista não ordenada:</p>
+      <ul>
+        <li>Primeiro item da lista</li>
+        <li>Segundo item da lista com uma descrição mais longa</li>
+        <li>Terceiro item da lista para finalizar</li>
+      </ul>
+      <p>E este é um exemplo de lista ordenada:</p>
+      <ol>
+        <li>Primeiro item da lista</li>
+        <li>Segundo item da lista com uma descrição mais longa</li>
+        <li>Terceiro item da lista para finalizar</li>
+      </ol>
+      <p>Também temos uma lista de definições:</p>
+      <dl>
+        <dt>HTML (HyperText Markup Language)</dt>
+        <dd>A linguagem usada para descrever e definir o conteúdo de uma página web</dd>
+        <dt>CSS (Cascading Style Sheets)</dt>
+        <dd>Usado para descrever a aparência do conteúdo web</dd>
+        <dt>JavaScript (JS)</dt>
+        <dd>A linguagem de programação usada para construir sites e aplicações web avançadas</dd>
+      </dl>
+      <h2>Elementos HTML Inline</h2>
+      <p>HTML define uma longa lista de tags inline, uma lista completa pode ser encontrada na <a href="https://developer.mozilla.org/pt-BR/docs/Web/HTML/Elemento">Mozilla Developer Network</a>.</p>
+      <ul>
+        <li><strong>Para deixar o texto em negrito</strong>, use <code class="language-plaintext highlighter-rouge">&lt;strong&gt;</code>.</li>
+        <li><em>Para deixar o texto em itálico</em>, use <code class="language-plaintext highlighter-rouge">&lt;em&gt;</code>.</li>
+        <li>Abreviações, como <abbr title="HyperText Markup Language">HTML</abbr>, devem usar <code class="language-plaintext highlighter-rouge">&lt;abbr&gt;</code>, com um atributo <code class="language-plaintext highlighter-rouge">title</code> opcional para a frase completa.</li>
+        <li>Citações, como <cite>— Mark Otto</cite>, devem usar <code class="language-plaintext highlighter-rouge">&lt;cite&gt;</code>.</li>
+        <li><del>Texto apagado</del> deve usar <code class="language-plaintext highlighter-rouge">&lt;del&gt;</code> e <ins>texto inserido</ins> deve usar <code class="language-plaintext highlighter-rouge">&lt;ins&gt;</code>.</li>
+        <li>Texto em sobrescrito <sup>exemplo</sup> usa <code class="language-plaintext highlighter-rouge">&lt;sup&gt;</code> e texto em subscrito <sub>exemplo</sub> usa <code class="language-plaintext highlighter-rouge">&lt;sub&gt;</code>.</li>
+      </ul>
+      <p>A maioria desses elementos são estilizados pelos navegadores com poucas modificações da nossa parte.</p>
+      <h2>Título</h2>
+      <p>Este é mais um conteúdo adicional de preenchimento.</p>
+      <h3>Subtítulo</h3>
+      <p>Este é mais um trecho de conteúdo.</p>
+      <pre><code>Exemplo de bloco de código</code></pre>
+      <p>Este é mais um conteúdo adicional.</p>
+    </article>
+
+    <nav class="blog-pagination" aria-label="Paginação">
+      <a class="btn btn-outline-primary rounded-pill" href="#">Mais antigos</a>
+      <a class="btn btn-outline-secondary rounded-pill disabled" aria-disabled="true">Mais novos</a>
+    </nav>
+
+  </div>
+
+  <div class="col-md-4">
+    <div class="position-sticky" style="top: 2rem;">
+      <div class="p-4 mb-3 bg-body-tertiary rounded">
+        <h4 class="fst-italic">Sobre</h4>
+        <p class="mb-0">Personalize esta seção para contar aos seus visitantes um pouco sobre sua publicação, autores, conteúdo, ou algo totalmente diferente. Fica a seu critério.</p>
+      </div>
+
+      <div>
+        <h4 class="fst-italic">Postagens Recentes</h4>
+        <ul class="list-unstyled">
+          <li>
+            <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
+              <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+              <div class="col-lg-8">
+                <h6 class="mb-0">Título do Post de Exemplo</h6>
+                <small class="text-body-secondary">15 Jan 2024</small>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
+              <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+              <div class="col-lg-8">
+                <h6 class="mb-0">Este é outro título de post</h6>
+                <small class="text-body-secondary">14 Jan 2024</small>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
+              <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+              <div class="col-lg-8">
+                <h6 class="mb-0">Título mais longo do post: Este tem múltiplas linhas!</h6>
+                <small class="text-body-secondary">13 Jan 2024</small>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="p-4">
+        <h4 class="fst-italic">Arquivos</h4>
+        <ol class="list-unstyled mb-0">
+          <li><a href="#">Março 2025</a></li>
+          <li><a href="#">Fevereiro 2025</a></li>
+          <li><a href="#">Janeiro 2025</a></li>
+          <li><a href="#">Dezembro 2025</a></li>
+          <li><a href="#">Novembro 2025</a></li>
+          <li><a href="#">Outubro 2025</a></li>
+          <li><a href="#">Setembro 2025</a></li>
+          <li><a href="#">Agosto 2025</a></li>
+          <li><a href="#">Julho 2025</a></li>
+          <li><a href="#">Junho 2025</a></li>
+          <li><a href="#">Maio 2025</a></li>
+          <li><a href="#">Abril 2025</a></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+      <div class="p-4">
+        <h4 class="fst-italic">Elsewhere</h4>
+        <ol class="list-unstyled">
+          <li><a href="#">GitHub</a></li>
+          <li><a href="#">Twitter</a></li>
+          <li><a href="#">Facebook</a></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock main %}
+  

@@ -6,7 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 def blog(request):
     context = Publicacao.objects.all()
-    return render(request, 'base.html', {'context': context})
+    return render(request, 'index.html', {'context': context})
 
 
 
