@@ -122,6 +122,9 @@
         height: 90px; 
         margin-right: 20px;
       }
+      .image-publi{
+        width:100%;
+      }
 
       @media screen and (max-width: 768px) {    
         .logo{
@@ -143,6 +146,23 @@
         .logo{
           height: 40px; 
         } 
+        .carousel{
+          height:240px;
+        }
+        .container-caption{
+          color: rgb(244, 246, 247);
+          position: absolute;
+          top: 10px;
+          left: 0;
+          width: 400px;
+          height: 200px;
+          padding: 20px;          
+        }
+        .container-caption p{
+          font-size: smaller;
+          width: 300px;
+        }
+     
       }
 
       @media screen and (max-width: 320px) {    
@@ -180,8 +200,8 @@ footer {
     {% include "partial_base/svg_mode.html" %} 
     <header>
       <nav class="navbar-header navbar navbar-expand-lg rounded p-2 shadow shadow-sm bg-success-subtle" aria-label="Eleventh navbar example">
-        <div class="container-fluid ">
-          <div class="logo_header p-2 p d-flex">
+        <div class="container-fluid  ">
+          <div class="logo_header p-2 p d-flex ">
             <img  src="{% static 'prefeitura.png' %}" class='logo pe-2' alt="">
             <img  src="{% static 'SME.png' %}" class='logo pe-2' alt="">           
             
@@ -214,23 +234,23 @@ footer {
       <div class="border bg-light-subtle">
         <div class="nav-scroller border-bottom">
           <nav class="nav nav-underline justify-content-center">
-            <a class="nav-item nav-link link-body-emphasis border-end p-2 text-center" href="#">
+            <a class="nav-item nav-link link-body-emphasis border-end border-success-subtle border-2 p-2 text-center" href="#">
               <i class="fa-solid fa-person-chalkboard"></i><br>
               Formação de Professores</a>
-            <a class="nav-item nav-link link-body-emphasis border-end p-2" href="#">
+            <a class="nav-item nav-link link-body-emphasis border-end border-success-subtle border-2 p-2" href="#">
               <i class="fa-solid fa-microchip"></i><br>
               Tecnologia Educacional</a>
-            <a class="nav-item nav-link link-body-emphasis border-end p-2" href="#">
+            <a class="nav-item nav-link link-body-emphasis border-end border-success-subtle border-2 p-2" href="#">
               <i class="fa-solid fa-book-open-reader"></i><br>
               Projetos Educacionais</a>
-            <a class="nav-item nav-link link-body-emphasis border-end p-2" href="#">
+            <a class="nav-item nav-link link-body-emphasis border-end border-success-subtle border-2 p-2" href="#">
               <i class="fa-solid fa-utensils text-center"></i><br>
               Alimentação Escolar
             </a>
-            <a class="nav-item nav-link link-body-emphasis border-end p-2" href="#">
+            <a class="nav-item nav-link link-body-emphasis border-end border-success-subtle border-2 p-2" href="#">
               <i class="fa-solid fa-user-tie"></i><br>
               Gestão Escolar</a>
-            <a class="nav-item nav-link link-body-emphasis border-end p-2" href="#">
+            <a class="nav-item nav-link link-body-emphasis border-end border-success-subtle border-2 p-2" href="#">
               <i class="fa-brands fa-accessible-icon"></i><br>
               Educação Inclusiva</a>         
           </nav>
@@ -239,7 +259,7 @@ footer {
       <!--- ******************************** CARROSSEL ******************************** -->
       
 
-    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel m-0">
+    <div id="myCarousel" class="carousel slide border border-5 border-success-subtle" data-bs-ride="carousel m-0">
         <div class="carousel-indicators">
             {% for i in context %}
                 <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}" aria-label="Slide {{ forloop.counter }}"></button>
@@ -255,18 +275,18 @@ footer {
                             Seu navegador não suporta o elemento de vídeo.
                         </video>
                     {% elif publicacao.imagem %}
-                    <img src="{{ publicacao.imagem.url }}" class="d-block w-100" alt="{{ publicacao.titulo }}">
+                    <img src="{{ publicacao.imagem.url }}" class="d-block image-publi" alt="{{ publicacao.titulo }}">
                     
                     {% else %}
                         <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
                             <rect width="100%" height="100%" fill="var(--bs-secondary-color)"/>
                         </svg>
                     {% endif %}
-                    <div class="container">
-                        <div class="carousel-caption text-start">
+                    <div class="container container-caption">
+                        <div class="carousel-caption container-caption text-start">
                             <h1>{{ publicacao.titulo }}</h1>
                             <p class="opacity-75">{{ publicacao.descricao|slice:":150"|safe }}...</p>
-                            <p><a class="btn btn-lg btn-primary" href="#">Leia mais  </a></p>
+                            <a class="btn btn-lg btn-primary" href="#">Leia mais...</a>
                         </div>
                     </div>
                 </div>

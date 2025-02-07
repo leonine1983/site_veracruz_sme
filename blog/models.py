@@ -39,6 +39,7 @@ class Publicacao(models.Model):
     data_publicacao = models.DateField()
     tipo_publicacao = models.ForeignKey(TipoPublicacao, related_name='publicacoes', on_delete=models.CASCADE)
     secretario = models.ForeignKey(Secretario, related_name='publicacoes', on_delete=models.CASCADE)
+    em_destaque = models.BooleanField(default=False, verbose_name="Deseja por em destaque a publicação? Isso irá substituir a última publicação em destaque")
     
     # Campos adicionais para imagens e vídeos
     imagem = models.ImageField(upload_to='publicacoes/imagens/', null=True, blank=True)
