@@ -27,7 +27,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog'
+    'blog',
+    'dashboard'
 ]
 
 MIDDLEWARE = [
@@ -186,6 +187,9 @@ CSRF_COOKIE_SECURE = False
 
 # 3º Define o tempo de sessão para 1 hora (3600 segundos)
 #SESSION_COOKIE_AGE = 3600
+#LOGIN_REDIRECT_URL = '/'  # Redireciona para a página inicial após login bem-sucedido
+#LOGOUT_REDIRECT_URL = '/login/'  # Redireciona para login após logout
+
 LOGIN_URL = 'admin_acessos:login_create'
 
 

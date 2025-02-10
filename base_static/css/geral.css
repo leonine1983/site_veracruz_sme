@@ -1,0 +1,413 @@
+   
+
+    /* Estilos do dialog */
+    dialog {
+        border: none;
+        border-radius: 10px;
+        background: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        width: 350px;
+        opacity: 0;
+        transform: scale(0.9);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+      }
+  
+      dialog[open] {
+        opacity: 1;
+        transform: scale(1);
+      }
+  
+      /* Formulário */
+      .w-full {
+        width: 100%;
+      }
+  
+      .max-w-sm {
+        max-width: 100%;
+      }
+  
+      .bg-white {
+        background-color: white;
+      }
+  
+      .dark\:bg-gray-800 {
+        background-color: #1a202c;
+      }
+  
+      .p-8 {
+        padding: 32px;
+      }
+  
+      .rounded-2xl {
+        border-radius: 12px;
+      }
+  
+      .shadow-xl {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+  
+      .space-y-6 {
+        margin-bottom: 24px;
+      }
+  
+      label {
+        display: block;
+        font-size: 14px;
+        color: #555;
+        margin-bottom: 8px;
+      }
+  
+      input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 16px;
+        background-color: #f5f5f5;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+      }
+  
+      input:focus {
+        background-color: #e0e0e0;
+        border-color: #4caf50;
+        outline: none;
+      }
+  
+      
+  
+  
+  
+        /* Título Estilo Windows 11 */
+    .win11-title {
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      text-align: center;
+      color: #4caf50;
+      background: rgba(255, 255, 255, 0.5);
+      padding: 12px 20px;
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease-in-out;
+    }
+  
+    .win11-title:hover {
+      background: rgba(255, 255, 255, 0.7);
+      transform: scale(1.02);
+    }
+    .win11-subtitle {
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: #333;
+      margin: 15px 0;
+      text-align: justify;
+      background: rgba(255, 255, 255, 0.4);
+      padding: 10px 15px;
+      border-radius: 10px;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease-in-out;
+    }
+  
+    .win11-subtitle:hover {
+      background: rgba(255, 255, 255, 0.6);
+      transform: scale(1.02);
+    }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    /* Formulário Windows 11 */
+    .win11-form {
+      width: 100%;
+      max-width: 400px;
+      margin: 20px auto;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+    }
+  
+    .win11-form label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: #333;
+    }
+  
+    .win11-form input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: 0.3s;
+    }
+  
+    .win11-form input:focus {
+      border-color: #0078d4;
+      outline: none;
+      box-shadow: 0 0 8px rgba(0, 120, 212, 0.5);
+    }
+  
+    /* Botões */
+    .button-group {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 15px;
+    }
+  
+    .button-group button {
+      flex: 1;
+      padding: 10px;
+      font-size: 1rem;
+      font-weight: bold;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+  
+    .button-group button:first-child {
+      background: #0078d4;
+    }
+  
+    .button-group button:last-child {
+      background: #d43f00;
+    }
+  
+    .button-group button:hover {
+      opacity: 0.8;
+      transform: scale(1.05);
+    }
+  
+    /* Estilização da Tabela */
+    .win11-table {
+      width: 100%;
+      max-width: 600px;
+      margin: 20px auto;
+      border-collapse: collapse;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+  
+    .win11-table th, .win11-table td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+  
+    .win11-table th {
+      background: #0078d4;
+      color: white;
+      font-weight: bold;
+    }
+  
+    .win11-table tbody tr:hover {
+      background: rgba(0, 120, 212, 0.1);
+    }
+  
+    /* Botão da tabela */
+    .btn-table {
+      padding: 6px 12px;
+      background: #0078d4;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+  
+    .btn-table:hover {
+      background: #005a9e;
+    }
+
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        width: 100%;
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        overflow-y: hidden;
+      }
+      .nav-scroller .nav a {
+        color: #135e42!important;
+        transition: all ease-in-out 800ms;
+      }
+    
+      .nav-scroller .nav a:hover {
+        opacity: 1; /* Aumenta a opacidade ao passar o mouse */
+        color: #c8812f!important;
+        scale: 1;
+        box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px!important;
+      }
+
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .btn-bd-primary {
+        --bd-violet-bg: #712cf9;
+        --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+
+        --bs-btn-font-weight: 600;
+        --bs-btn-color: var(--bs-white);
+        --bs-btn-bg: var(--bd-violet-bg);
+        --bs-btn-border-color: var(--bd-violet-bg);
+        --bs-btn-hover-color: var(--bs-white);
+        --bs-btn-hover-bg: #6528e0;
+        --bs-btn-hover-border-color: #6528e0;
+        --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+        --bs-btn-active-color: var(--bs-btn-hover-color);
+        --bs-btn-active-bg: #5a23c8;
+        --bs-btn-active-border-color: #5a23c8;
+      }
+
+      .bd-mode-toggle {
+        z-index: 1500;
+      }
+
+      .bd-mode-toggle .dropdown-menu .active .bi {
+        display: block !important;
+      }
+
+      body{padding: 0!important;}      
+      header{width: 100vw; margin: 0!important;  padding: 0!important; }
+      .navbar{min-width: 100vw;}
+      
+      .container{
+      box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+      }
+      .nav-scroller{height: 5rem;}
+      #title_sme{
+        text-transform: uppercase;
+        font-family: "EB Garamond", serif !important;
+        font-size: 1.4rem!important;
+        font-weight: 700;
+        color: #13520c !important;;
+      }
+      #subtitle_sme{
+        font-size: 1.1rem!important;
+        font-weight: 500;
+        color: #13520c !important;;
+      }
+
+      .logo{
+        height: 90px; 
+        margin-right: 20px;
+      }
+      .image-publi{
+        width:100%;
+      }
+
+      @media screen and (max-width: 768px) {    
+        .logo{
+          height: 80px; 
+        } 
+      }
+      @media screen and (max-width: 450px) {    
+        .logo{
+          height: 55px; 
+        } 
+      }
+      @media screen and (max-width: 395px) {    
+        .logo{
+          height: 45px; 
+        } 
+      }
+
+      @media screen and (max-width: 360px) {    
+        .logo{
+          height: 40px; 
+        } 
+        .carousel{
+          height:240px;
+        }
+        .container-caption{
+          color: rgb(244, 246, 247);
+          position: absolute;
+          top: 10px;
+          left: 0;
+          width: 400px;
+          height: 200px;
+          padding: 20px;          
+        }
+        .container-caption p{
+          font-size: smaller;
+          width: 300px;
+        }
+     
+      }
+
+      @media screen and (max-width: 320px) {    
+        .logo{
+          height: 33px; 
+        } 
+      }
+
+      
+      .navbar-header {
+    background: url('https://www.transparenttextures.com/patterns/beige-paper.png');
+}
+footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    background: #365436;
+    z-index: 10;
+    margin: 0px!important;
+    padding: 0px!important;
+    
+}

@@ -10,242 +10,27 @@
     <meta name="generator" content="Hugo 0.122.0">
     <title>Secretaria Municipal da Educação</title>
 
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/carousel.css' %}" rel="stylesheet">
+    <link href="{% static 'fontawesome-free-6.7.2-web/css/all.css' %}" rel="stylesheet">
 
-<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
-<link href="{% static 'css/carousel.css' %}" rel="stylesheet">
-<link href="{% static 'fontawesome-free-6.7.2-web/css/all.css' %}" rel="stylesheet">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
-
-<style>
-    
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-
-      .b-example-divider {
-        width: 100%;
-        height: 3rem;
-        background-color: rgba(0, 0, 0, .1);
-        border: solid rgba(0, 0, 0, .15);
-        border-width: 1px 0;
-        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-      }
-
-      .b-example-vr {
-        flex-shrink: 0;
-        width: 1.5rem;
-        height: 100vh;
-      }
-
-      .bi {
-        vertical-align: -.125em;
-        fill: currentColor;
-      }
-
-      .nav-scroller {
-        position: relative;
-        z-index: 2;
-        overflow-y: hidden;
-      }
-      .nav-scroller .nav a {
-        color: #135e42!important;
-        transition: all ease-in-out 800ms;
-      }
-    
-      .nav-scroller .nav a:hover {
-        opacity: 1; /* Aumenta a opacidade ao passar o mouse */
-        color: #c8812f!important;
-        scale: 1;
-        box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px!important;
-      }
-
-
-      .nav-scroller .nav {
-        display: flex;
-        flex-wrap: nowrap;
-        margin-top: -1px;
-        overflow-x: auto;
-        text-align: center;
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
-      }
-
-      .btn-bd-primary {
-        --bd-violet-bg: #712cf9;
-        --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
-
-        --bs-btn-font-weight: 600;
-        --bs-btn-color: var(--bs-white);
-        --bs-btn-bg: var(--bd-violet-bg);
-        --bs-btn-border-color: var(--bd-violet-bg);
-        --bs-btn-hover-color: var(--bs-white);
-        --bs-btn-hover-bg: #6528e0;
-        --bs-btn-hover-border-color: #6528e0;
-        --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
-        --bs-btn-active-color: var(--bs-btn-hover-color);
-        --bs-btn-active-bg: #5a23c8;
-        --bs-btn-active-border-color: #5a23c8;
-      }
-
-      .bd-mode-toggle {
-        z-index: 1500;
-      }
-
-      .bd-mode-toggle .dropdown-menu .active .bi {
-        display: block !important;
-      }
-
-      body{padding: 0!important;}      
-      header{width: 100vw; margin: 0!important;  padding: 0!important; }
-      .navbar{min-width: 100vw;}
-      
-      .container{
-      box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
-      }
-      .nav-scroller{height: 5rem;}
-      #title_sme{
-        text-transform: uppercase;
-        font-family: "EB Garamond", serif !important;
-        font-size: 1.4rem!important;
-        font-weight: 700;
-        color: #13520c !important;;
-      }
-      #subtitle_sme{
-        font-size: 1.1rem!important;
-        font-weight: 500;
-        color: #13520c !important;;
-      }
-
-      .logo{
-        height: 90px; 
-        margin-right: 20px;
-      }
-      .image-publi{
-        width:100%;
-      }
-
-      @media screen and (max-width: 768px) {    
-        .logo{
-          height: 80px; 
-        } 
-      }
-      @media screen and (max-width: 450px) {    
-        .logo{
-          height: 55px; 
-        } 
-      }
-      @media screen and (max-width: 395px) {    
-        .logo{
-          height: 45px; 
-        } 
-      }
-
-      @media screen and (max-width: 360px) {    
-        .logo{
-          height: 40px; 
-        } 
-        .carousel{
-          height:240px;
-        }
-        .container-caption{
-          color: rgb(244, 246, 247);
-          position: absolute;
-          top: 10px;
-          left: 0;
-          width: 400px;
-          height: 200px;
-          padding: 20px;          
-        }
-        .container-caption p{
-          font-size: smaller;
-          width: 300px;
-        }
-     
-      }
-
-      @media screen and (max-width: 320px) {    
-        .logo{
-          height: 33px; 
-        } 
-      }
-
-      
-      .navbar-header {
-    background: url('https://www.transparenttextures.com/patterns/beige-paper.png');
-}
-footer {
-    position: relative;
-    bottom: 0;
-    width: 100%;
-    background: #365436;
-    z-index: 10;
-    margin: 0px!important;
-    padding: 0px!important;
-    
-}
-
-    </style>
-    
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
     
     <!-- Custom styles for this template -->
     <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="{% static 'css/blog.css' %}" rel="stylesheet">
+    <link href="{% static 'css/geral.css' %}" rel="stylesheet">
   </head>
   <body  >    
     <!--Botão de muda tema-->
     {% include "partial_base/svg_mode.html" %} 
     <header>
-      <nav class="navbar-header navbar navbar-expand-lg rounded p-2 shadow shadow-sm  bg-success-subtle" 
-      style='
-        background-image: url("https://www.transparenttextures.com/patterns/gplay.png");' 
-        aria-label="Eleventh navbar example">
-        
-        <div class="container-fluid  ">
-          <div class="logo_header p-2 p d-flex ">
-            <img  src="{% static 'prefeitura.png' %}" class='logo pe-2' alt="">
-            <img  src="{% static 'SME.png' %}" class='logo pe-2' alt="">           
-            
-          </div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-  
-          <div class="collapse navbar-collapse  " id="navbarsExample09">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">       
-              <!--
-              <li class="nav-item">
-                <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-              </li>
-              -->      
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-key"></i>Acesso Administrativo</a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Login</a></li>
-                  <li><a class="dropdown-item" href="#">Sair</a></li>
-                </ul>
-              </li>
-            </ul>
-            <form role="search">
-              <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-            </form>
-          </div>
-        </div>
-      </nav>
+      <!--Header-->
+      {% include "partial_base/header.html" %}
+      <!--end Header-->
       <div class=""  style='
       background-color: #ffffff;
 background-image: url("https://www.transparenttextures.com/patterns/back-pattern.png");
@@ -331,21 +116,8 @@ background-image: url("https://www.transparenttextures.com/patterns/back-pattern
     -->
     {% block main %}{% endblock main %}
     </main>  
-      <footer class="row row-cols-1 row-cols-sm-1 row-cols-md-5 py-5 mt-5 border-top text-light justify-content-center" >
-        <div class="col mb-3 text-center">
-            <img src="{% static 'prefeitura-branco.png' %}" alt=""width="130" srcset=""><br>
-            &copy; 2025
-        </div>
-        <!--
-        <div class="col mb-3">
-          <h5>Section</h5>
-          <ul class="nav flex-column">
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Home</a></li>
-          </ul>
-        </div>    
-        -->
-      </footer>
-       
+    {% include 'partial_base/footer.html' %}
+      
   <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 
 </body>

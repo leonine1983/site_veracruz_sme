@@ -1,0 +1,105 @@
+{% load static %}
+<nav class="navbar-header navbar navbar-expand-lg rounded p-2 shadow shadow-sm  bg-success-subtle" 
+      style='
+        background-image: url("https://www.transparenttextures.com/patterns/gplay.png");' 
+        aria-label="Eleventh navbar example">
+        
+        <div class="container-fluid  ">
+          <div class="logo_header p-2 p d-flex ">
+            <img  src="{% static 'prefeitura.png' %}" class='logo pe-2' alt="">
+            <img  src="{% static 'SME.png' %}" class='logo pe-2' alt="">           
+            
+          </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+  
+          <div class="collapse navbar-collapse  " id="navbarsExample09">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">       
+              <!--
+              <li class="nav-item">
+                <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+              </li>
+              -->      
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-key"></i>Acesso Administrativo</a>
+                <ul class="dropdown-menu">
+                  <li><button id="abrir" class="btn btn-sm">Fazer login</button> </li>
+                  <li><a class="dropdown-item" href="#">Sair</a></li>
+                </ul>
+              </li>
+            </ul>
+            <!--
+            <form role="search">
+              <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+            </form>
+            -->
+          </div>
+        </div>
+      </nav>
+
+      <dialog id="meuDialog">
+        <h1 class="win11-title"><i class="fa-solid fa-universal-access"></i> Portal de Acesso Administrativo</h1>
+        <h2 class="win11-subtitle">Por gentileza, insira suas credenciais para acessar a área administrativa. Caso não possua, entre em contato com o administrador responsável.</h2>
+        <form action="{% url 'painel:login' %}" method="post" class="w-full max-w-sm bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl space-y-6">
+          {% csrf_token %}
+          <div>
+            <label for="id_username">Usuário:</label>
+            <input type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" required="" id="id_username">       
+          </div>   
+          <div>
+            <label for="id_password">Senha:</label> 
+              <input type="password" name="password" autocomplete="current-password" required="" id="id_password">
+          </div>
+          <div class='d-flex justify-content-center flex-column flex-sm-row'>
+            <button type='submit' id="fechar" class="m-2 btn btn-success">Entrar {{request.session.user}}</button>
+            <button id="fechar" class="m-2 btn btn-secondary">Fechar {{request.session.user}}</button>
+          </div>    
+          
+        </form>
+        <!-- Barra de progresso -->
+        <progress id="progresso" value="0" max="100" style="display: none; width: 100%;"></progress>
+
+        <script>
+          document.getElementById("meuFormulario").addEventListener("submit", function() {
+            let progressBar = document.getElementById("progresso");
+
+            // Exibe a barra de progresso
+            progressBar.style.display = "block";
+            progressBar.value = 0;
+
+            // Simula o carregamento aumentando o valor da barra gradualmente
+            let intervalo = setInterval(() => {
+              if (progressBar.value < 90) {
+                progressBar.value += 10;
+              } else {
+                clearInterval(intervalo);
+              }
+            }, 300);
+          });
+
+          // Oculta a barra de progresso quando a página carregar
+          window.addEventListener("load", function() {
+            let progressBar = document.getElementById("progresso");
+            progressBar.style.display = "none";
+          });
+        </script>
+                
+      </dialog>
+      
+   
+      
+      <script>
+        const dialog = document.getElementById("meuDialog");
+        const btnAbrir = document.getElementById("abrir");
+        const btnFechar = document.getElementById("fechar");
+      
+        btnAbrir.addEventListener("click", () => {
+          dialog.showModal(); // Exibe o diálogo como modal (fundo bloqueado)
+        });
+      
+        btnFechar.addEventListener("click", () => {
+          dialog.close(); // Fecha o diálogo
+        });
+      </script>
+      
