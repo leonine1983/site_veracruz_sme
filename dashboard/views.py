@@ -1,19 +1,39 @@
-from django.contrib.auth.views import LoginView
-from django.views.generic import TemplateView
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from  blog.models import Publicacao
 from django.urls import reverse_lazy
+from django.contrib import messages
+from django.contrib.auth import authenticate, login
+from django.shortcuts import redirect
+from django.core.mail import send_mail
+from django.conf import settings
 
-class LoginSme(LoginView):
-    template_name = 'login.html'    
+def loginCreated(request):    
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")        
+        user = authenticate(request, username=username, password=password)
+        print (f'esse é o login {user}')
+        
+        if user is not None:
+            # Enviar email
+            """
+            subject = 'Login realizado com sucesso'
+            message = f'Olá {user.username}, você fez login com sucesso no painel.'
+            recipient_list = [user.email]  # Lista de destinatários (usuário logado)            
+            send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, recipient_list)
+            """
+            login(request, user)            
+            messages.success(request, "Login realizado com sucesso. Bem-vindo ao painel!")
+            return redirect(reverse_lazy('painel:publicacao_create'))
+        else:
+            messages.error(request, "Credenciais inválidas. Por favor, verifique seu usuário e senha.")
+            return redirect(reverse_lazy('blog:home'))
+    
+    return redirect(reverse_lazy('blog:home'))
 
-    def get_success_url(self):
-        return reverse_lazy('painel:dashboard')  # Redireciona para o dashboard
 
 
 
-class Painel(TemplateView):
-    template_name = 'dashboard.html'
 
 
 # Publicações ******************************************************************
@@ -25,8 +45,8 @@ class PublicacaoListView(ListView):
 
 class PublicacaoCreateView(CreateView):
     model = Publicacao
-    template_name = 'publicacoes/publicacao_form.html'
-    fields = ['titulo', 'descricao', 'data_publicacao', 'tipo_publicacao', 'secretario', 'em_destaque', 'imagem', 'video']
+    template_name = 'publicar/creater_publica.html'
+    fields = ['titulo', 'descricao',  'tipo_publicacao',  'em_destaque', 'imagem', 'video']
     success_url = reverse_lazy('publicacoes:publicacao_list')  # Redireciona para a lista após criar
 
 class PublicacaoUpdateView(UpdateView):

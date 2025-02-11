@@ -28,7 +28,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
-    'dashboard'
+    'dashboard',
+    'ckeditor',
+    'ckeditor_uploader',
 ]
 
 MIDDLEWARE = [
@@ -154,6 +156,16 @@ CKEDITOR_CONFIGS = {
 }
 
 # Email settings --------------------------------------------------------------
+# Exemplo de configuração para usar um servidor SMTP
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # Ou qualquer outro servidor SMTP
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+
+DEFAULT_FROM_EMAIL = 'rogerleonino@gmail.com'
+"""
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = os.environ.get('EMAIL_HOST')
 EMAIL_PORT = os.environ.get('EMAIL_PORT')
@@ -161,6 +173,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
+"""
 
 # Message settings
 MESSAGE_TAGS = {
@@ -190,7 +203,9 @@ CSRF_COOKIE_SECURE = False
 #LOGIN_REDIRECT_URL = '/'  # Redireciona para a página inicial após login bem-sucedido
 #LOGOUT_REDIRECT_URL = '/login/'  # Redireciona para login após logout
 
-LOGIN_URL = 'admin_acessos:login_create'
+LOGIN_REDIRECT_URL = 'painel:publicacao_create'  # Para onde o usuário é redirecionado após o login
+LOGOUT_REDIRECT_URL = 'painel:login'  # Para onde o usuário vai depois do logout
+
 
 
 

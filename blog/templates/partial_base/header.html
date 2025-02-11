@@ -1,4 +1,15 @@
 {% load static %}
+
+{% if messages %}
+    <div>
+        {% for message in messages %}
+            <div class="alert {{ message.tags }}" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
 <nav class="navbar-header navbar navbar-expand-lg rounded p-2 shadow shadow-sm  bg-success-subtle" 
       style='
         background-image: url("https://www.transparenttextures.com/patterns/gplay.png");' 
@@ -38,10 +49,13 @@
         </div>
       </nav>
 
-      <dialog id="meuDialog">
+      
+
+
+      <dialog id="meuDialog">        
         <h1 class="win11-title"><i class="fa-solid fa-universal-access"></i> Portal de Acesso Administrativo</h1>
         <h2 class="win11-subtitle">Por gentileza, insira suas credenciais para acessar a área administrativa. Caso não possua, entre em contato com o administrador responsável.</h2>
-        <form action="{% url 'painel:login' %}" method="post" class="w-full max-w-sm bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl space-y-6">
+        <form action="{% url 'painel:login' %}" method="POST" class="w-full max-w-sm bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl space-y-6">
           {% csrf_token %}
           <div>
             <label for="id_username">Usuário:</label>

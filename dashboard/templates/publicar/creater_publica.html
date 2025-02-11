@@ -1,3 +1,9 @@
 
+{% extends "dashboard.html" %}
+{% block page_title %}Criar Postagem{% endblock page_title %}
 {% block content %}
+<form action="" method="post">
+    {{form.media}}
+    {{form.as_div}}
+</form>
 {% endblock content %}

@@ -2,6 +2,7 @@ from django.db import models
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.db.models.signals import post_migrate
 from django.dispatch import receiver
+from datetime import timezone
 
 class Ano(models.Model):
     ano = models.PositiveIntegerField(unique=True)
@@ -17,12 +18,20 @@ class Prefeitura(models.Model):
     def __str__(self):
         return self.nome
 
+class PastaAdministrativa(models.Model):
+    nome = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.nome
+
+
 class Secretario(models.Model):
     nome = models.CharField(max_length=100)
-    pasta = models.CharField(max_length=100)
+    pasta = models.ForeignKey(PastaAdministrativa, related_name='pastaAdministrativa_related', on_delete=models.CASCADE)
     prefeitura = models.ForeignKey(Prefeitura, related_name='secretarios', on_delete=models.CASCADE)
     data_inicio = models.DateField()
     data_fim = models.DateField(null=True, blank=True)
+    ativo = models.BooleanField(default=True)
     
     def __str__(self):
         return self.nome
@@ -36,7 +45,8 @@ class TipoPublicacao(models.Model):
 class Publicacao(models.Model):
     titulo = models.CharField(max_length=200)
     descricao = RichTextUploadingField()  # Usando o CKEditor para texto rico
-    data_publicacao = models.DateField()
+    data_publicacao = models.DateField(auto_now=True)
+    data_atualiza = models.DateField(auto_now_add=True)
     tipo_publicacao = models.ForeignKey(TipoPublicacao, related_name='publicacoes', on_delete=models.CASCADE)
     secretario = models.ForeignKey(Secretario, related_name='publicacoes', on_delete=models.CASCADE)
     em_destaque = models.BooleanField(default=False, verbose_name="Deseja por em destaque a publicação? Isso irá substituir a última publicação em destaque")
@@ -59,11 +69,15 @@ def criar_registros_exemplo(sender, **kwargs):
     prefeitura, created = Prefeitura.objects.get_or_create(
         nome="Prefeitura Municipal de Exemplo", prefeito="Igor Pinho", ano=ano_2025
     )
+    # Cria pasta administrativa
+    pastaAdministrativa, created = PastaAdministrativa.objects.get_or_create(
+        nome = "Educação"
+    )
 
     # Cria o secretário se não existir
     secretario, created = Secretario.objects.get_or_create(
         nome="Silvano Sulzart",
-        pasta="Secretaria de Educação",
+        pasta=PastaAdministrativa.objects.get(nome = "Educação"),
         prefeitura=prefeitura,
         data_inicio="2025-01-01"
     )
