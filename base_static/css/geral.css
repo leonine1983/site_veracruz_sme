@@ -1,4 +1,3 @@
-   
 
     /* Estilos do dialog */
     dialog {
@@ -328,7 +327,6 @@
       .navbar{min-width: 100vw;}
       
       .container{
-      box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
       }
       .nav-scroller{height: 5rem;}
       #title_sme{
@@ -345,7 +343,7 @@
       }
 
       .logo{
-        height: 90px; 
+        height: 80px; 
         margin-right: 20px;
       }
       .image-publi{
@@ -354,7 +352,7 @@
 
       @media screen and (max-width: 768px) {    
         .logo{
-          height: 80px; 
+          height: 75px; 
         } 
       }
       @media screen and (max-width: 450px) {    

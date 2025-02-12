@@ -1,0 +1,69 @@
+
+{% extends "dashboard.html" %}
+{% block page_title %}Criar Postagem{% endblock page_title %}
+{% block content %}
+<div class='p-3 m-2 border'>
+  <h3>Em Destaque</h2>
+  <div class="table-responsive small">
+    <table class="table table-striped table-sm">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Titulo</th>
+          <th scope="col">Publicação</th>
+          <th scope="col">Atualização</th>
+          <th scope="col">Autor</th>
+          <th scope="col">Secretário</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for public in publicacoes  %}
+          {% if  public.em_destaque %}
+          <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{public.titulo}}</td>
+            <td>{{public.data_publicacao}}</td>
+            <td>{{public.data_atualiza}}</td>
+            <td>{{public.author}}</td>
+            <td>{{public.secretario}}</td>
+          </tr>
+          {% endif %}
+        {% endfor %}    
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class='mt-5'>Demais Publicações</h2>
+  <div class="table-responsive small">
+    <table class="table table-striped table-sm">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Titulo</th>
+          <th scope="col">Publicação</th>
+          <th scope="col">Atualização</th>
+          <th scope="col">Autor</th>
+          <th scope="col">Secretário</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for public in publicacoes  %}
+          {% if not public.em_destaque %}
+          <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{public.titulo}}</td>
+            <td>{{public.data_publicacao}}</td>
+            <td>{{public.data_atualiza}}</td>
+            <td>{{public.author}}</td>
+            <td>{{public.secretario}}</td>
+          </tr>
+          {% endif %}
+        {% endfor %}    
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+{% endblock content %}
+
