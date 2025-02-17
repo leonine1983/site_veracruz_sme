@@ -183,7 +183,7 @@
           {% for link in links %}
             {% if link.painel %}
             {% with colors|random as bg_color %}
-            <li class="card-links card p-0 mt-2" style="background-color: {{ bg_color }};">
+            <li class="card-links card p-0 mt-2" style="background-color: {{ bg_color }}">
               <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-2 link-body-emphasis text-decoration-none border-top" href="{{ link.url }}">
                 {% if not link.icone %}
                 <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
@@ -197,29 +197,31 @@
               </a>
                <!-- Ícone de exclusão "X" -->
                <!-- Botão de exclusão -->
-            <form action="{% url 'painel:link_delete' link.id %}" method="post">
-              {% csrf_token %}
-              <button class="btn card boder border-danger btn-sm position-absolute top-0 end-0 m-2 delete-btn" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                <i class="bi bi-x-lg">Excluir</i>
-              </button>
-            </form>
-            <!-- Modal de Confirmação de Exclusão -->
-            <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">  
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="deleteModalLabel">Confirmar Exclusão</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <p>Você tem certeza que deseja excluir o link "<strong>{{ link.nome }}</strong>"? Essa ação não pode ser desfeita.</p>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-danger" form="delete-form">Excluir</button>
+              {% if request.user.is_authenticated %} 
+              <form action="{% url 'painel:link_delete' link.id %}" method="post">
+                {% csrf_token %}
+                <button class="btn card boder border-danger btn-sm position-absolute top-0 end-0 m-2 delete-btn" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                  <i class="bi bi-x-lg">Excluir</i>
+                </button>
+              </form>
+              <!-- Modal de Confirmação de Exclusão -->
+              <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">  
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="deleteModalLabel">Confirmar Exclusão</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <p>Você tem certeza que deseja excluir o link "<strong>{{ link.nome }}</strong>"? Essa ação não pode ser desfeita.</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                      <button type="submit" class="btn btn-danger" form="delete-form">Excluir</button>
+                    </div>
                   </div>
                 </div>
-              </div>
+                {% endif%}
             </div>
             </li>
             {% endwith %}

@@ -37,7 +37,7 @@
           </button>
   
           <div class="collapse navbar-collapse  " id="navbarsExample09">            
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 me-5 me-sm-0"> 
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 me-5 me-sm-0">              
               {% if request.user.is_authenticated %} 
               <li class="nav-item border-end shadow shadow-sm p-2">
                 <a href="{% url "blog:home" %}" title='Ir para á página pública'>
@@ -46,7 +46,7 @@
                 </a>
               </li> 
               <li class="nav-item border-end shadow shadow-sm p-2">
-                <a href="{% url "blog:home" %}" title='Ir para a area administrativa'>
+                <a href="{% url "painel:publicacao_list" %}" title='Ir para a area administrativa'>
                   <img src="{% static 'panel.svg' %}" alt="" height='40' srcset="">
                   <br>Painel
                 </a>
