@@ -1,4 +1,13 @@
 {% extends "base.html" %}
+<!-- Bootstrap JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<style>
+  .modal-backdrop{--bs-backdrop-zindex:1050;--bs-backdrop-bg:#000;--bs-backdrop-opacity:0.5;position:fixed;top:0;left:0;z-index:var(--bs-backdrop-zindex);width:100vw;height:100vh;background-color:var(--bs-backdrop-bg)}
+  .modal-backdrop.fade{opacity:0}
+  .modal-backdrop.show{opacity:var(--bs-backdrop-opacity)}
+</style>
+
 
 {% load static %}
 {% block carrocel %}
@@ -27,8 +36,8 @@
                   {% endif %}
                   <div class="container container-caption">
                     {% if not publicacao.ocultar_titulo_carrocel %}
-                      <div class="carousel-caption container-caption text-start">
-                          <h1>{{ publicacao.titulo }}</h1>
+                      <div class="carousel-caption container-caption text-start blur-filter">
+                          <h1 class='h1'>{{ publicacao.titulo }}</h1>
                           <p class="opacity-75">{{ publicacao.descricao|slice:":150"|safe }}...</p>
                           <a class="btn btn-lg btn-primary" href="#">Leia mais...</a>
                       </div>
@@ -169,38 +178,56 @@
       </div>
 
       <div>
-        <h4 class="fst-italic">Links Úteis</h4>
-        <ul class="list-unstyled">
-          <li>
-            <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
-              <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
-              <div class="col-lg-8">
-                <h6 class="mb-0">Título do Post de Exemplo</h6>
-                <small class="text-body-secondary">15 Jan 2024</small>
+        <h4 class="fst-italic"><img src="{% static 'panel.svg' %}" alt="" height='30' srcset=""> Painel de Links</h4>
+        <ul class="list-unstyled border shadow-sm p-2">
+          {% for link in links %}
+            {% if link.painel %}
+            {% with colors|random as bg_color %}
+            <li class="card-links card p-0 mt-2" style="background-color: {{ bg_color }};">
+              <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-2 link-body-emphasis text-decoration-none border-top" href="{{ link.url }}">
+                {% if not link.icone %}
+                <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+                {% else %}
+                <img src="{{ link.icone.url }}" width="96" sizes="96" title="{{ link.nome }}">
+                {% endif %}
+                <div class="col-lg-8">
+                  <h6 class="mb-0 text-uppercase">{{ link.nome }}</h6>
+                  <div>{{ link.descricao|truncatewords:'12'|safe }}</div>
+                </div>
+              </a>
+               <!-- Ícone de exclusão "X" -->
+               <!-- Botão de exclusão -->
+            <form action="{% url 'painel:link_delete' link.id %}" method="post">
+              {% csrf_token %}
+              <button class="btn card boder border-danger btn-sm position-absolute top-0 end-0 m-2 delete-btn" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                <i class="bi bi-x-lg">Excluir</i>
+              </button>
+            </form>
+            <!-- Modal de Confirmação de Exclusão -->
+            <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">  
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Confirmar Exclusão</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <p>Você tem certeza que deseja excluir o link "<strong>{{ link.nome }}</strong>"? Essa ação não pode ser desfeita.</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-danger" form="delete-form">Excluir</button>
+                  </div>
+                </div>
               </div>
-            </a>
-          </li>
-          <li>
-            <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
-              <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
-              <div class="col-lg-8">
-                <h6 class="mb-0">Este é outro título de post</h6>
-                <small class="text-body-secondary">14 Jan 2024</small>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
-              <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
-              <div class="col-lg-8">
-                <h6 class="mb-0">Título mais longo do post: Este tem múltiplas linhas!</h6>
-                <small class="text-body-secondary">13 Jan 2024</small>
-              </div>
-            </a>
-          </li>
+            </div>
+            </li>
+            {% endwith %}
+            {% endif %}
+          {% endfor %}
         </ul>
       </div>
-
+      <!--
       <div class="p-4">
         <h4 class="fst-italic">Arquivos</h4>
         <ol class="list-unstyled mb-0">
@@ -218,6 +245,7 @@
           <li><a href="#">Abril 2025</a></li>
         </ol>
       </div>
+      -->
     </div>
   </div>
 </div>

@@ -26,6 +26,8 @@ class AnoAdmin(admin.ModelAdmin):
     list_display = ('ano',)
     search_fields = ('ano',)
 
+
+
 # Registrando os modelos no admin
 admin.site.register(Ano, AnoAdmin)
 admin.site.register(Prefeitura, PrefeituraAdmin)

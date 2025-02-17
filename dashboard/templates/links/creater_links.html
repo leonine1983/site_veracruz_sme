@@ -1,0 +1,99 @@
+
+{% extends "dashboard.html" %}
+{% block page_title %}
+<div class="container mt-4">
+    <div class="card  p-4">
+        <h2 class="text-primary fw-bold">
+            <i class="bi bi-link-45deg"></i> Cadastro de Links Úteis
+        </h2>
+        <p class="text-muted">
+            Adicione links importantes para publicação. Preencha os campos com o nome, URL, ícone opcional e uma breve descrição para facilitar o acesso e a identificação.
+        </p>
+    </div>
+</div>
+{% endblock page_title %}
+{% block content %}
+<style>   
+form {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 1000px;
+}
+
+label {
+    font-weight: 600;
+    margin-bottom: 5px;
+    display: block;
+    color: #333;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: #0078D4;
+    box-shadow: 0 0 5px rgba(0, 120, 212, 0.3);
+}
+
+input[type="checkbox"] {
+    width: auto;    
+    scale: 3;
+    margin: 10px;
+    
+}
+
+input[type="file"] {
+    padding: 5px;
+}
+
+button {
+    background-color: #0078D4;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background 0.3s;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #005A9E;
+}
+
+div {
+    margin-bottom: 15px;
+}</style>
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.media }}
+    {% for fields in form  %}
+        <div class=" p-2">            
+        <div class=" p-2">            
+            {{fields.label}}
+            <span class='p-1 d-block'>{{fields}}</span>
+            {{fields.error}}
+        </div>
+    {% endfor %}
+
+    
+    <button type="submit">
+        Publicar <i class="fa-regular fa-file-lines"></i>
+    </button>
+</form>
+
+{% endblock content %}
+

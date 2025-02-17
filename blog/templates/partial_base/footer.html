@@ -4,13 +4,15 @@
         <img src="{% static 'prefeitura-branco.png' %}" alt=""width="130" srcset=""><br>
         &copy; 2025
     </div>
-    <!--
+    
     <div class="col mb-3">
-      <h5>Section</h5>
-      <ul class="nav flex-column">
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Home</a></li>
+      <!--<h5>Links úteis</h5>-->
+      <ul class="nav flex-column border-start p-2">
+        {% for link in request.session.links  %}
+        <li class="nav-item mb-2"><a href="{{link.url}}" title='{{link.nome}}' class="nav-link p-0 text-light">{{link}}</a></li>
+        {% endfor %}
       </ul>
     </div>    
-    -->
+    
 </footer>
    

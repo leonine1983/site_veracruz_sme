@@ -2,12 +2,9 @@
 <!doctype html>
 <html lang="pt" data-bs-theme="auto">
   <head><script src="{% static 'js/color-modes.js' %}"></script>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.122.0">
     <title>Secretaria Municipal da Educação</title>
 
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
@@ -117,6 +114,26 @@ background-image: url("https://www.transparenttextures.com/patterns/back-pattern
     -->
     {% block main %}{% endblock main %}
     </main>  
+    {% if messages %}
+    <div>
+        {% for message in messages %}
+            <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+                <!-- Condicional para o ícone com base no tipo de mensagem -->
+                {% if message.tags == 'alert-success' %}
+                    <i class="fas fa-check-circle"></i>  <!-- Ícone de sucesso -->
+                {% elif message.tags == 'alert-danger' %}
+                    <i class="fas fa-exclamation-triangle"></i>  <!-- Ícone de erro -->
+                {% elif message.tags == 'alert-warning' %}
+                    <i class="fas fa-exclamation-circle"></i>  <!-- Ícone de aviso -->
+                {% elif message.tags == 'alert-info' %}
+                    <i class="fas fa-info-circle"></i>  <!-- Ícone de informação -->
+                {% endif %}
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
     {% include 'partial_base/footer.html' %}
       
   <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
