@@ -21,8 +21,19 @@
     <!-- Custom styles for this template -->
     <link href="{% static 'css/blog.css' %}" rel="stylesheet">
     <link href="{% static 'css/geral.css' %}" rel="stylesheet">
+    <style>
+      
+  background: rgb(2,55,24)!important;
+  background: linear-gradient(90deg, rgba(2,55,24,1) 0%, rgba(210,249,231,1) 100%)!important;
+    </style>
   </head>
-  <body  >    
+  <body style='background: #365436!important;
+background: linear-gradient(180deg, rgba(210,249,231,1) 10%,rgb(68, 99, 68) 70%)!important, 
+            url('https://example.com/textura-educacao.png') repeat!important;
+
+
+
+' >    
     <!--Botão de muda tema-->
     {% include "partial_base/svg_mode.html" %} 
     <header>
@@ -62,7 +73,7 @@ background-image: url("https://www.transparenttextures.com/patterns/back-pattern
     {% block carrocel %}{% endblock carrocel %}
       <!--- ******************************** CARROSSEL ******************************** -->
     </header>   
-    <main class="container pt-2 ">
+    <main class="container pt-2 bg-light-subtle pb-5">
       <!--CARROSSEL 
       <div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel">
         <div class="carousel-indicators">

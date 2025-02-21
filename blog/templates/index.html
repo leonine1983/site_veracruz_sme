@@ -1,4 +1,7 @@
-{% extends "base.html" %}
+{% extends "base/index.html" %}
+{% load static %}
+{% comment "" %}<!--{% extends "base.html" %}-->{% endcomment %}
+
 <!-- Bootstrap JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -6,104 +9,109 @@
   .modal-backdrop{--bs-backdrop-zindex:1050;--bs-backdrop-bg:#000;--bs-backdrop-opacity:0.5;position:fixed;top:0;left:0;z-index:var(--bs-backdrop-zindex);width:100vw;height:100vh;background-color:var(--bs-backdrop-bg)}
   .modal-backdrop.fade{opacity:0}
   .modal-backdrop.show{opacity:var(--bs-backdrop-opacity)}
+  
 </style>
 
 
-{% load static %}
-{% block carrocel %}
-  <div id="myCarousel" class="carousel slide " style='border:5px solid #78aeaf' data-bs-ride="carousel m-0">      
-      <div class="carousel-indicators">
-          {% for i in context %}
-              <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}" aria-label="Slide {{ forloop.counter }}"></button>
-          {% endfor %}
-      </div>
-
-      <div class="carousel-inner">
-          {% for publicacao in context %}
-              <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                  {% if publicacao.video %}
+{% block carrocel_slide %}
+    <div class="container-fluid"> 
+        <div class="row">
+            <div class="col-lg-7 px-0">              
+                <div class="owl-carousel main-carousel position-relative">
+                  {% for publicacao in context %}
+                    <div class="position-relative overflow-hidden" style="height: 500px;">
+                      {% if publicacao.video %}
                       <video class="d-block w-100" controls>
                           <source src="{{ publicacao.video.url }}" type="video/mp4">
                           Seu navegador não suporta o elemento de vídeo.
                       </video>
-                  {% elif publicacao.imagem %}
-                  <img src="{{ publicacao.imagem.url }}" class="d-block image-publi" alt="{{ publicacao.titulo }}">
+                      {% elif publicacao.imagem %}
+                      <img class="img-fluid h-100" src="{{ publicacao.imagem.url }}" style="object-fit: cover;" alt="{{ publicacao.titulo }}">               
                   
                   {% else %}
                       <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
                           <rect width="100%" height="100%" fill="var(--bs-secondary-color)"/>
                       </svg>
                   {% endif %}
-                  <div class="container container-caption">
-                    {% if not publicacao.ocultar_titulo_carrocel %}
-                      <div class="carousel-caption container-caption text-start blur-filter">
-                          <h1 class='h1'>{{ publicacao.titulo }}</h1>
-                          <p class="opacity-75">{{ publicacao.descricao|slice:":150"|safe }}...</p>
-                          <a class="btn btn-lg btn-primary" href="#">Leia mais...</a>
-                      </div>
-                    {% endif %}
-                  </div>
-              </div>
-          {% endfor %}
-      </div>
+                        
+                        <div class="overlay">
+                          {% if not publicacao.ocultar_titulo_carrocel %}
+                            <div class="mb-2">
+                                <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
+                                    href="">{{ publicacao.titulo }}</a>
+                                <a class="text-white" href="">{{publicacao.data_publicacao}}</a>
+                            </div>
+                            <a class="h2 m-0 text-white text-uppercase font-weight-bold" href="">{{ publicacao.descricao|slice:":150"|safe }}</a>
+                          {% endif %}
+                        </div>
+                    </div>                    
+                  {% endfor %}
+                </div>              
+            </div>
 
-      <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Anterior</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Próximo</span>
-      </button>
-  </div>
-{% endblock carrocel %}
+            <!-- Destaques -->
+            <div class="col-lg-5 px-0">
+                <div class="row mx-0">
+                  {% for publicacao in context|slice:'4' %}
+                    {% if publicacao.em_destaque %}                    
+                    <div class="col-md-6 px-0">
+                        <div class="position-relative overflow-hidden" style="height: 250px;">
+                          {% if publicacao.video %}
+                          <video class="d-block w-100" controls>
+                            <source src="{{ publicacao.video.url }}" type="video/mp4">
+                            Seu navegador não suporta o elemento de vídeo.
+                          </video>
+                          {% elif publicacao.imagem %}                        
+                            <img class="img-fluid -100 h-100" src="{{ publicacao.imagem.url }}" style="object-fit: cover;" alt="{{ publicacao.titulo }}">     
+                          {% endif %}
+                            <div class="overlay">
+                                <div class="mb-2">
+                                    <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
+                                        href="">{{ publicacao.tipo_publicacao }}</a>
+                                    <a class="text-white" href=""><small>{{publicacao.data_publicacao}}</small></a>
+                                </div>
+                                <a class="h6 m-0 text-white text-uppercase font-weight-semi-bold" href="">{{ publicacao.descricao|truncatewords:"11"|safe }}</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+            </div>      
+          <!-- End Destaques -->
+           
+        </div>      
+    </div>
+    {% endblock carrocel_slide %}
+
+    <!--Informações Urgentes -->
+    {% block informacoe_urgentes %} 
+    {% for publicacao in context|slice:'4' %}  
+      {% if publicacao.em_urgentes %}    
+        <div class="container-fluid bg-dark py-3 mb-3">
+            <div class="container">
+                <div class="row align-items-center bg-dark">
+                    <div class="col-12">
+                        <div class="d-flex justify-content-between">
+                            <div class="bg-primary text-dark text-center font-weight-medium py-2" style="width: 170px;"> Fiquem Atentos! <i class="fa-solid fa-circle-exclamation"></i></div>
+                            <div class="owl-carousel tranding-carousel position-relative d-inline-flex align-items-center ml-3"
+                                style="width: calc(100% - 170px); padding-right: 90px;">
+                                <div class="text-truncate"><a class="text-white text-uppercase font-weight-semi-bold" href="">{{ publicacao.titulo }}</a></div>                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>        
+        </div>
+      {% endif %}
+    {% endfor %}
+    {% endblock informacoe_urgentes %}
+    <!--Fim de Informações Urgentes -->
+
+
+
        
 {% block main %}  
-<!--Carrocel Interno 
-<div id="myCarousel" class="carousel slide" style='border:5px solid #78aeaf' data-bs-ride="carousel m-0">      
-  <div class="carousel-indicators">
-      {% for i in context %}
-          <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}" aria-label="Slide {{ forloop.counter }}"></button>
-      {% endfor %}
-  </div>
-
-  <div class="carousel-inner">
-      {% for publicacao in context %}
-          <div class="carousel-item {% if forloop.first %}active{% endif %}">
-              {% if publicacao.video %}
-                  <video class="d-block w-100" controls>
-                      <source src="{{ publicacao.video.url }}" type="video/mp4">
-                      Seu navegador não suporta o elemento de vídeo.
-                  </video>
-              {% elif publicacao.imagem %}
-              <img src="{{ publicacao.imagem.url }}" class="d-block image-publi" alt="{{ publicacao.titulo }}">
-              
-              {% else %}
-                  <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
-                      <rect width="100%" height="100%" fill="var(--bs-secondary-color)"/>
-                  </svg>
-              {% endif %}
-              <div class="container container-caption">
-                  <div class="carousel-caption container-caption text-start">
-                      <h1>{{ publicacao.titulo }}</h1>
-                      <p class="opacity-75">{{ publicacao.descricao|slice:":150"|safe }}...</p>
-                      <a class="btn btn-lg btn-primary" href="#">Leia mais...</a>
-                  </div>
-              </div>
-          </div>
-      {% endfor %}
-  </div>
-
-  <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Anterior</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Próximo</span>
-  </button>
-</div>
--->
 <div class="row ">
   {% for publicacao in context|slice:'2' %}
     {% if publicacao.em_destaque %}

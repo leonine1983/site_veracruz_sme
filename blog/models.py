@@ -52,6 +52,7 @@ class Publicacao(models.Model):
     tipo_publicacao = models.ForeignKey(TipoPublicacao, related_name='publicacoes', on_delete=models.CASCADE)
     secretario = models.ForeignKey(Secretario, related_name='publicacoes', on_delete=models.CASCADE, verbose_name="Selecione o nome do secretário atualmente em exercício.")
     em_destaque = models.BooleanField(default=False, verbose_name="Deseja por em destaque a publicação? Isso irá substituir a última publicação em destaque")
+    em_urgentes = models.BooleanField(default=False, verbose_name="Selecione esta opção se deseja marcar como urgente ou de última hora.")
     ocultar_titulo_carrocel = models.BooleanField(default=False, verbose_name="Selecione a opção ao publicar imagens com texto para evitar sobreposição. Isso assegura uma apresentação visual mais limpa e facilita a compreensão da informação no carrossel.")
     
     # Campos adicionais para imagens e vídeos

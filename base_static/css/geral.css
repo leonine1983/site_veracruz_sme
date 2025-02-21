@@ -351,7 +351,10 @@ p {
         display: block !important;
       }
 
-      body{padding: 0!important;}      
+      body{
+        padding: 0!important;
+        
+      }      
       header{width: 100vw; margin: 0!important;  padding: 0!important; }
       .navbar{min-width: 100vw;}
       
