@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>BizNews - Free News Website Template</title>
+    <title>Secretaria Municipal da Educação</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
@@ -24,34 +24,43 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{% static 'base/css/style.css' %}" rel="stylesheet">
+    <style>
+        h1{font-size: 1.6rem!important;}
+        h2{font-size: 1.4rem!important;}
+        h3{font-size: 1.2rem!important;}
+        h4{font-size: 1rem!important;}
+        p{font-size: 0.8rem!important;}
+    </style>
 
 </head>
 
 <body>
     <!-- Topbar Start -->
     <div class="container-fluid d-none d-lg-block">
-        <div class="row align-items-center bg-dark px-lg-5">
+        <div class="row align-items-center  px-lg-5"  style='background:rgb(235, 252, 242)!important'>
             <div class="col-lg-9">
-                <nav class="navbar navbar-expand-sm bg-dark p-0">
-                    <ul class="navbar-nav ml-n2">
-                        <li class="nav-item border-right border-secondary">
-                            <a class="nav-link text-body small" href="#">Monday, January 1, 2045</a>
-                        </li>
-                        <li class="nav-item border-right border-secondary">
-                            <a class="nav-link text-body small" href="#">Advertise</a>
-                        </li>
-                        <li class="nav-item border-right border-secondary">
-                            <a class="nav-link text-body small" href="#">Contact</a>
+                <nav class="navbar navbar-expand-sm fs-4 shadow-sm "  style='
+                background:rgb(253, 253, 253)!important;
+                border-bottom-right-radius: 2rem;width: 35%;
+                padding:0px!important;
+                margin-left:-3.5rem'
+             >
+                    <ul class="navbar-nav ml-n2 " >
+                        <li class="nav-item  px-4 ">
+                            <a class="nav-link text-success  small" href="#">{% now "j \d\e F \d\e Y" %}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-body small" href="#">Login</a>
+                            <a class="nav-link text-success small" href="#"></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-success small" href="#">Contato</a>
                         </li>
                     </ul>
                 </nav>
             </div>
-            <div class="col-lg-3 text-right d-none d-md-block">
+            <div class="col-lg-3 text-right d-none d-md-block" >
                 <nav class="navbar navbar-expand-sm bg-dark p-0">
-                    <ul class="navbar-nav ml-auto mr-n2">
+                    <ul class="navbar-nav ml-auto mr-n2" >
                         <li class="nav-item">
                             <a class="nav-link text-body" href="#"><small class="fab fa-twitter"></small></a>
                         </li>
@@ -74,10 +83,18 @@
                 </nav>
             </div>
         </div>
-        <div class="row align-items-center bg-white py-3 px-lg-5">
+        <div class="row align-items-center  py-3 px-lg-5" style='background:rgb(235, 252, 242)!important'>
             <div class="col-lg-4">
                 <a href="index.html" class="navbar-brand p-0 d-none d-lg-block">
-                    <h1 class="m-0 display-4 text-uppercase text-primary">Biz<span class="text-secondary font-weight-normal">News</span></h1>
+                    <div class="d-flex">                    
+                        <h1 class="m-0 display-4 text-uppercase text-primary d-flex align-content-center" style='font-size:1.5rem!important'>
+                            <img  src="{% static 'SME.png' %}" class='logo pe-2' alt="" height="80">                            
+                            <div class="p-2 mx-3 px-3" style="border-left: 0.2rem solid orange;">
+                                <h2 class="text-secondary font-weight-normal p-0 m-0" style="font-size: 2rem!important;">Secretaria Municipal da Educação</h2>
+                                <h3 class="text-secondary p-0 fs-5 m-0">Vera Cruz - BA</h3>
+                            </div>
+                        </h1>
+                    </div>
                 </a>
             </div>
             <div class="col-lg-8 text-center text-lg-right">
@@ -90,7 +107,7 @@
 
     <!-- Navbar Start -->
     <div class="container-fluid p-0">
-        <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-2 py-lg-0 px-lg-5" style='background:rgba(2,55,24,1)!important'>
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-2 py-lg-0 px-lg-5"  style='background:rgb(130, 163, 144)!important'>
             <a href="index.html" class="navbar-brand d-block d-lg-none">
                 <h1 class="m-0 display-4 text-uppercase text-primary">Biz<span class="text-white font-weight-normal">News</span></h1>
             </a>
@@ -98,7 +115,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse justify-content-between px-0 px-lg-3" style='background:rgba(2,55,24,1) ' id="navbarCollapse">
+            <div class="collapse navbar-collapse justify-content-between px-0 px-lg-3"  style='background:rgb(130, 163, 144)!important' id="navbarCollapse">
                 <div class="navbar-nav mr-auto py-0">
                     <a href="index.html" class="nav-item nav-link active">Home</a>
                     <a href="category.html" class="nav-item nav-link">Category</a>

@@ -368,7 +368,7 @@ h1, h2, h3, h4, h5, h6,
 }
 
 h1, .h1 {
-  font-size: 2.5rem;
+  font-size: 1.8rem;
 }
 
 @media (max-width: 1200px) {
@@ -378,7 +378,7 @@ h1, .h1 {
 }
 
 h2, .h2 {
-  font-size: 2rem;
+  font-size: 1.6rem;
 }
 
 @media (max-width: 1200px) {
@@ -9244,7 +9244,7 @@ button.bg-dark:focus {
 }
 
 .font-weight-normal {
-  font-weight: 400 !important;
+  font-weight: 300 !important;
 }
 
 .font-weight-bold {
@@ -9470,9 +9470,7 @@ h6,
   font-weight: 500 !important;
 }
 
-.font-weight-normal {
-  font-weight: 400 !important;
-}
+
 
 .btn-square {
   width: 36px;
