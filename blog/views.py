@@ -6,6 +6,7 @@ def blog(request):
     context = Publicacao.objects.all()
     links = Link.objects.all()
     request.session['links'] = links
+    request.session['publica'] = context
     colors = [
     # Tons suaves de verde
     #"#e6f7e6", "#d4f5d4", "#c2f0c2", "#b0eab0", "#9fe59f", "#8fdf8f",

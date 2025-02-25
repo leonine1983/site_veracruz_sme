@@ -18,6 +18,9 @@
 
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.7.2/css/all.css">
+    
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
     <link href="{% static 'base/lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
@@ -30,6 +33,10 @@
         h3{font-size: 1.2rem!important;}
         h4{font-size: 1rem!important;}
         p{font-size: 0.8rem!important;}
+        
+        .nav-primary .nav-item {background-color: transparent!important;color:#f7f2ed!important;border-right: 0.1rem solid #D08436!important;}
+        .nav-primary .active {background-color: #4870a4!important;color:#f7f2ed!important ;}
+        .nav-primary .nav-item:hover {background-color:  #D08436!important;color:#4870a4!important;}
     </style>
 
 </head>
@@ -47,13 +54,13 @@
              >
                     <ul class="navbar-nav ml-n2 " >
                         <li class="nav-item  px-4 ">
-                            <a class="nav-link text-success  small" href="#">{% now "j \d\e F \d\e Y" %}</a>
+                            <a class="nav-link font-weight-medium  small" style="color: #4370a4 !important;" href="#">{% now "j \d\e F \d\e Y" %}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-success small" href="#"></a>
+                            <a class="nav-link font-weight-medium small" style="color: #4370a4 !important;" href="#"></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-success small" href="#">Contato</a>
+                            <a class="nav-link font-weight-medium small" style="color: #4370a4 !important;" href="#">Contato</a>
                         </li>
                     </ul>
                 </nav>
@@ -83,15 +90,15 @@
                 </nav>
             </div>
         </div>
-        <div class="row align-items-center  py-3 px-lg-5" style='background:rgb(235, 252, 242)!important'>
+        <div class="row align-items-center  py-3 px-lg-5" style='background:rgb(255, 255, 255)!important'>
             <div class="col-lg-4">
                 <a href="index.html" class="navbar-brand p-0 d-none d-lg-block">
                     <div class="d-flex">                    
                         <h1 class="m-0 display-4 text-uppercase text-primary d-flex align-content-center" style='font-size:1.5rem!important'>
-                            <img  src="{% static 'SME.png' %}" class='logo pe-2' alt="" height="80">                            
+                            <img  src="{% static 'prefeitura.png' %}" class='logo pe-2' alt="" height="85">                            
                             <div class="p-2 mx-3 px-3" style="border-left: 0.2rem solid orange;">
-                                <h2 class="text-secondary font-weight-normal p-0 m-0" style="font-size: 2rem!important;">Secretaria Municipal da Educação</h2>
-                                <h3 class="text-secondary p-0 fs-5 m-0">Vera Cruz - BA</h3>
+                                <h2 class="text-secondary  font-weight-bold p-0 m-0" style="font-size: 2rem!important; color: #D08436 !important">Secretaria Municipal da Educação</h2>
+                                <h3 class="text-secondary p-0 fs-5 m-0" style="color: #135d42!important">Vera Cruz - BA</h3>
                             </div>
                         </h1>
                     </div>
@@ -116,10 +123,18 @@
             </button>
 
             <div class="collapse navbar-collapse justify-content-between px-0 px-lg-3"  style='background:rgb(130, 163, 144)!important' id="navbarCollapse">
-                <div class="navbar-nav mr-auto py-0">
-                    <a href="index.html" class="nav-item nav-link active">Home</a>
-                    <a href="category.html" class="nav-item nav-link">Category</a>
-                    <a href="single.html" class="nav-item nav-link">Single News</a>
+                <div class="nav-primary navbar-nav mr-auto py-0">
+                    <a href="index.html" class="nav-item nav-link active text-center">
+                        <i class="fa-solid fa-house"></i>
+                        <br>Home</a>
+
+                    {% for nav in request.session.publica|slice:' 8' %}
+                    <a href="category.html" class="nav-item text-center nav-link">
+                        {{nav.tipo_publicacao.svg|safe}}
+                        <br>{{nav.tipo_publicacao}}
+                    </a>
+                    {% endfor %}
+                    <!--
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Dropdown</a>
                         <div class="dropdown-menu rounded-0 m-0">
@@ -128,12 +143,12 @@
                             <a href="#" class="dropdown-item">Menu item 3</a>
                         </div>
                     </div>
-                    <a href="contact.html" class="nav-item nav-link">Contact</a>
+                    -->
                 </div>
                 <div class="input-group ml-auto d-none d-lg-flex" style="width: 100%; max-width: 300px;">
                     <input type="text" class="form-control border-0" placeholder="Keyword">
                     <div class="input-group-append">
-                        <button class="input-group-text bg-primary text-dark border-0 px-3"><i
+                        <button class="input-group-text text-dark border-0 px-3"><i
                                 class="fa fa-search"></i></button>
                     </div>
                 </div>
@@ -458,52 +473,22 @@
                 </div>
                 
                 <div class="col-lg-4">
-                    <!-- Social Follow Start -->
-                    <div class="mb-3">
-                        <div class="section-title mb-0">
-                            <h4 class="m-0 text-uppercase font-weight-bold">Follow Us</h4>
-                        </div>
-                        <div class="bg-white border border-top-0 p-3">
-                            <a href="" class="d-block w-100 text-white text-decoration-none mb-3" style="background: #39569E;">
-                                <i class="fab fa-facebook-f text-center py-4 mr-3" style="width: 65px; background: rgba(0, 0, 0, .2);"></i>
-                                <span class="font-weight-medium">12,345 Fans</span>
-                            </a>
-                            <a href="" class="d-block w-100 text-white text-decoration-none mb-3" style="background: #52AAF4;">
-                                <i class="fab fa-twitter text-center py-4 mr-3" style="width: 65px; background: rgba(0, 0, 0, .2);"></i>
-                                <span class="font-weight-medium">12,345 Followers</span>
-                            </a>
-                            <a href="" class="d-block w-100 text-white text-decoration-none mb-3" style="background: #0185AE;">
-                                <i class="fab fa-linkedin-in text-center py-4 mr-3" style="width: 65px; background: rgba(0, 0, 0, .2);"></i>
-                                <span class="font-weight-medium">12,345 Connects</span>
-                            </a>
-                            <a href="" class="d-block w-100 text-white text-decoration-none mb-3" style="background: #C8359D;">
-                                <i class="fab fa-instagram text-center py-4 mr-3" style="width: 65px; background: rgba(0, 0, 0, .2);"></i>
-                                <span class="font-weight-medium">12,345 Followers</span>
-                            </a>
-                            <a href="" class="d-block w-100 text-white text-decoration-none mb-3" style="background: #DC472E;">
-                                <i class="fab fa-youtube text-center py-4 mr-3" style="width: 65px; background: rgba(0, 0, 0, .2);"></i>
-                                <span class="font-weight-medium">12,345 Subscribers</span>
-                            </a>
-                            <a href="" class="d-block w-100 text-white text-decoration-none" style="background: #055570;">
-                                <i class="fab fa-vimeo-v text-center py-4 mr-3" style="width: 65px; background: rgba(0, 0, 0, .2);"></i>
-                                <span class="font-weight-medium">12,345 Followers</span>
-                            </a>
-                        </div>
-                    </div>
-                    <!-- Social Follow End -->
+                  
 
                     <!-- Ads Start -->
                     <div class="mb-3">
                         <div class="section-title mb-0">
-                            <h4 class="m-0 text-uppercase font-weight-bold">Advertisement</h4>
+                            <h4 class="m-0 text-uppercase font-weight-bold">Links Úteis</h4>
                         </div>
-                        <div class="bg-white text-center border border-top-0 p-3">
-                            <a href=""><img class="img-fluid" src="img/news-800x500-2.jpg" alt=""></a>
-                        </div>
+                        <div class="bg-white text-start border border-top-0 p-3">
+                            {% block link_util %}{% endblock link_util %}                                
+                        </div>                            
                     </div>
                     <!-- Ads End -->
 
-                    <!-- Popular News Start -->
+
+
+                    <!-- Popular News Start 
                     <div class="mb-3">
                         <div class="section-title mb-0">
                             <h4 class="m-0 text-uppercase font-weight-bold">Tranding News</h4>
@@ -561,24 +546,26 @@
                             </div>
                         </div>
                     </div>
+                    -->
                     <!-- Popular News End -->
 
                     <!-- Newsletter Start -->
                     <div class="mb-3">
                         <div class="section-title mb-0">
-                            <h4 class="m-0 text-uppercase font-weight-bold">Newsletter</h4>
+                            <h4 class="m-0 text-uppercase font-weight-bold">Boletim Informativo</h4>
                         </div>
-                        <div class="bg-white text-center border border-top-0 p-3">
-                            <p>Aliqu justo et labore at eirmod justo sea erat diam dolor diam vero kasd</p>
+                        <div class="bg-white text-start border border-top-0 p-3">
+                            <h4>📩 Inscreva-se em nosso boletim informativo!</h4>
                             <div class="input-group mb-2" style="width: 100%;">
                                 <input type="text" class="form-control form-control-lg" placeholder="Your Email">
                                 <div class="input-group-append">
                                     <button class="btn btn-primary font-weight-bold px-3">Sign Up</button>
                                 </div>
                             </div>
-                            <small>Lorem ipsum dolor sit amet elit</small>
+                            <p>Receba novidades e conteúdos exclusivos no seu e-mail.</p>
                         </div>
                     </div>
+
                     <!-- Newsletter End -->
 
                     <!-- Tags Start -->
@@ -588,16 +575,9 @@
                         </div>
                         <div class="bg-white border border-top-0 p-3">
                             <div class="d-flex flex-wrap m-n1">
-                                <a href="" class="btn btn-sm btn-outline-secondary m-1">Politics</a>
-                                <a href="" class="btn btn-sm btn-outline-secondary m-1">Business</a>
-                                <a href="" class="btn btn-sm btn-outline-secondary m-1">Corporate</a>
-                                <a href="" class="btn btn-sm btn-outline-secondary m-1">Business</a>
-                                <a href="" class="btn btn-sm btn-outline-secondary m-1">Health</a>
-                                <a href="" class="btn btn-sm btn-outline-secondary m-1">Education</a>
-                                <a href="" class="btn btn-sm btn-outline-secondary m-1">Science</a>
-                                <a href="" class="btn btn-sm btn-outline-secondary m-1">Business</a>
-                                <a href="" class="btn btn-sm btn-outline-secondary m-1">Foods</a>
-                                <a href="" class="btn btn-sm btn-outline-secondary m-1">Travel</a>
+                                {% for nav in request.session.publica|slice:' 8' %}                    
+                                    <a href="" class="btn btn-sm btn-outline-secondary m-1">{{nav.tipo_publicacao}}</a>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
@@ -715,16 +695,16 @@
 
 
     <!-- JavaScript Libraries -->
+     
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
     <script src="{% static 'base/lib/easing/easing.min.js' %}"></script>
     <script src="{% static 'base/lib/owlcarousel/owl.carousel.min.js' %}"></script>
 
 
     <!-- Template Javascript -->
-    <script src="js/main.js"></script>
     <script src="{% static 'base/js/main.js' %}"></script>
+      
 </body>
 
 </html>

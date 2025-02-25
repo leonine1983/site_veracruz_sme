@@ -39,6 +39,7 @@ class Secretario(models.Model):
 
 class TipoPublicacao(models.Model):
     nome = models.CharField(max_length=100)
+    svg = models.CharField(max_length=100, verbose_name="Adicionar TAG <i> do fontawesome")
     
     def __str__(self):
         return self.nome
