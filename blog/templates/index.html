@@ -86,11 +86,10 @@
                         <div class="overlay">
                           {% if not publicacao.ocultar_titulo_carrocel %}
                             <div class="mb-2">
-                                <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
-                                    href="">{{ publicacao.titulo }}</a>
+                                <a class="badge-primary fs-5 p-2 mr-2" href="">{{ publicacao.titulo }}</a>
                                 <a class="text-white" href="">{{publicacao.data_publicacao}}</a>
                             </div>
-                            <a class="h2 m-0 text-white text-uppercase font-weight-bold" href="">{{ publicacao.descricao|slice:":150"|safe }}</a>
+                            <a class="h4 m-0 text-white " href="">{{ publicacao.descricao|truncatewords:'15'|safe }}</a>
                           {% endif %}
                         </div>
                     </div>                    

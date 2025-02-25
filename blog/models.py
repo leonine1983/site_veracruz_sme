@@ -59,9 +59,22 @@ class Publicacao(models.Model):
     # Campos adicionais para imagens e vídeos
     imagem = models.ImageField(upload_to='publicacoes/imagens/', null=True, blank=True)
     video = models.FileField(upload_to='publicacoes/videos/', null=True, blank=True)
+
+    def curtidas_count(self):
+        return self.curtidas.count()
     
     def __str__(self):
         return self.titulo
+
+from django.contrib.auth.models import User
+
+class Curtida(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name='curtidas')
+    publicacao = models.ForeignKey(Publicacao, on_delete=models.CASCADE, related_name='curtidas')
+    data_curtida = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.usuario.username} curtiu {self.publicacao.titulo}'
 
 
 # Função para registrar exemplo de Prefeitura e Secretário
