@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Ano, Prefeitura, Secretario, TipoPublicacao, Publicacao
+from .models import Ano, Prefeitura, Secretario, TipoPublicacao, Publicacao, PastaAdministrativa
 
 # Registro dos modelos
 class PrefeituraAdmin(admin.ModelAdmin):
@@ -22,6 +22,10 @@ class TipoPublicacaoAdmin(admin.ModelAdmin):
     list_display = ('nome',)
     search_fields = ('nome',)
 
+class PastaAdministrativa_Admin(admin.ModelAdmin):
+    list_display = ('nome',)
+    search_fields = ('nome',)
+
 class AnoAdmin(admin.ModelAdmin):
     list_display = ('ano',)
     search_fields = ('ano',)
@@ -31,6 +35,7 @@ class AnoAdmin(admin.ModelAdmin):
 # Registrando os modelos no admin
 admin.site.register(Ano, AnoAdmin)
 admin.site.register(Prefeitura, PrefeituraAdmin)
+admin.site.register(PastaAdministrativa, PastaAdministrativa_Admin)
 admin.site.register(Secretario, SecretarioAdmin)
 admin.site.register(TipoPublicacao, TipoPublicacaoAdmin)
 admin.site.register(Publicacao, PublicacaoAdmin)

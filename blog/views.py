@@ -1,12 +1,14 @@
 from django.shortcuts import render
-from .models import Publicacao
+from .models import Publicacao, PastaAdministrativa
 from dashboard.models import Link
 
 def blog(request):
     context = Publicacao.objects.all()
     links = Link.objects.all()
+    footer = PastaAdministrativa.objects.get(nome_filter = "educação")
     request.session['links'] = links
     request.session['publica'] = context
+    request.session['footer'] = footer
     colors = [
     # Tons suaves de verde
     #"#e6f7e6", "#d4f5d4", "#c2f0c2", "#b0eab0", "#9fe59f", "#8fdf8f",

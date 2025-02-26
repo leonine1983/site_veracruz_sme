@@ -21,6 +21,21 @@ class Prefeitura(models.Model):
 
 class PastaAdministrativa(models.Model):
     nome = models.CharField(max_length=100)
+    nome_filter = models.CharField(max_length=30)
+    email = models.EmailField(max_length=200, null=True, blank=True, verbose_name="E-mail")
+    endereco = models.CharField(max_length=255, null=True, blank=True, verbose_name="Endereço")
+    telefone = models.CharField(max_length=20, null=True, blank=True, verbose_name="Telefone")
+
+    facebook = models.URLField(max_length=255, null=True, blank=True, verbose_name="Facebook")
+    instagram = models.URLField(max_length=255, null=True, blank=True, verbose_name="Instagram")
+    twitter = models.URLField(max_length=255, null=True, blank=True, verbose_name="Twitter")
+    linkedin = models.URLField(max_length=255, null=True, blank=True, verbose_name="LinkedIn")
+    youtube = models.URLField(max_length=255, null=True, blank=True, verbose_name="YouTube")
+
+    def __str__(self):
+        return self.nome
+
+
 
     def __str__(self):
         return self.nome
@@ -92,7 +107,8 @@ def criar_registros_exemplo(sender, **kwargs):
     if not PastaAdministrativa.objects.exists:
         # Cria pasta administrativa
         pastaAdministrativa, created = PastaAdministrativa.objects.get_or_create(
-            nome = "Educação"
+            nome = "Secretaria Municipal da Educação Educação",
+            nome_filter = "educação"
         )
     if not Secretario.objects.exists:
         # Cria o secretário se não existir
