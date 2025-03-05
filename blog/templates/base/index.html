@@ -37,6 +37,9 @@
         .nav-primary .nav-item {background-color: transparent!important;color:#f7f2ed!important;border-right: 0.1rem solid #D08436!important;}
         .nav-primary .active {background-color: #4870a4!important;color:#f7f2ed!important ;}
         .nav-primary .nav-item:hover {background-color:  #D08436!important;color:#4870a4!important;}
+
+
+        
     </style>
 
 </head>
@@ -97,8 +100,25 @@
                         <h1 class="m-0 display-4 text-uppercase text-primary d-flex align-content-center" style='font-size:1.5rem!important'>
                             <img  src="{% static 'prefeitura.png' %}" class='logo pe-2' alt="" height="85">                            
                             <div class="p-2 mx-3 px-3" style="border-left: 0.2rem solid orange;">
-                                <h2 class="text-secondary  font-weight-bold p-0 m-0" style="font-size: 2rem!important; color: #D08436 !important">Secretaria Municipal da Educação</h2>
-                                <h3 class="text-secondary p-0 fs-5 m-0" style="color: #135d42!important">Vera Cruz - BA</h3>
+                                <h2 class="text-secondary  font-weight-bold p-0 m-0" style="font-size: 2rem!important; color: #D08436 !important">Secretaria Municipal da Educação</h2>                                
+                                <div class="container d-flex">
+                                    <h3 class="text-secondary p-0 pt-1 me-2 px-2 fs-5 m-0" style="color: #135d42!important">Vera Cruz - BA</h3> |
+                                    <form action="" method="get">
+                                        <div class="d-flex align-items-center" style="color: #135d42!important">
+                                            <label for="secretario" class="form-label me-1 mx-2 fs-6 mt-2  font-weight-normal">Secretário </label>
+                                            <div class="custom-select-wrapper">
+                                                <select name="secretario" id="secretario" class="form-select border-0 fs-6 text-uppercase bg-transparent "  style="width: 20rem;color: #135d42!important; margin-left: -0.7rem;">                                                                                                        
+                                                    {% with  request.session.secretario as secretario %}
+                                                        {% for sec in secretario  %}
+                                                            <option value="{{sec.id}}" {% if ativo %}selected{% endif %}>{{sec.nome}} {{ativo}} </option>
+                                                        {% endfor %}
+                                                    {% endwith %}
+                                                </select>
+                                            </div><button id="selecSecret" type="submit" class="border-0 bg-transparent"><i class="fa-solid fa-angles-right"></i></button>
+                                        </div>
+                                        
+                                    </form>
+                                </div>
                             </div>
                         </h1>
                     </div>

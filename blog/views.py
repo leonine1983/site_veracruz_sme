@@ -1,11 +1,32 @@
 from django.shortcuts import render
-from .models import Publicacao, PastaAdministrativa
+from .models import Publicacao, PastaAdministrativa, Secretario
 from dashboard.models import Link
 
 def blog(request):
-    context = Publicacao.objects.all()
-    links = Link.objects.all()
-    footer = PastaAdministrativa.objects.get(nome_filter = "educação")
+    secretario = Secretario.objects.all()
+
+    if 'secretario' in request.GET:
+        request.session.flush()
+        id = request.GET['secretario']
+        secretario = Secretario.objects.filter(id=id)
+        request.session['secretario'] = secretario
+        publica = Publicacao.objects.filter(secretario__id = id)
+    else:        
+        request.session['secretario'] = secretario
+        publica = Publicacao.objects.filter(secretario__ativo = True)
+
+
+
+
+   
+
+    
+
+
+
+    context = publica
+    links = Link.objects.all()    
+    footer = PastaAdministrativa.objects.get(nome_filter = "educação")    
     request.session['links'] = links
     request.session['publica'] = context
     request.session['footer'] = footer
