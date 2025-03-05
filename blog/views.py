@@ -11,19 +11,12 @@ def blog(request):
         secretario = Secretario.objects.filter(id=id)
         request.session['secretario'] = secretario
         publica = Publicacao.objects.filter(secretario__id = id)
+        ativo = True
     else:        
         request.session['secretario'] = secretario
         publica = Publicacao.objects.filter(secretario__ativo = True)
-
-
-
-
-   
-
+        ativo = False
     
-
-
-
     context = publica
     links = Link.objects.all()    
     footer = PastaAdministrativa.objects.get(nome_filter = "educação")    
@@ -47,9 +40,7 @@ def blog(request):
 ]
 
     return render(request, 'index.html', {
+        'ativo' : ativo,
         'context': context,
         'links': links,
         "colors": colors})
-
-
-
