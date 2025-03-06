@@ -1,6 +1,9 @@
-from django.shortcuts import render
-from .models import Publicacao, PastaAdministrativa, Secretario
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponse
+from django.urls import reverse_lazy
+from .models import Publicacao, PastaAdministrativa, Secretario, ViewsPost, Curtida
 from dashboard.models import Link
+from django.contrib import messages
 
 def blog(request):
     secretario = Secretario.objects.all()
@@ -44,3 +47,65 @@ def blog(request):
         'context': context,
         'links': links,
         "colors": colors})
+
+
+def visualizaPost(request, pk):
+    post = Publicacao.objects.get(pk = pk)
+    #Criar a visualização da postagem
+    ViewsPost.objects.create(publicacao = post)
+    return render(request, 'visualizaPost.html', {
+        'post':post,})
+
+from django.http import HttpResponse
+from django.contrib import messages
+from django.shortcuts import get_object_or_404, render
+from .models import Publicacao, Curtida
+
+def curtidaPost(request, pk):
+    post = get_object_or_404(Publicacao, pk=pk)
+    
+    # Criar a visualização da postagem
+    Curtida.objects.create(publicacao=post)
+    
+    # Exibir uma mensagem de sucesso
+    messages.success(request, f"🎉 Você curtiu o post {post} com sucesso! 👍")
+    
+    # Retornar uma resposta simples para não redirecionar a página
+    return redirect(reverse_lazy('blog:visualizaPost', kwargs={'pk':pk}))
+
+    
+
+
+
+"""
+
+from django.views import View
+from .models import Link
+
+class LinkDeleteView(View):
+    def post(self, request, *args, **kwargs):
+        link = get_object_or_404(Link, pk=kwargs['pk'])
+        link.delete()
+        
+        # Adiciona a mensagem de sucesso
+        messages.success(request, "Link excluído com sucesso.")
+class Curtida(models.Model):
+    #usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name='curtidas')
+    publicacao = models.ForeignKey(Publicacao, on_delete=models.CASCADE, related_name='curtidas')
+    data_curtida = models.DateTimeField(auto_now_add=True)
+
+
+
+
+
+
+
+                    <small class="ml-3"><i class="fa-solid fa-thumbs-up"></i> {{publicacao.curtidas.all|length}}</small>
+  # Cria uma nova visualização no banco de dados
+    # Se estiver usando o modelo com um usuário, você pode adicionar o campo de usuário aqui
+    if request.user.is_authenticated:  # Se o usuário estiver logado
+        ViewsPost.objects.create(publicacao=post, usuario=request.user)
+    else:
+        ViewsPost.objects.create(publicacao=post)
+
+"""

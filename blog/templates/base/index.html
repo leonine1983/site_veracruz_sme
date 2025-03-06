@@ -38,13 +38,102 @@
         .nav-primary .active {background-color: #4870a4!important;color:#f7f2ed!important ;}
         .nav-primary .nav-item:hover {background-color:  #D08436!important;color:#4870a4!important;}
 
-
+        /* Overlay para a mensagem */
+        .message-overlay {
+            position: fixed; /* Fixa o elemento sobre a página */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Fundo semitransparente */
+            display: flex;
+            align-items: center; /* Alinha verticalmente */
+            justify-content: center; /* Alinha horizontalmente */
+            z-index: 9999; /* Garante que fique sobre os outros elementos */
+        }
+        /* Botão de fechar */
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: transparent;
+            border: none;
+            font-size: 20px;
+            color: #333;
+            cursor: pointer;
+        }
+        /* Estilo para a sobreposição da mensagem */
+        .message-overlay {
+            position: fixed; /* Fixa a sobreposição na tela */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Fundo semitransparente */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999; /* Certifique-se de que a mensagem fique sobre outros elementos */
+            opacity: 1;
+            transition: opacity 0.5s ease-out; /* Transição suave para desaparecer */
+        }
+        
+        .message-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 80%;
+            text-align: center;
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+        
+        .alert.messages {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .alert {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #c3e6cb;
+            border-radius: 5px;
+        }
+        
         
     </style>
 
 </head>
 
 <body>
+    {% if messages %}
+    <div class="message-overlay" id="message-overlay">
+        <div class="message-content">
+            <button class="close-btn" onclick="closeMessage()">×</button>
+            <ul class="alert messages">
+                {% for message in messages %}
+                    <li class="alert alert-success">{{ message|safe }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endif %}
+
+
+
     <!-- Topbar Start -->
     <div class="container-fluid d-none d-lg-block">
         <div class="row align-items-center  px-lg-5"  style='background:rgb(235, 252, 242)!important'>
@@ -118,7 +207,7 @@
                                             {% if not ativo %}
                                                 <button id="selecSecret" type="submit" class="border-0 bg-transparent"><i class="fa-solid fa-angles-right"></i></button>
                                             {% else %}
-                                                <a href="{% url "blog:home" %}"><i class="fa-solid fa-angles-left" title='Você pode voltar para a página de seleção de secretários e escolher outra opção.'></i></a>
+                                                <a href="{% url 'blog:home' %}"><i class="fa-solid fa-angles-left" title='Você pode voltar para a página de seleção de secretários e escolher outra opção.'></i></a>
                                             {% endif %}
                                         </div>
                                         
@@ -150,7 +239,7 @@
 
             <div class="collapse navbar-collapse justify-content-between px-0 px-lg-3"  style='background:rgb(130, 163, 144)!important' id="navbarCollapse">
                 <div class="nav-primary navbar-nav mr-auto py-0">
-                    <a href="index.html" class="nav-item nav-link active text-center">
+                    <a href="{% url "blog:home" %}" class="nav-item nav-link active text-center">
                         <i class="fa-solid fa-house"></i>
                         <br>Home</a>
 
@@ -271,52 +360,8 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="row">
-                        <div class="col-12">
-                            <div class="section-title">
-                                <h4 class="m-0 text-uppercase font-weight-bold">As mais curtidas</h4>
-                                <a class="text-secondary font-weight-medium text-decoration-none" href="">Ver Todas</a>
-                            </div>
-                        </div>
-                        {% for publicacao in context|slice:'2' %} 
-                        <div class="col-lg-12">
-                            <div class="position-relative mb-3">
-
-                                {% if publicacao.video %}
-                                    <video class="d-block w-100" controls>
-                                        <source src="{{ publicacao.video.url }}" type="video/mp4">
-                                        Seu navegador não suporta o elemento de vídeo.
-                                    </video>
-                                {% elif publicacao.imagem %}
-                                <img src="{{ publicacao.imagem.url }}" class="d-block image-publi img-fluid"  alt="{{ publicacao.titulo }}">
-                                
-                                {% else %}
-                                    <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
-                                        <rect width="100%" height="100%" fill="var(--bs-secondary-color)"/>
-                                    </svg>
-                                {% endif %}
-
-                                <div class="bg-white border border-top-0 p-4">
-                                    <div class="mb-2">
-                                        <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
-                                            href="">{{publicacao.tipo_publicacao}}</a>
-                                        <a class="text-body" href=""><small>{{ publicacao.data_publicacao }}</small></a>
-                                    </div>
-                                    <a class="h4 d-block mb-3 text-secondary fs-5" href="">{{ publicacao.titulo }}</a>
-                                    <p class="m-0">{{publicacao.descricao|safe|truncatewords:'100'}}</p>
-                                </div>
-                                <div class="d-flex justify-content-between bg-white border border-top-0 p-4">
-                                    <div class="d-flex align-items-center">
-                                        <img class="rounded-circle mr-2" src="img/user.jpg" width="25" height="25" alt="">
-                                        <small>{{publicacao.author}}</small>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                        <small class="ml-3"><i class="far fa-eye mr-2"></i>12345</small>
-                                        <small class="ml-3"><i class="far fa-comment mr-2"></i>123</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
+                        {% block main %}
+                        {% endblock main %}
                         <!--
                         <div class="col-lg-6">
                             <div class="position-relative mb-3">
@@ -657,5 +702,17 @@
       
     
 </body>
+<script>
+    // Função para fechar a mensagem após 2 segundos
+setTimeout(function() {
+    var messageOverlay = document.getElementById('message-overlay');
+    if (messageOverlay) {
+        messageOverlay.style.opacity = 0;
+        setTimeout(function() {
+            messageOverlay.style.display = 'none'; // Remove a sobreposição após a animação de desaparecimento
+        }, 500); // Tempo correspondente à transição
+    }
+}, 5000); // 2 segundos
 
+</script>
 </html>

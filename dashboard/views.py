@@ -136,4 +136,5 @@ class LinkDeleteView(View):
         
         # Redireciona de volta para a página de links
         return redirect(reverse_lazy('blog:home'))  # Altere 'link_list' para o nome correto da sua URL
+    
 

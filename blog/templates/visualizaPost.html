@@ -1,0 +1,49 @@
+{% extends "base/index.html" %}
+{% block main %}
+<div class="col-lg-12">
+    <div class="position-relative mb-3 mt-3">
+
+        {% if post.video %}
+            <video class="d-block w-100" controls>
+                <source src="{{ post.video.url }}" type="video/mp4">
+                Seu navegador não suporta o elemento de vídeo.
+            </video>
+        {% elif post.imagem %}
+        <img src="{{ post.imagem.url }}" class="d-block image-publi img-fluid"  alt="{{ post.titulo }}">
+        
+        {% else %}
+            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+                <rect width="100%" height="100%" fill="var(--bs-secondary-color)"/>
+            </svg>
+        {% endif %}
+
+        <div class="bg-white border border-top-0 p-4">
+            <div class="mb-2">
+                <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
+                    href="">{{post.tipo_publicacao}}</a>
+                <small>{{ post.data_publicacao }}</small>
+            </div>
+            <a class="h4 d-block mb-3 text-secondary fs-5" href="">{{ post.titulo }}</a>
+            <p class="m-0">{{post.descricao|safe}}</p>
+        </div>
+
+        <div class="d-flex justify-content-between bg-white border border-top-0 p-4">
+            <div class="d-flex align-items-center">
+                <img class="rounded-circle mr-2" src="img/user.jpg" width="25" height="25" alt="">
+                <small>{{post.author}}</small>
+            </div>
+            <div class="d-flex align-items-center">
+                <small class="ml-3"><i class="far fa-eye mr-2"></i>{{post.visualiza.all|length}}</small>                
+                
+                <small class="ml-3"><i class="far fa-comment mr-2"></i>123</small>
+                <form method="POST" action="{% url "blog:curtiPost" post.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class='border-0 bg-transparent'><small class="ml-3"><i class="fa-solid fa-thumbs-up"></i> {{ post.curtidas.all|length }}</small></button>
+                </form>
+                
+            </div>
+        </div>
+
+    </div>
+  </div>
+{% endblock main %}

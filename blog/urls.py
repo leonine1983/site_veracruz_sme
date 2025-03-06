@@ -6,4 +6,8 @@ app_name = 'blog'
 
 urlpatterns = [
     path('', blog, name='home'),
+    path('/<int:pk>', visualizaPost, name='visualizaPost'),    
+    path('/curtir/<int:pk>', curtidaPost, name='curtiPost'),
+
+
 ]

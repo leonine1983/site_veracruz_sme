@@ -70,6 +70,7 @@ class Publicacao(models.Model):
     em_destaque = models.BooleanField(default=False, verbose_name="Deseja por em destaque a publicação? Isso irá substituir a última publicação em destaque")
     em_urgentes = models.BooleanField(default=False, verbose_name="Selecione esta opção se deseja marcar como urgente ou de última hora.")
     ocultar_titulo_carrocel = models.BooleanField(default=False, verbose_name="Selecione a opção ao publicar imagens com texto para evitar sobreposição. Isso assegura uma apresentação visual mais limpa e facilita a compreensão da informação no carrossel.")
+
     
     # Campos adicionais para imagens e vídeos
     imagem = models.ImageField(upload_to='publicacoes/imagens/', null=True, blank=True)
@@ -81,15 +82,22 @@ class Publicacao(models.Model):
     def __str__(self):
         return self.titulo
 
-from django.contrib.auth.models import User
 
 class Curtida(models.Model):
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name='curtidas')
+    #usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name='curtidas')
     publicacao = models.ForeignKey(Publicacao, on_delete=models.CASCADE, related_name='curtidas')
     data_curtida = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f'{self.usuario.username} curtiu {self.publicacao.titulo}'
+    
+class ViewsPost(models.Model):
+    #usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name='curtidas')
+    publicacao = models.ForeignKey(Publicacao, null=True, on_delete=models.CASCADE, related_name='visualiza')
+    data_view = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'visualizações {self.publicacao}'
 
 
 # Função para registrar exemplo de Prefeitura e Secretário

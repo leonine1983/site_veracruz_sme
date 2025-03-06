@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Ano, Prefeitura, Secretario, TipoPublicacao, Publicacao, PastaAdministrativa
+from .models import Ano, Prefeitura, Secretario, TipoPublicacao, Publicacao, PastaAdministrativa, ViewsPost
 
 # Registro dos modelos
 class PrefeituraAdmin(admin.ModelAdmin):
@@ -17,6 +17,12 @@ class PublicacaoAdmin(admin.ModelAdmin):
     search_fields = ('titulo', 'descricao')
     list_filter = ('tipo_publicacao', 'secretario', 'data_publicacao')
     readonly_fields = ('descricao',)  # Para impedir edição direta no campo de descrição
+
+class ViewsPostAdmin(admin.ModelAdmin):
+    list_display = ('publicacao', 'data_view')
+    search_fields = ('publicacao', 'data_view')
+    list_filter = ('publicacao', 'data_view')
+    readonly_fields = ('publicacao',)  # Para impedir edição direta no campo de descrição
 
 class TipoPublicacaoAdmin(admin.ModelAdmin):
     list_display = ('nome',)
@@ -39,3 +45,5 @@ admin.site.register(PastaAdministrativa, PastaAdministrativa_Admin)
 admin.site.register(Secretario, SecretarioAdmin)
 admin.site.register(TipoPublicacao, TipoPublicacaoAdmin)
 admin.site.register(Publicacao, PublicacaoAdmin)
+admin.site.register(ViewsPost, ViewsPostAdmin)
+
