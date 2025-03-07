@@ -299,9 +299,11 @@
                     <small>{{publicacao.author}}</small>
                 </div>
                 <div class="d-flex align-items-center">
+                  <a  href="{% url 'blog:visualizaPost' publicacao.pk %}" title='Visualizar a publicação para comentar ou curtir'class='link-success'>
                     <small class="ml-3"><i class="far fa-eye mr-2"></i>{{publicacao.visualiza.all|length}}</small>
                     <small class="ml-3"><i class="fa-solid fa-thumbs-up"></i> {{publicacao.curtidas.all|length}}</small>
                     <small class="ml-3"><i class="far fa-comment mr-2"></i>{{publicacao.curtidas.all|length}}</small>
+                  </a>
                 </div>
             </div>
         </div>

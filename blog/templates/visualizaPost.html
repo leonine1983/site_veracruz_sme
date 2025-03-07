@@ -31,13 +31,12 @@
                 <img class="rounded-circle mr-2" src="img/user.jpg" width="25" height="25" alt="">
                 <small>{{post.author}}</small>
             </div>
-            <div class="d-flex align-items-center">
-                <small class="ml-3"><i class="far fa-eye mr-2"></i>{{post.visualiza.all|length}}</small>                
-                
-                <small class="ml-3"><button onclick="document.querySelector('dialog').showModal()" class="border-0 bg-transparent"><i class="far fa-comment mr-2"></i> {{ post.comentarios.all|length }}</button></small>
+            <div class="d-flex align-items-center fs-4">
+                <small class="ml-3"><i class="far fa-eye mr-2"></i>{{post.visualiza.all|length}}</small>    
+                <small class="ml-3" ><button onclick="document.querySelector('dialog').showModal()" title='Comentar a publicação' class="border-0 bg-transparent text-success  "><i class=" far fa-comment mr-2"></i> {{ post.comentarios.all|length }}</button></small>
                 <form method="POST" action="{% url "blog:curtiPost" post.id %}">
                     {% csrf_token %}
-                    <button type="submit" class='border-0 bg-transparent'><small class="ml-3"><i class="fa-solid fa-thumbs-up"></i> {{ post.curtidas.all|length }}</small></button>
+                    <button type="submit" class='border-0 bg-transparent text-success' title='Curtir publicação'><small class="ml-3"><i class="fa-solid fa-thumbs-up"></i> {{ post.curtidas.all|length }}</small></button>
                 </form>                 
             </div> 
             
@@ -45,14 +44,12 @@
         <div class="card mt-2">
             <div class="card-header">
                 <i class="far fa-comment mr-2"></i> Comentários
-            </div>
-           
+            </div>           
             {% for post in post.comentarios.all  %}
             
-            <div class="card-body">
+            <div class="card-body borderg">
               <h5 class="card-title"></h5>
-              <p class="card-text">{{post|safe}}</p>
-              
+              <p class="card-text">{{post|safe}}</p>              
             </div>
             {% endfor %}
           
