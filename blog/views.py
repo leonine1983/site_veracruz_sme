@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
 from django.urls import reverse_lazy
-from .models import Publicacao, PastaAdministrativa, Secretario, ViewsPost, Curtida
+from .models import Publicacao, PastaAdministrativa, Secretario, ViewsPost, Curtida, Comentarios
 from dashboard.models import Link
 from django.contrib import messages
+from .models import Publicacao, Curtida
+
 
 def blog(request):
     secretario = Secretario.objects.all()
@@ -19,7 +20,8 @@ def blog(request):
         request.session['secretario'] = secretario
         publica = Publicacao.objects.filter(secretario__ativo = True)
         ativo = False
-    
+
+ 
     context = publica
     links = Link.objects.all()    
     footer = PastaAdministrativa.objects.get(nome_filter = "educação")    
@@ -40,7 +42,7 @@ def blog(request):
     "#a8d5c0", "#92c8b0", "#7cba9f", "#66ad8f", "#509f7f"
     # Tons suaves de cinza
     "#f2f2f2", "#e6e6e6", "#d9d9d9", "#cccccc", "#bfbfbf", "#b3b3b3"
-]
+    ]
 
     return render(request, 'index.html', {
         'ativo' : ativo,
@@ -49,17 +51,26 @@ def blog(request):
         "colors": colors})
 
 
+from django import forms
+class ComentariosForm(forms.ModelForm):
+    class Meta:
+        model = Comentarios
+        fields = ['comentario']  # Definindo quais campos do modelo aparecerão no formulário    
+
+
+
 def visualizaPost(request, pk):
     post = Publicacao.objects.get(pk = pk)
     #Criar a visualização da postagem
-    ViewsPost.objects.create(publicacao = post)
+    ViewsPost.objects.create(publicacao = post)    
+    form = ComentariosForm()   
+    
     return render(request, 'visualizaPost.html', {
-        'post':post,})
+        'post':post,
+        'form': form,
+        })
 
-from django.http import HttpResponse
-from django.contrib import messages
-from django.shortcuts import get_object_or_404, render
-from .models import Publicacao, Curtida
+
 
 def curtidaPost(request, pk):
     post = get_object_or_404(Publicacao, pk=pk)
@@ -71,6 +82,30 @@ def curtidaPost(request, pk):
     messages.success(request, f"🎉 Você curtiu o post {post} com sucesso! 👍")
     
     # Retornar uma resposta simples para não redirecionar a página
+    return redirect(reverse_lazy('blog:visualizaPost', kwargs={'pk':pk}))
+
+
+
+def comentPost(request, pk):
+    post = get_object_or_404(Publicacao, pk=pk)
+
+    if request.method == 'POST':
+        form = ComentariosForm(request.POST)
+
+        if form.is_valid():
+            comentario = form.cleaned_data['comentario']
+            Comentarios.objects.create(publicacao=post, comentario =comentario)
+    
+            # Exibir uma mensagem de sucesso
+            messages.success(request, f"🎉 Você comentou o post {post} com sucesso! 👍")
+            
+    
+            # Retornar uma resposta simples para não redirecionar a página
+            return redirect(reverse_lazy('blog:visualizaPost', kwargs={'pk':pk}))
+        else:
+            messages.error(request, "Ocorreu um erro ao enviar o comentário. Tente novamente")
+    else:
+        form = ComentariosForm()
     return redirect(reverse_lazy('blog:visualizaPost', kwargs={'pk':pk}))
 
     

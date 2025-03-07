@@ -90,6 +90,18 @@ class Curtida(models.Model):
 
     def __str__(self):
         return f'{self.usuario.username} curtiu {self.publicacao.titulo}'
+
+
+class Comentarios(models.Model):
+    #usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name='curtidas')
+    publicacao = models.ForeignKey(Publicacao, on_delete=models.CASCADE, related_name='comentarios')
+    data_coment = models.DateTimeField(auto_now_add=True)    
+    comentario = RichTextUploadingField()  # Usando o CKEditor para texto rico
+    
+
+    def __str__(self):
+        return f' {self.comentario}'
+    
     
 class ViewsPost(models.Model):
     #usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name='curtidas')

@@ -2,7 +2,6 @@
 {% block main %}
 <div class="col-lg-12">
     <div class="position-relative mb-3 mt-3">
-
         {% if post.video %}
             <video class="d-block w-100" controls>
                 <source src="{{ post.video.url }}" type="video/mp4">
@@ -35,15 +34,44 @@
             <div class="d-flex align-items-center">
                 <small class="ml-3"><i class="far fa-eye mr-2"></i>{{post.visualiza.all|length}}</small>                
                 
-                <small class="ml-3"><i class="far fa-comment mr-2"></i>123</small>
+                <small class="ml-3"><button onclick="document.querySelector('dialog').showModal()" class="border-0 bg-transparent"><i class="far fa-comment mr-2"></i> {{ post.comentarios.all|length }}</button></small>
                 <form method="POST" action="{% url "blog:curtiPost" post.id %}">
                     {% csrf_token %}
                     <button type="submit" class='border-0 bg-transparent'><small class="ml-3"><i class="fa-solid fa-thumbs-up"></i> {{ post.curtidas.all|length }}</small></button>
-                </form>
-                
-            </div>
+                </form>                 
+            </div> 
+            
         </div>
-
+        <div class="card mt-2">
+            <div class="card-header">
+                <i class="far fa-comment mr-2"></i> Comentários
+            </div>
+           
+            {% for post in post.comentarios.all  %}
+            
+            <div class="card-body">
+              <h5 class="card-title"></h5>
+              <p class="card-text">{{post|safe}}</p>
+              
+            </div>
+            {% endfor %}
+          
+        </div>    
+        <dialog class="border-3 border-success-subtle rounded-3">
+            <p>
+                <form action="{% url "blog:comentPost" post.id %}" method="post">
+                    {% csrf_token %}
+                    {{form.media}}
+                    {{form.comentario}}
+                    <br>                  
+                        
+                    <button type="submit" class="btn btn-success mx-3"><i class="far fa-comment mr-2"></i> Comentar</button>
+                                    
+                </form> 
+                <button onclick="document.querySelector('dialog').close()" class="btn btn-secondary mt-3">Fechar</button>       
+            </p>            
+          </dialog>       
     </div>
-  </div>
+</div>
+
 {% endblock main %}
