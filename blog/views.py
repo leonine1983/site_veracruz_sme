@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
-from .models import Publicacao, PastaAdministrativa, Secretario, ViewsPost, Curtida, Comentarios
+from .models import Publicacao, PastaAdministrativa, Secretario, ViewsPost, Curtida, Comentarios, TipoPublicacao
 from dashboard.models import Link
 from django.contrib import messages
 from .models import Publicacao, Curtida
@@ -25,9 +25,11 @@ def blog(request):
     context = publica
     links = Link.objects.all()    
     footer = PastaAdministrativa.objects.get(nome_filter = "educação")    
+    nav = TipoPublicacao.objects.all()
     request.session['links'] = links
     request.session['publica'] = context
     request.session['footer'] = footer
+    request.session['nav'] = nav
     colors = [
     # Tons suaves de verde
     #"#e6f7e6", "#d4f5d4", "#c2f0c2", "#b0eab0", "#9fe59f", "#8fdf8f",
