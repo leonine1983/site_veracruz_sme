@@ -72,6 +72,17 @@ def visualizaPost(request, pk):
         'form': form,
         })
 
+def visualizaTipos(request, pk):
+    post = Publicacao.objects.filter(tipo_publicacao__id = pk)
+    #Criar a visualização da postagem
+    #ViewsPost.objects.create(publicacao = post)    
+    form = ComentariosForm()   
+    
+    return render(request, 'visualizaTipos.html', {
+        'post':post,
+        'ativo':'true'
+        })
+ 
 
 
 def curtidaPost(request, pk):

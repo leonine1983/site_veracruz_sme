@@ -112,7 +112,7 @@
             border: 1px solid #c3e6cb;
             border-radius: 5px;
         }
-        
+        .fs-7{font-size:0.8rem!important;}
         
     </style>
 
@@ -239,12 +239,12 @@
 
             <div class="collapse navbar-collapse justify-content-between px-0 px-lg-3"  style='background:rgb(130, 163, 144)!important' id="navbarCollapse">
                 <div class="nav-primary navbar-nav mr-auto py-0">
-                    <a href="{% url "blog:home" %}" class="nav-item nav-link active text-center">
+                    <a href="{% url "blog:home" %}" class="nav-item nav-link {% if not ativo %} active {% endif %} text-center">
                         <i class="fa-solid fa-house"></i>
                         <br>Home</a>
 
                     {% for nav in request.session.publica|slice:' 8' %}
-                    <a href="category.html" class="nav-item text-center nav-link">
+                    <a href="{% url "blog:visualizaMenu" nav.tipo_publicacao.id %}" class="nav-item text-center nav-link {% if ativo %} active {% endif %}">
                         {{nav.tipo_publicacao.svg|safe}}
                         <br>{{nav.tipo_publicacao}}
                     </a>

@@ -1,0 +1,82 @@
+{% extends "base/index.html" %}
+{% block main %}
+<h2 class='bg-white p-3 border-start border-3 border-info mt-2 fs-3'>{{post.0.tipo_publicacao}} {{post.0.tipo_publicacao.svg|safe}}</h2>
+<div class="col-lg-12">
+  {% for post in post  %}
+    <div class="position-relative mb-3 mt-3">
+        {% if post.video %}
+            <video class="d-block w-100" controls>
+                <source src="{{ post.video.url }}" type="video/mp4">
+                Seu navegador não suporta o elemento de vídeo.
+            </video>
+        {% elif post.imagem %}
+        <img src="{{ post.imagem.url }}" class="d-block image-publi img-fluid"  alt="{{ post.titulo }}">
+        
+        {% else %}
+            <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+                <rect width="100%" height="100%" fill="var(--bs-secondary-color)"/>
+            </svg>
+        {% endif %}
+     
+        <div class="bg-white border border-top-0 p-4">
+            <div class="mb-2">
+                <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
+                    href="">{{post.tipo_publicacao}}</a>
+                <small>{{ post.data_publicacao }}</small>
+            </div>
+            <a class="h4 d-block mb-3 text-secondary fs-5" href="">{{ post.titulo }}</a>
+            <p class="m-0">{{post.descricao|safe|truncatewords:'100'}}  <a href="{% url "blog:visualizaPost" post.pk %}" class='rounded-5 fs-7 btn btn-secondary'>leia mais, comente e curta...</a></p>
+        </div>
+
+        <div class="d-flex justify-content-between bg-white border border-top-0 p-4">
+            <div class="d-flex align-items-center">
+                <img class="rounded-circle mr-2" src="img/user.jpg" width="25" height="25" alt="">
+                <small>{{post.author}}</small>
+            </div>
+            <div class="d-flex align-items-center fs-4">
+                <small class="ml-3"><i class="far fa-eye mr-2"></i>{{post.visualiza.all|length}}</small>    
+                <small class="ml-3" ><button onclick="document.querySelector('dialog').showModal()" title='Comentar a publicação' class="border-0 bg-transparent text-success  "><i class=" far fa-comment mr-2"></i> {{ post.comentarios.all|length }}</button></small>
+                          
+            </div> 
+            
+        </div>
+        <div class="card mt-2" style="background-color: #f0f2f5;">
+            <div class="card-header">
+                <i class="far fa-comment mr-2"></i> Comentários
+            </div>           
+            {% for post in post.comentarios.all  %}                     
+
+                <div class="col-md-8 col-lg-12 mb-2 mt-2" >
+                  <div class="card shadow-0 p-0 m-0" >
+                    <div class="card-body p-4 m-0  " style="margin-bottom: 0rem!important;">
+                      <div class="card m-0 ">
+                        <div class="card-body">
+                          <p class="p-0 m-0">{{post|safe}}</p>
+              
+                          <div class="d-flex justify-content-between">
+                            <div class="d-flex flex-row align-items-center">
+                              <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp" alt="avatar" width="25"
+                                height="25" />
+                              <p class="small mb-0 ms-2">Visitante</p>
+                            </div>
+                            <!--
+                            <div class="d-flex flex-row align-items-center">
+                              <p class="small text-muted mb-0">Upvote?</p>
+                              <i class="far fa-thumbs-up mx-2 fa-xs text-body" style="margin-top: -0.16rem;"></i>
+                              <p class="small text-muted mb-0">4</p>
+                            </div>-->
+                          </div>
+                        </div>
+                      </div>              
+                    </div>
+                  </div>
+                </div>
+            {% endfor %}
+          
+        </div>    
+        
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock main %}
