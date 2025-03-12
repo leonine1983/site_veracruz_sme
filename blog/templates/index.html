@@ -309,5 +309,44 @@
         </div>
       </div>
       {% endfor %}
+
+      <div class="container">
+        <nav aria-label="Navegação da página">
+            <ul class="pagination justify-content-center">
+                {% if context.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1" aria-label="Primeira página">
+                            <span aria-hidden="true">&laquo;</span> Primeira
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ context.previous_page_number }}" aria-label="Página anterior">
+                          <i class="fa-solid fa-angles-left"></i> Anterior
+                        </a>
+                    </li>
+                {% endif %}
+        
+                <li class="page-item disabled">
+                    <span class="page-link">
+                        Página {{ context.number }} de {{ context.paginator.num_pages }}
+                    </span>
+                </li>
+        
+                {% if context.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ context.next_page_number }}" aria-label="Próxima página">
+                            Próxima <i class="fa-solid fa-angles-right"></i>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ context.paginator.num_pages }}" aria-label="Última página">
+                            Última <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+    
     {% endblock main %}
       

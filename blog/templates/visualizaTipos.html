@@ -1,4 +1,5 @@
 {% extends "base/index.html" %}
+{% load static %}
 {% block main %}
 <h2 class='bg-white p-3 border-start border-3 border-info mt-2 fs-3'>{{post.0.tipo_publicacao}} {{post.0.tipo_publicacao.svg|safe}}</h2>
 <div class="col-lg-12">
@@ -42,7 +43,10 @@
         </div>
         <div class="card mt-2" style="background-color: #f0f2f5;">
             <div class="card-header">
-                <i class="far fa-comment mr-2"></i> Comentários
+                <h3><i class="far fa-comment mr-2"></i> Comentários<br></h3>
+                <div class="m-1 p-3">
+                  <img src="{% static 'icones/atenttion.svg' %}" height='50' alt="">
+                  Para curtir ou comentar, acesse o artigo completo  <a href="{% url 'blog:visualizaPost' post.pk %}" class='rounded-5 fs-7 btn btn-secondary'>clicando aqui....</a></div>
             </div>           
             {% for post in post.comentarios.all  %}                     
 

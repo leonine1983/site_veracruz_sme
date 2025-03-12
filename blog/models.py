@@ -76,6 +76,9 @@ class Publicacao(models.Model):
     imagem = models.ImageField(upload_to='publicacoes/imagens/', null=True, blank=True)
     video = models.FileField(upload_to='publicacoes/videos/', null=True, blank=True)
 
+    class Meta:
+        ordering = ['-data_publicacao']
+
     def curtidas_count(self):
         return self.curtidas.count()
     

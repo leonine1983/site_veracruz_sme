@@ -4,6 +4,7 @@ from .models import Publicacao, PastaAdministrativa, Secretario, ViewsPost, Curt
 from dashboard.models import Link
 from django.contrib import messages
 from .models import Publicacao, Curtida
+from django.core.paginator import Paginator  # Importe o Paginator
 
 
 def blog(request):
@@ -22,7 +23,12 @@ def blog(request):
         ativo = False
 
  
-    context = publica
+    paginator = Paginator(publica, 5)  # 10 publicações por página
+    page_number = request.GET.get('page')  # Obtém o número da página da URL
+    page_obj = paginator.get_page(page_number)  # Obtém as publicações da página solicitada
+
+    context = page_obj  # Use o objeto de página como contexto
+
     links = Link.objects.all()    
     footer = PastaAdministrativa.objects.get(nome_filter = "educação")    
     nav = TipoPublicacao.objects.all()
@@ -75,7 +81,10 @@ def visualizaPost(request, pk):
 def visualizaTipos(request, pk):
     post = Publicacao.objects.filter(tipo_publicacao__id = pk)
     #Criar a visualização da postagem
-    #ViewsPost.objects.create(publicacao = post)    
+    #ViewsPost.objects.create(publicacao = post)  
+    secretario_ativo = Secretario.objects.filter(ativo = True)  
+    request.session['secretario'] = secretario_ativo
+
     form = ComentariosForm()   
     
     return render(request, 'visualizaTipos.html', {
