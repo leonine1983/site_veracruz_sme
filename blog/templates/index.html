@@ -102,7 +102,7 @@
                 <div class="row mx-0">
                   {% for publicacao in context|slice:'4' %}
                     {% if publicacao.em_destaque %}                    
-                    <div class="col-md-6 px-0">
+                    <div class="col-md-6 px-0 ">
                         <div class="position-relative overflow-hidden" style="height: 250px;">
                           {% if publicacao.video %}
                           <video class="d-block w-100" controls>
@@ -266,9 +266,9 @@
             <a class="text-secondary font-weight-medium text-decoration-none" href="">Ver Todas</a>
         </div>
       </div>
-      {% for publicacao in context|slice:'2' %} 
-      <div class="col-lg-12">
-        <div class="position-relative mb-3">
+      {% for publicacao in page_obj|slice:'3' %} 
+      <div class="col-lg-12 ">
+        <div class="position-relative mb-3 shadow bg-light">
 
             {% if publicacao.video %}
                 <video class="d-block w-100" controls>
@@ -313,14 +313,14 @@
       <div class="container">
         <nav aria-label="Navegação da página">
             <ul class="pagination justify-content-center">
-                {% if context.has_previous %}
+                {% if page_obj.has_previous %}
                     <li class="page-item">
                         <a class="page-link" href="?page=1" aria-label="Primeira página">
                             <span aria-hidden="true">&laquo;</span> Primeira
                         </a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ context.previous_page_number }}" aria-label="Página anterior">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Página anterior">
                           <i class="fa-solid fa-angles-left"></i> Anterior
                         </a>
                     </li>
@@ -328,18 +328,18 @@
         
                 <li class="page-item disabled">
                     <span class="page-link">
-                        Página {{ context.number }} de {{ context.paginator.num_pages }}
+                        Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
                     </span>
                 </li>
         
-                {% if context.has_next %}
+                {% if page_obj.has_next %}
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ context.next_page_number }}" aria-label="Próxima página">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Próxima página">
                             Próxima <i class="fa-solid fa-angles-right"></i>
                         </a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ context.paginator.num_pages }}" aria-label="Última página">
+                        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Última página">
                             Última <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>

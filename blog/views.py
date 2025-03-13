@@ -4,12 +4,14 @@ from .models import Publicacao, PastaAdministrativa, Secretario, ViewsPost, Curt
 from dashboard.models import Link
 from django.contrib import messages
 from .models import Publicacao, Curtida
+from django.db.models import Q
 from django.core.paginator import Paginator  # Importe o Paginator
 
 
 def blog(request):
     secretario = Secretario.objects.all()
 
+    
     if 'secretario' in request.GET:
         request.session.flush()
         id = request.GET['secretario']
@@ -17,17 +19,27 @@ def blog(request):
         request.session['secretario'] = secretario
         publica = Publicacao.objects.filter(secretario__id = id)
         ativo = True
+    
+    elif 'pesquisa' in request.GET:
+        nome = request.GET['pesquisa']
+        publica = Publicacao.objects.filter(Q(author__icontains = nome) | 
+                                            Q(titulo__icontains = nome) | 
+                                            Q(descricao__icontains = nome) | 
+                                            Q(secretario__nome__icontains = nome) )
+        ativo = 'busca'
+
     else:        
         request.session['secretario'] = secretario
         publica = Publicacao.objects.filter(secretario__ativo = True)
+        publicacao = Publicacao.objects.filter(secretario__ativo = True)
         ativo = False
 
  
-    paginator = Paginator(publica, 5)  # 10 publicações por página
+    paginator = Paginator(publica, 2)  # 10 publicações por página
     page_number = request.GET.get('page')  # Obtém o número da página da URL
     page_obj = paginator.get_page(page_number)  # Obtém as publicações da página solicitada
 
-    context = page_obj  # Use o objeto de página como contexto
+    context = publica  # Use o objeto de página como contexto
 
     links = Link.objects.all()    
     footer = PastaAdministrativa.objects.get(nome_filter = "educação")    
@@ -53,6 +65,7 @@ def blog(request):
     ]
 
     return render(request, 'index.html', {
+        'page_obj':page_obj,
         'ativo' : ativo,
         'context': context,
         'links': links,

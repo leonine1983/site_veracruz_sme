@@ -137,47 +137,63 @@
     <!-- Topbar Start -->
     <div class="container-fluid d-none d-lg-block">
         <div class="row align-items-center  px-lg-5"  style='background:rgb(235, 252, 242)!important'>
-            <div class="col-lg-9">
+            <div class="col-lg-9 ">
                 <nav class="navbar navbar-expand-sm fs-4 shadow-sm "  style='
-                background:rgb(253, 253, 253)!important;
+                background:#82a390!important;
                 border-bottom-right-radius: 2rem;width: 35%;
                 padding:0px!important;
                 margin-left:-3.5rem'
              >
-                    <ul class="navbar-nav ml-n2 " >
+                    <ul class="navbar-nav ml-n2 fs-6  " >
                         <li class="nav-item  px-4 ">
-                            <a class="nav-link font-weight-medium  small" style="color: #4370a4 !important;" href="#">{% now "j \d\e F \d\e Y" %}</a>
+                            <a class="nav-link font-weight-medium link-light  small"  href="#">{% now "j \d\e F \d\e Y" %}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link font-weight-medium small" style="color: #4370a4 !important;" href="#"></a>
+                            <a class="nav-link font-weight-medium link-light small" href="#"></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link font-weight-medium small" style="color: #4370a4 !important;" href="#">Contato</a>
+                            <a class="nav-link font-weight-medium link-light small" href="#" title="Fale Conosco"><i class="fa-solid fa-envelope"></i> Contato</a>
                         </li>
                     </ul>
                 </nav>
             </div>
             <div class="col-lg-3 text-right d-none d-md-block" >
-                <nav class="navbar navbar-expand-sm bg-dark p-0">
+                <nav class="navbar navbar-expand-sm  p-0">
                     <ul class="navbar-nav ml-auto mr-n2" >
-                        <li class="nav-item">
-                            <a class="nav-link text-body" href="#"><small class="fab fa-twitter"></small></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-body" href="#"><small class="fab fa-facebook-f"></small></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-body" href="#"><small class="fab fa-linkedin-in"></small></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-body" href="#"><small class="fab fa-instagram"></small></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-body" href="#"><small class="fab fa-google-plus-g"></small></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-body" href="#"><small class="fab fa-youtube"></small></a>
-                        </li>
+                        {% with request.session.footer as footer  %}    
+                            {% if footer.twitter %}
+                                <li class="nav-item">
+                                    <a class="nav-link text-body" href="{{footer.twitter}}"><small class="fab fa-twitter"></small></a>
+                                </li>
+                            {% endif %}
+
+                            {% if footer.facebook %}
+                                <li class="nav-item">
+                                    <a class="nav-link text-body" href="#"><small class="fab fa-facebook-f"></small></a>
+                                </li>
+                            {% endif %}
+
+                            {% if footer.linkedin %}
+                            <li class="nav-item">
+                                <a class="nav-link text-body" href="{{footer.linkedin}}"><small class="fab fa-linkedin-in"></small></a>
+                            </li>
+                            {% endif %}
+
+                            {% if footer.instagram %}
+                                <li class="nav-item">
+                                    <a class="nav-link text-body" href="{{footer.instagram}}"><small class="fab fa-instagram"></small></a>
+                                </li>
+                            {% endif %}
+
+                            {% if footer.youtube %}
+                            <li class="nav-item">
+                                <a class="nav-link text-body" href="#"><small class="fab fa-youtube"></small></a>
+                            </li>
+                            {% endif %}
+                            <li class="nav-item">
+                                <a class="nav-link text-body" href="#" title="Acesso Administrativo"><small class="fa-solid fa-key"></small></a>
+                            </li>
+                        {% endwith %}   
                     </ul>
                 </nav>
             </div>
@@ -199,7 +215,11 @@
                                                 <select name="secretario" id="secretario" class="form-select border-0 fs-6 text-uppercase bg-transparent "  style="width: 20rem;color: #135d42!important; margin-left: -0.7rem;">                                                                                                        
                                                     {% with  request.session.secretario as secretario %}
                                                         {% for sec in secretario  %}
-                                                            <option value="{{sec.id}}" {% if ativo %}selected{% endif %}>{{sec.nome}}</option>
+                                                            <option value="{{sec.id}}" 
+                                                            {% if ativo == 'busca' %}
+                                                                {% else %}                                                                
+                                                                    {% if ativo %}selected{% endif %}
+                                                            {% endif %}>{{sec.nome}}</option>
                                                         {% endfor %}
                                                     {% endwith %}
                                                 </select>
@@ -261,11 +281,18 @@
                     -->
                 </div>
                 <div class="input-group ml-auto d-none d-lg-flex" style="width: 100%; max-width: 300px;">
-                    <input type="text" class="form-control border-0" placeholder="Keyword">
-                    <div class="input-group-append">
-                        <button class="input-group-text text-dark border-0 px-3"><i
-                                class="fa fa-search"></i></button>
-                    </div>
+                    <form id="pesquisa" action="" method="get" class="d-flex align-items-center">
+                        <div class="input-group w-100">
+                            <input type="text" class="form-control border-0" name='pesquisa' placeholder="Pesquise" aria-label="Pesquisar">
+                            {% csrf_token %}
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="submit">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    
                 </div>
             </div>
 
