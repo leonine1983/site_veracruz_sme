@@ -20,6 +20,7 @@ class Prefeitura(models.Model):
         return self.nome
 
 class PastaAdministrativa(models.Model):
+    
     nome = models.CharField(max_length=100)
     nome_filter = models.CharField(max_length=30)
     email = models.EmailField(max_length=200, null=True, blank=True, verbose_name="E-mail")

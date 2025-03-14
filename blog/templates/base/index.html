@@ -825,9 +825,8 @@
     <!-- Footer Start -->
     <div class="container-fluid bg-dark pt-5 px-sm-3 px-md-5 mt-5">
         <div class="row py-4">
-            
-            <div class="col-lg-3 col-md-6 mb-5">
-                {% with request.session.footer as footer  %}                
+            {% with request.session.footer as footer  %}   
+            <div class="col-lg-3 col-md-6 mb-5">                             
                 <h5 class="mb-4 text-white text-uppercase font-weight-bold fs-6">{{footer.nome}} </h5>
                 <p class="font-weight-medium"><i class="fa fa-map-marker-alt mr-2"></i>{{footer.endereco}}</p>
                 <p class="font-weight-medium"><i class="fa fa-phone-alt mr-2"></i>{{footer.telefone}}</p>
@@ -856,11 +855,14 @@
                     {% endif %}
 
                 </div>
-                {% endwith %}
+                
             </div>
-            <!--
+            
             <div class="col-lg-3 col-md-6 mb-5">
-                <h5 class="mb-4 text-white text-uppercase font-weight-bold">Popular News</h5>
+                <div class='d-flex'>
+                <img src="{% static 'prefeitura-branco.png' %}" height='80' alt="" srcset="">
+                {{footer}}
+                </div>
                 <div class="mb-3">
                     <div class="mb-2">
                         <a class="badge badge-primary text-uppercase font-weight-semi-bold p-1 mr-2" href="">Business</a>
@@ -883,6 +885,8 @@
                     <a class="small text-body text-uppercase font-weight-medium" href="">Lorem ipsum dolor sit amet elit. Proin vitae porta diam...</a>
                 </div>
             </div>
+            {% endwith %}
+            <!--
             <div class="col-lg-3 col-md-6 mb-5">
                 <h5 class="mb-4 text-white text-uppercase font-weight-bold">Categories</h5>
                 <div class="m-n1">
