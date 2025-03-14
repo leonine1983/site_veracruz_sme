@@ -113,7 +113,168 @@
             border-radius: 5px;
         }
         .fs-7{font-size:0.8rem!important;}
-        
+     
+        /* Estilos globais para o dialog */
+        dialog {
+            width: 100%;
+            max-width: 500px;
+            background-color: #fff;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin: 0;
+            position: relative;
+            left:40%;
+            top:30%;
+            font-family: 'Roboto', sans-serif;
+            overflow: hidden;
+            animation: fadeIn 0.3s ease-out; /* Adicionando animação de fade-in */
+        }
+    
+        /* Animação para o fade-in do dialog */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    
+        /* Títulos */
+        .win11-title {
+            font-size: 1.2rem!important;
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+        }
+    
+        .win11-title i {
+            margin-right: 10px;
+            color: #4CAF50; /* Cor de ícone */
+        }
+    
+        .win11-subtitle {
+            font-size: 1rem!important;
+            color: #666;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+    
+        /* Estilos do formulário */
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+    
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+    
+        .form-group label {
+            font-size: 1rem;
+            color: #333;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+    
+        .form-group input {
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 1rem;
+            width: 100%;
+            transition: border-color 0.3s;
+        }
+    
+        .form-group input:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+    
+        /* Botões */
+    
+        .btn-success {
+            background-color: #4CAF50;
+            color: white;
+        }
+    
+        .btn-success:hover {
+            background-color: #45a049;
+        }
+    
+        .btn-secondary {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+    
+        .btn-secondary:hover {
+            background-color: #ddd;
+        }
+    
+        .d-flex {
+            display: flex;
+        }
+    
+        .justify-content-center {
+            justify-content: center;
+        }
+    
+        .flex-column {
+            flex-direction: column;
+        }
+    
+        .flex-sm-row {
+            flex-direction: row;
+        }
+    
+        /* Barra de progresso */
+        progress {
+            width: 100%;
+            height: 10px;
+            margin-top: 20px;
+            border-radius: 5px;
+            background-color: #f0f0f0;
+        }
+    
+        progress::-webkit-progress-bar {
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
+    
+        progress::-webkit-progress-value {
+            background-color: #4CAF50;
+            border-radius: 5px;
+        }
+    
+        /* Responsividade */
+        @media (max-width: 768px) {
+            dialog {
+                width: 90%;
+                padding: 20px;
+            }
+    
+            .win11-title {
+                font-size: 1.6rem;
+            }
+    
+            .win11-subtitle {
+                font-size: 1rem;
+            }
+    
+            .form-group input {
+                font-size: 1rem;
+            }
+    
+            .btn {
+                font-size: 0.9rem;
+                padding: 10px 20px;
+            }
+        }
     </style>
 
 </head>
@@ -190,14 +351,86 @@
                                 <a class="nav-link text-body" href="#"><small class="fab fa-youtube"></small></a>
                             </li>
                             {% endif %}
-                            <li class="nav-item">
-                                <a class="nav-link text-body" href="#" title="Acesso Administrativo"><small class="fa-solid fa-key"></small></a>
-                            </li>
+                            {% if not request.user.is_authenticated %}
+                                <li class="nav-item">                                    
+                                    <button id="abrirDialog" class="nav-link text-body" href="#" title="Acesso Administrativo"><small class="fa-solid fa-key"></small></button>                                     
+                                </li>
+                                {% else %}
+                                <li class="m-xxl-0 ml-4  nav-item d-flex align-items-center">
+                                    <!--<img src="{{ request.user.profile_picture.url }}" alt="User Image" class="rounded-circle" width="30" height="30">-->
+                                    <span class="text-uppercase" title="Usuário Ativo"><i class="fa-solid fa-user-tie"></i> {{ request.user.username }}</span>
+                                </li>                                
+                                <li class="nav-item">                                    
+                                    <a  class="nav-link text-body" href="{% url 'painel:logout' %}" title="Acesso Administrativo">| Sair <small class="fa-solid fa-person-walking-arrow-right"></small></a>                      
+                                </li>
+                            {% endif %}
                         {% endwith %}   
                     </ul>
                 </nav>
             </div>
         </div>
+        
+
+<!-- Dialog se clicar em login-->
+<dialog id="meuDialog">        
+    <h1 class="win11-title"><i class="fa-solid fa-universal-access"></i> Portal de Acesso Administrativo</h1>
+    <h2 class="win11-subtitle">Por gentileza, insira suas credenciais para acessar a área administrativa. Caso não possua, entre em contato com o administrador responsável.</h2>
+    <form action="{% url 'painel:login' %}" method="POST" class="w-full max-w-sm bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl space-y-6" id="meuFormulario">
+        {% csrf_token %}
+        <div>
+            <label for="id_username">Usuário:</label>
+            <input type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" required="" id="id_username">       
+        </div>   
+        <div>
+            <label for="id_password">Senha:</label> 
+            <input type="password" name="password" autocomplete="current-password" required="" id="id_password">
+        </div>
+        <div class='d-flex justify-content-center flex-column flex-sm-row'>
+            <button type='submit' class="m-2 btn btn-success">Entrar</button>
+            <button type="button" id="fecharDialog" class="m-2 btn btn-secondary">Fechar</button>
+        </div>    
+    </form>
+    <!-- Barra de progresso -->
+    <progress id="progresso" value="0" max="100" style="display: none; width: 100%;"></progress>
+
+    <script>
+        // Abre o dialog quando o botão "abrirDialog" é clicado
+        document.getElementById("abrirDialog").addEventListener("click", function() {
+            document.getElementById("meuDialog").showModal();
+        });
+
+        // Fecha o dialog quando o botão "fecharDialog" é clicado
+        document.getElementById("fecharDialog").addEventListener("click", function() {
+            document.getElementById("meuDialog").close();
+        });
+
+        // Barra de progresso
+        document.getElementById("meuFormulario").addEventListener("submit", function() {
+            let progressBar = document.getElementById("progresso");
+
+            // Exibe a barra de progresso
+            progressBar.style.display = "block";
+            progressBar.value = 0;
+
+            // Simula o carregamento aumentando o valor da barra gradualmente
+            let intervalo = setInterval(() => {
+                if (progressBar.value < 90) {
+                    progressBar.value += 10;
+                } else {
+                    clearInterval(intervalo);
+                }
+            }, 300);
+        });
+
+        // Oculta a barra de progresso quando a página carregar
+        window.addEventListener("load", function() {
+            let progressBar = document.getElementById("progresso");
+            progressBar.style.display = "none";
+        });
+    </script>
+</dialog>
+<!-- END Dialog login-->
+
         <div class="row align-items-center  py-3 px-lg-5" style='background:rgb(255, 255, 255)!important'>
             <div class="col-lg-4">
                 <div class="navbar-brand p-0 d-none d-lg-block">

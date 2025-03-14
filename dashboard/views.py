@@ -36,6 +36,7 @@ def loginCreated(request):
 
 def user_logout(request):
     # Realiza o logout do usuário
+    messages.success(request, '<i class="fas fa-exclamation-circle"></i> Você não está mais logado. Para realizar publicações, é necessário fazer login novamente.')
     logout(request)
     # Redireciona para a página inicial ou qualquer outra página
     return redirect(reverse_lazy('blog:home'))
