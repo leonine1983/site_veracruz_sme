@@ -302,6 +302,22 @@
     </div>
 {% endif %}
 
+    <!--Conversor para a linguagem de sinais-->
+    
+    <!-- Widget VLibras -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+
+
+
 
 
     <!-- Topbar Start -->
@@ -976,6 +992,8 @@
     <a href="#" class="btn btn-primary btn-square back-to-top"><i class="fa fa-arrow-up"></i></a>
 
 
+
+
     <!-- JavaScript Libraries -->
      
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -986,6 +1004,9 @@
 
     <!-- Template Javascript -->
     <script src="{% static 'base/js/main.js' %}"></script>
+
+
+
       
     
 </body>
