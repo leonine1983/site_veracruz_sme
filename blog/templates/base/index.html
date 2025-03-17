@@ -836,7 +836,7 @@
         <div class="row py-4">
             {% with request.session.footer as footer  %}   
             
-            <div class="col-lg-3 col-md-7 mb-6  mb-1 p-2 m-2 shadow">
+            <div class="col-lg-3 col-md-7 mb-6  mb-1 p-2 m-2 ">
                 <div class='d-flex'>
                     <img src="{% static 'prefeitura-branco.png' %}" height='50' alt="" srcset="">
                     <h3 class='pt-3 px-2 text-light'>{{footer.prefeitura}}</h3>                
@@ -872,7 +872,7 @@
                     {% endif %}      
                 </div> -->                
             </div>
-            <div class="col-lg-3 col-md-7 mb-6 shadow p-2 m-2 mb-1">    
+            <div class="col-lg-3 col-md-7 mb-6  p-2 px-5 m-2 mb-1 border-start">    
                 <div class='d-flex'>
                     <img src="{% static 'sme.png' %}" height='50' alt="" srcset="">
                     <h4 class='pt-1 px-3 text-light'>{{footer.nome}}</h4>                
