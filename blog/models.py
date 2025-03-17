@@ -13,6 +13,10 @@ class Ano(models.Model):
 
 class Prefeitura(models.Model):
     nome = models.CharField(max_length=100)
+    email = models.EmailField(max_length=200, null=True, blank=True, verbose_name="E-mail")
+    endereco = models.CharField(max_length=255, null=True, blank=True, verbose_name="Endereço")
+    telefone = models.CharField(max_length=20, null=True, blank=True, verbose_name="Telefone")
+
     prefeito = models.CharField(max_length=50)
     ano = models.ForeignKey(Ano, related_name='prefeituras', on_delete=models.CASCADE)
     
@@ -20,7 +24,7 @@ class Prefeitura(models.Model):
         return self.nome
 
 class PastaAdministrativa(models.Model):
-    
+    prefeitura = models.ForeignKey(Prefeitura, related_name="prefeitura_related_pasta", null=True, on_delete=models.CASCADE)
     nome = models.CharField(max_length=100)
     nome_filter = models.CharField(max_length=30)
     email = models.EmailField(max_length=200, null=True, blank=True, verbose_name="E-mail")
@@ -125,11 +129,13 @@ def criar_registros_exemplo(sender, **kwargs):
     if not Prefeitura.objects.exists:
         # Cria a prefeitura se não existir
         prefeitura, created = Prefeitura.objects.get_or_create(
+
             nome="Prefeitura Municipal de Exemplo", prefeito="Igor Pinho", ano=ano_2025
         )
     if not PastaAdministrativa.objects.exists:
         # Cria pasta administrativa
         pastaAdministrativa, created = PastaAdministrativa.objects.get_or_create(
+            prefeitura = Prefeitura.objects.get(nome="Prefeitura Municipal de Exemplo"),
             nome = "Secretaria Municipal da Educação Educação",
             nome_filter = "educação"
         )
