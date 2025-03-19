@@ -1,7 +1,11 @@
 
 {% extends "dashboard.html" %}
-{% block page_title %}Criar Postagem{% endblock page_title %}
+{% load static %}
+{% block page_title %}
+<img height='50' src="{% static 'icones/nova post verde.svg' %}" alt="">
+Criar Postagem{% endblock page_title %}
 {% block content %}
+<h2>Esta é a área de edição do site, onde você pode criar e personalizar suas publicações, classificando-as por categorias.</h2>
 <style>   
 form {
     background: white;
