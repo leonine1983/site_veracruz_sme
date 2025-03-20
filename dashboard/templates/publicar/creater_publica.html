@@ -13,7 +13,6 @@ form {
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 1000px;
 }
 
 label {
@@ -67,25 +66,69 @@ button:hover {
     background-color: #005A9E;
 }
 
-div {
-    margin-bottom: 15px;
-}</style>
+</style>
+
+
+
 <form action="" method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.media }}
-    {% for fields in form  %}
-        <div class=" p-2">            
-        <div class=" p-2">            
-            {{fields.label}}
-            <span class='p-1 d-block'>{{fields}}</span>
-            {{fields.error}}
+    {{ form.media }}    
+    <div class="row">
+      <div class="col-md-3">
+        <div>
+          {{form.titulo.label}}<br>
+          {{form.titulo}}
+          {{form.titulo.error}}
         </div>
-    {% endfor %}
-
+        <div>
+          {{form.tipo_publicacao.label}}<br>
+          {{form.tipo_publicacao}}
+          {{form.tipo_publicacao.error}}
+        </div>
+        <div>
+          {{form.secretario.label}}<br>
+          {{form.secretario}}
+          {{form.secretario.error}}
+        </div>
+        <div>
+          {{form.em_destaque.label}}<br>
+          {{form.em_destaque}}
+          {{form.em_destaque.error}}
+        </div>
+        <div>
+          {{form.em_urgentes.label}}<br>
+          {{form.em_urgentes}}
+          {{form.em_urgentes.error}}
+        </div>
+        <div>
+          {{form.ocultar_titulo_carrocel.label}}<br>
+          {{form.ocultar_titulo_carrocel}}
+          {{form.ocultar_titulo_carrocel.error}}
+        </div>
+        <div>
+          {{form.imagem.label}}<br>
+          {{form.imagem}}
+          {{form.imagem.error}}
+        </div>
+        <div>
+          {{form.video.label}}<br>
+          {{form.video}}
+          {{form.video.error}}
+        </div>
+        <button type="submit">
+          Publicar <i class="fa-regular fa-file-lines"></i>
+        </button>
+      </div>
+      <div class="col-md-9">
+        <style>
+          .django-ckeditor-widget{width: 100%!important;}
+        </style>
+        {{form.descricao.label}}<br>
+        {{form.descricao}}
+        {{form.descricao.error}}
+      </div>
+    </div>      
     
-    <button type="submit">
-        Publicar <i class="fa-regular fa-file-lines"></i>
-    </button>
 </form>
 
 {% endblock content %}

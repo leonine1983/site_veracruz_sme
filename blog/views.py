@@ -40,6 +40,8 @@ def blog(request):
     page_obj = paginator.get_page(page_number)  # Obtém as publicações da página solicitada
 
     context = publica  # Use o objeto de página como contexto
+    destaques = Publicacao.objects.filter(em_destaque=True).order_by('-data_publicacao', '-data_atualiza')[:4]
+
 
     links = Link.objects.all()    
     footer = PastaAdministrativa.objects.get(nome_filter = "educação")    
@@ -66,6 +68,7 @@ def blog(request):
 
     return render(request, 'index.html', {
         'page_obj':page_obj,
+        'destaques':destaques,
         'ativo' : ativo,
         'context': context,
         'links': links,
@@ -89,6 +92,7 @@ def visualizaPost(request, pk):
     return render(request, 'visualizaPost.html', {
         'post':post,
         'form': form,
+        'tela_unica':True,
         })
 
 def visualizaTipos(request, pk):

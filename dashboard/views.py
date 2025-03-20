@@ -69,7 +69,7 @@ class PublicacaoCreateView(LoginRequiredMixin, CreateView):
         if self.request.user.first_name:
             author = f'{self.request.user.first_name} {self.request.user.last_name}'
         else:
-            author = self.request.user
+            author = f'{self.request.user}'
 
         # Você pode adicionar lógica adicional para salvar o formulário ou fazer algo antes de salvar
         form.save(commit=False)

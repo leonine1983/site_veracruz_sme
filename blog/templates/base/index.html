@@ -512,7 +512,7 @@
     <div class="container-fluid p-0">
         <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-2 py-lg-0 px-lg-5"  style='background:rgb(130, 163, 144)!important'>
             <a href="index.html" class="navbar-brand d-block d-lg-none">
-                <h1 class="m-0 display-4 text-uppercase text-primary">SEMED<span class="text-white font-weight-normal">Secretaria Municipal da Educação</span></h1>
+                <h1 class="m-0 display-4 text-uppercase text-primary">SEMED<span class="text-white font-weight-normal fs-6"> Vera Cruz</span></h1>
             </a>
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
@@ -643,9 +643,9 @@
 
 
     <!-- News With Sidebar Start -->
-    <div class="container-fluid">
-        <div class="container">
-            <div class="row">
+    <div class="container-fluid ">
+        <div class=" {% if not tela_unica %} container {% endif %} ">
+            <div class="row bg-light" {% if tela_unica %} style='width:90vw!important; margin:1rem auto'{% endif %}>
                 <div class="col-lg-8">
                     <div class="row">
                         {% block main %}
@@ -733,17 +733,39 @@
                     </div>
                 </div>
                 
+
+
+
+                
                 <div class="col-lg-4">
                   
 
                     <!-- Ads Start -->
-                    <div class="mb-3">
-                        <div class="section-title mb-0">
-                            <h4 class="m-0 text-uppercase font-weight-bold">Links Úteis</h4>
-                        </div>
-                        <div class="bg-white text-start border border-top-0 p-3">
-                            {% block link_util %}{% endblock link_util %}                                
-                        </div>                            
+                    <div class="mb-3 border">
+                        {% if not tela_unica %}
+                            <div class="section-title mb-0">
+                                <h4 class="m-0 text-uppercase font-weight-bold">Links Úteis</h4>
+                            </div>
+                            <div class="bg-white text-start border border-top-0 p-3">
+                                {% block link_util %}{% endblock link_util %}                                
+                            </div>                                                
+                        {% else %}
+                            <div class="section-title mb-0">
+                                <h4 class="m-0  font-weight-bold">
+                                    <span class='text-uppercase m-2 d-block'>🗣️ **Sua voz é importante!**</span>
+                                     Comente aqui e compartilhe suas ideias sobre a postagem. Vamos trocar experiências! 🚀😊
+                                </h4>
+                            </div>
+                            <form action="{% url "blog:comentPost" post.id %}" method="post">
+                                {% csrf_token %}
+                                {{form.media}}
+                                {{form.comentario}}
+                                <br>                  
+                                <div class='d-flex justify-content-end'>  
+                                <button type="submit" class="btn btn-success mx-3"><i class="far fa-comment mr-2"></i> Comentar</button>     
+                                </div>                                 
+                            </form> 
+                        {% endif %}
                     </div>
                     <!-- Ads End -->
 
