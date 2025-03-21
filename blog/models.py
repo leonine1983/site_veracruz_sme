@@ -63,6 +63,14 @@ class TipoPublicacao(models.Model):
     
     def __str__(self):
         return self.nome
+    
+    # Limita o número de registros no model
+    def save (self, *args, **kwargs):
+        limite = 10
+        if not self.pk and TipoPublicacao.objects.count() >= limite:
+            raise ValueError(f'Limite de {limite} tópicos atingido.')
+        super().save(*args, **kwargs)
+
 
 class Publicacao(models.Model):
     author = models.CharField(max_length=100, blank=True, null=True) 
@@ -117,9 +125,75 @@ class ViewsPost(models.Model):
 
     def __str__(self):
         return f'visualizações {self.publicacao}'
+    
+# -------------------- Escolas --------------------------
+# -------------------------------------------------------
+
+from django.db import models
+from django.core.exceptions import ValidationError
+
+class Escola(models.Model):
+    nome = models.CharField(max_length=255, unique=True)
+    endereco = models.TextField()
+    telefone = models.CharField(max_length=20, blank=True, null=True)
+
+    def __str__(self):
+        return self.nome
+
+class ProjetoPoliticoPedagogico(models.Model):
+    escola = models.OneToOneField(Escola, on_delete=models.CASCADE)
+    descricao = models.TextField()
+    data_criacao = models.DateField(auto_now_add=True)
+    data_atualizacao = models.DateField(auto_now=True)
+    documento = models.FileField(upload_to='ppp_documentos/', blank=True, null=True)
+    
+    def clean(self):
+        # Garante que apenas um PPP por escola seja registrado
+        if ProjetoPoliticoPedagogico.objects.filter(escola=self.escola).exclude(id=self.id).exists():
+            raise ValidationError('Esta escola já possui um Projeto Político Pedagógico registrado.')
+
+    def __str__(self):
+        return f"PPP de {self.escola.nome}"
+    
+    
+
+# ----------------- CONSELHOS ---------------------------------
+# -------------------------------------------------------------
+from django.db import models
+
+class Conselho(models.Model):
+    nome = models.CharField(max_length=255, unique=True)
+    descricao = models.TextField(blank=True, null=True)
+    data_criacao = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return self.nome
+
+class MembroConselho(models.Model):
+    conselho = models.ForeignKey(Conselho, on_delete=models.CASCADE, related_name='membros')
+    nome = models.CharField(max_length=255)
+    cargo = models.CharField(max_length=255)
+    email = models.EmailField(blank=True, null=True)
+    telefone = models.CharField(max_length=20, blank=True, null=True)
+    data_entrada = models.DateField()
+    data_saida = models.DateField(blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.nome} - {self.cargo} ({self.conselho.nome})"
+
+class ReuniaoConselho(models.Model):
+    conselho = models.ForeignKey(Conselho, on_delete=models.CASCADE, related_name='reunioes')
+    data = models.DateField()
+    pauta = models.TextField()
+    ata = models.FileField(upload_to='atas_conselho/', blank=True, null=True)
+
+    def __str__(self):
+        return f"Reunião de {self.conselho.nome} - {self.data}"
+    
 
 
-# Função para registrar exemplo de Prefeitura e Secretário
+
+# Pos MIGRATS -------------------------------------------------
 @receiver(post_migrate)
 def criar_registros_exemplo(sender, **kwargs):
     # Verifica se o ano 2025 já existe, se não, cria
