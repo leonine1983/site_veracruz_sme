@@ -1,18 +1,23 @@
 
 {% extends "dashboard.html" %}
+{% load static %}
 {% block page_title %}
-<div class="container mt-4">
-    <div class="card  p-4">
-        <h2 class="text-primary fw-bold">
-            <i class="bi bi-link-45deg"></i> Cadastro de Links Úteis
-        </h2>
-        <p class="text-muted">
-            Adicione links importantes para publicação. Preencha os campos com o nome, URL, ícone opcional e uma breve descrição para facilitar o acesso e a identificação.
-        </p>
-    </div>
-</div>
+  {% if not texto %}
+    <img height='50' src="{% static 'icones/linkEdit.png' %}" alt="">
+    Criar Links
+    <p class="text-muted">
+      Abaixo, você pode adicionar links importantes para publicação. Preencha os campos com o nome, URL, ícone opcional e uma breve descrição para facilitar o acesso e a identificação.
+    </p>
+    {% else %}
+    <img height='50' src="{% static 'icones/linkEdit.png' %}" alt="">
+    Excluir Links
+    <p class="text-muted fs-3 text-center">
+      {{texto}}
+    </p>
+  {% endif %}
 {% endblock page_title %}
 {% block content %}
+
 <style>   
 form {
     background: white;
@@ -20,7 +25,6 @@ form {
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 1000px;
 }
 
 label {
@@ -74,26 +78,59 @@ button:hover {
     background-color: #005A9E;
 }
 
-div {
-    margin-bottom: 15px;
-}</style>
+</style>
+
+
+
 <form action="" method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.media }}
-    {% for fields in form  %}
-        <div class=" p-2">            
-        <div class=" p-2">            
-            {{fields.label}}
-            <span class='p-1 d-block'>{{fields}}</span>
-            {{fields.error}}
+    {{ form.media }}    
+    <div class="row">
+      <div class="col-md-3">
+        <div>
+          {{form.nome.label}}<br>
+          {{form.nome}}
+          {{form.nome.error}}
         </div>
-    {% endfor %}
+        <div>
+          {{form.painel.label}}<br>
+          {{form.painel}}
+          {{form.painel.error}}
+        </div>
 
+        <div>
+          {{form.nome.label}}<br>
+          {{form.nome}}
+          {{form.nome.error}}
+        </div>
+        <div>
+          {{form.url.label}}<br>
+          {{form.url}}
+          {{form.url.error}}
+        </div>
+        <div>
+          {{form.icone.label}}<br>
+          {{form.icone}}
+          {{form.icone.error}}
+        </div>
+        <button type="submit">
+          {% if not bottom  %}
+          Publicar <i class="fa-regular fa-file-lines"></i>
+          {% else %}
+          {{bottom}}
+          {% endif %}
+        </button>
+      </div>
+      <div class="col-md-9">
+        <style>
+          .django-ckeditor-widget{width: 100%!important;}
+        </style>
+        {{form.descricao.label}}<br>
+        {{form.descricao}}
+        {{form.descricao.error}}
+      </div>
+    </div>     
     
-    <button type="submit">
-        Publicar <i class="fa-regular fa-file-lines"></i>
-    </button>
 </form>
-
 {% endblock content %}
 

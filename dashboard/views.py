@@ -93,7 +93,7 @@ class PublicacaoDeleteView(LoginRequiredMixin, DeleteView):
 
 # Views para a criação de links --------------------------------
 
-class LinkListView(ListView):
+class LinkListView(LoginRequiredMixin, ListView):
     model = Link
     template_name = 'links/link_list.html'
     context_object_name = 'links'
@@ -137,5 +137,27 @@ class LinkDeleteView(View):
         
         # Redireciona de volta para a página de links
         return redirect(reverse_lazy('blog:home'))  # Altere 'link_list' para o nome correto da sua URL
+    
+    
+class LinkDeleteViewPainel(LoginRequiredMixin, DeleteView):
+    model = Link
+    template_name = 'links/creater_links.html'
+    success_url = reverse_lazy('painel:link_list')
+    
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["texto"] = f"Tem certeza de que deseja excluir o link '{self.object}'?"
+        context["bottom"] = "Confirmar exclusão"
+        return context
+    
+
+    def delete(self, request, *args, **kwargs):
+        response = super().delete(request, *args, **kwargs)
+        messages.success(request, f"O link '{self.object}' foi excluído com sucesso.")
+        return response
+    
+
+
     
 

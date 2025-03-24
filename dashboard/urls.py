@@ -20,4 +20,5 @@ urlpatterns = [
     path('novo/', LinkCreateView.as_view(), name='link_create'),
     path('/<int:pk>/editar/', LinkUpdateView.as_view(), name='link_update'),
     path('/<int:pk>/deletar/link', LinkDeleteView.as_view(), name='link_delete'),
+    path('/<int:pk>/deletarLink/link', LinkDeleteViewPainel.as_view(), name='link_deletePainel')
 ]

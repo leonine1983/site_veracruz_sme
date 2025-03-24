@@ -129,13 +129,14 @@
                   </a>
                   <ul class="dropdown-menu">
                     <li>
-                      <a class="dropdown-item" href="{% url 'painel:link_list' %}">
-                        <i class="fa fa-globe"></i> Todas os links
+                      <a class="dropdown-item text-green" href="{% url 'painel:link_list' %}">
+                        <i class="fa-solid fa-link text-green "></i> Todos os links Úteis ou de Rodapé
                       </a>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="{% url 'painel:link_create' %}">
-                        <i class="fa fa-trophy"></i> Criar novos links
+                      <a class="dropdown-item text-green" href="{% url 'painel:link_create' %}">
+                        <img src="{% static 'icones/linkEdit.png' %}" height='18' alt="">
+                        Criar novos links
                       </a>
                     </li>
                     <li>
