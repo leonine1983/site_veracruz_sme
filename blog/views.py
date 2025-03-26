@@ -5,7 +5,9 @@ from dashboard.models import Link
 from django.contrib import messages
 from .models import Publicacao, Curtida
 from django.db.models import Q
-from django.core.paginator import Paginator  # Importe o Paginator
+from django.core.paginator import Paginator  
+from django.db.models import Count
+
 
 
 def blog(request):
@@ -30,7 +32,7 @@ def blog(request):
 
     else:        
         request.session['secretario'] = secretario
-        publica = Publicacao.objects.filter(secretario__ativo = True)
+        publica = Publicacao.objects.filter(secretario__ativo=True).annotate(num_curtidas=Count('curtidas')).order_by('-num_curtidas')
         publicacao = Publicacao.objects.filter(secretario__ativo = True)
         ativo = False
 
@@ -145,41 +147,4 @@ def comentPost(request, pk):
             messages.error(request, "Ocorreu um erro ao enviar o comentário. Tente novamente")
     else:
         form = ComentariosForm()
-    return redirect(reverse_lazy('blog:visualizaPost', kwargs={'pk':pk}))
-
-    
-
-
-
-"""
-
-from django.views import View
-from .models import Link
-
-class LinkDeleteView(View):
-    def post(self, request, *args, **kwargs):
-        link = get_object_or_404(Link, pk=kwargs['pk'])
-        link.delete()
-        
-        # Adiciona a mensagem de sucesso
-        messages.success(request, "Link excluído com sucesso.")
-class Curtida(models.Model):
-    #usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name='curtidas')
-    publicacao = models.ForeignKey(Publicacao, on_delete=models.CASCADE, related_name='curtidas')
-    data_curtida = models.DateTimeField(auto_now_add=True)
-
-
-
-
-
-
-
-                    <small class="ml-3"><i class="fa-solid fa-thumbs-up"></i> {{publicacao.curtidas.all|length}}</small>
-  # Cria uma nova visualização no banco de dados
-    # Se estiver usando o modelo com um usuário, você pode adicionar o campo de usuário aqui
-    if request.user.is_authenticated:  # Se o usuário estiver logado
-        ViewsPost.objects.create(publicacao=post, usuario=request.user)
-    else:
-        ViewsPost.objects.create(publicacao=post)
-
-"""
+    return redirect(reverse_lazy('blog:visualizaPost', kwargs={'pk':pk}))    

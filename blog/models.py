@@ -106,7 +106,7 @@ class Curtida(models.Model):
 
     def __str__(self):
         return f'{self.usuario.username} curtiu {self.publicacao.titulo}'
-
+                                                                                           
 
 class Comentarios(models.Model):
     #usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name='curtidas')

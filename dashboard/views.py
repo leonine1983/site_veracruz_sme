@@ -1,7 +1,8 @@
-from  blog.models import Publicacao
+from  blog.models import TipoPublicacao, Publicacao
 from .models import Link
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
@@ -9,6 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import send_mail
 from django.conf import settings
 from dashboard.forms import *
+
 
 def loginCreated(request):    
     if request.method == "POST":
@@ -76,13 +78,27 @@ class PublicacaoCreateView(LoginRequiredMixin, CreateView):
         form.instance.author = author
         form.save()
         return super().form_valid(form)
+    
 
 # Edição de publicação
 class PublicacaoUpdateView(LoginRequiredMixin, UpdateView):
     model = Publicacao
-    template_name = 'publicacoes/publicacao_form.html'
-    fields = ['titulo', 'descricao', 'data_publicacao', 'tipo_publicacao', 'secretario', 'imagem', 'video']
-    success_url = reverse_lazy('publicacao_list')
+    template_name = 'publicar/creater_publica.html'
+    fields = ['titulo', 'descricao', 'tipo_publicacao', 'secretario', 'imagem', 'video']
+    success_url = reverse_lazy('painel:publicacao_list')
+
+    def form_valid(self, form):
+        if self.request.user.first_name:
+            author = f'{self.request.user.first_name} {self.request.user.last_name}'
+        else:
+            author = f'{self.request.user}'
+
+        # Você pode adicionar lógica adicional para salvar o formulário ou fazer algo antes de salvar
+        form.save(commit=False)
+        form.instance.author = author
+        form.save()
+        return super().form_valid(form)
+    
 
 # Exclusão de publicação
 class PublicacaoDeleteView(LoginRequiredMixin, DeleteView):
@@ -103,11 +119,11 @@ class LinkDetailView(DetailView):
     template_name = 'links/link_detail.html'
     context_object_name = 'link'
 
-class LinkCreateView(CreateView):
+class LinkCreateView(LoginRequiredMixin, CreateView):
     model = Link
     template_name = 'links/creater_links.html'
     fields = ['nome', 'url', 'icone', 'descricao', 'painel']
-    success_url = reverse_lazy('link_list')
+    success_url = reverse_lazy('painel:link_list')
 
 class LinkUpdateView(UpdateView):
     model = Link
@@ -116,11 +132,7 @@ class LinkUpdateView(UpdateView):
     success_url = reverse_lazy('link_list')
 
 
-"""
-class LinkDeleteView(DeleteView):
-    model = Link
-    template_name = 'links/link_confirm_delete.html'
-    success_url = reverse_lazy('link_list')"""
+
 
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect
@@ -158,6 +170,18 @@ class LinkDeleteViewPainel(LoginRequiredMixin, DeleteView):
         return response
     
 
+# Views de criação de TIPOS DE PUBLICAÇÃO
+class TiposPublicacaoCreateView(LoginRequiredMixin, CreateView):
+    model = TipoPublicacao
+    template_name = 'tipos_publica/creater_tiposPublica.html'
+    fields = ['nome', 'svg']
+
+    success_url = reverse_lazy('painel:publicacao_list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context ['category'] = TipoPublicacao.objects.all()
+        return context
 
     
 

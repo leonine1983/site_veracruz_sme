@@ -1,0 +1,134 @@
+
+{% extends "dashboard.html" %}
+{% load static %}
+{% block page_title %}
+<i class="fa-solid fa-list fs-1 text-green"></i>
+Categorias de Postagens{% endblock page_title %}
+{% block content %}
+<h2>Esta é a área de gerenciamento de categorias de postagens. Aqui, você pode criar, atualizar ou excluir categorias de forma prática e eficiente.</h2>
+<style>   
+form {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+label {
+    font-weight: 600;
+    margin-bottom: 5px;
+    display: block;
+    color: #333;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: #0078D4;
+    box-shadow: 0 0 5px rgba(0, 120, 212, 0.3);
+}
+
+input[type="checkbox"] {
+    width: auto;    
+    scale: 3;
+    margin: 10px;
+    
+}
+
+input[type="file"] {
+    padding: 5px;
+}
+
+button {
+    background-color: #0078D4;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background 0.3s;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #005A9E;
+}
+
+</style>
+
+
+
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.media }}    
+    <div class="row">
+      <div class="col-md-3">
+        <div>
+          {{form.nome.label}}<br>
+          {{form.nome}}
+          {{form.nome.error}}
+        </div>
+        <div>
+          {{form.svg.label}}<br>
+          {{form.svg}}
+          {{form.svg.error}}
+
+          <p>Para adicionar uma tag <code>&lt;i&gt;</code> como ícone, siga estes passos:</p>
+        <ol>
+            <li>Clique no botão abaixo.</li>
+            <li>Acesse o site <a href="javascript:void(0);" class="btn btn-secondary" onclick="window.open('https://fontawesome.com/search', '_blank', 'width=800,height=600');">FontAwesome</a>.</li>
+            <li>No campo de busca, digite o nome do ícone desejado em inglês (por exemplo: <code>house</code>, <code>pencil</code>, <code>category</code>).</li>
+            <li>Clique no ícone correspondente e, em seguida, copie a tag semelhante a esta:</li>
+        </ol>
+        <pre>
+        <code class='alert-info px-5 pt-2 pb-2 text-light pe-5 bg-secondary'>&lt;i class="fa-solid fa-house"&gt;&lt;/i&gt;</code>
+        </pre>
+        <p>Retorne ao dashboard e cole a tag copiada no campo "Adicionar TAG <code>&lt;i&gt;</code> do FontAwesome".</p>     
+        </div>
+       
+        <button type="submit">
+          Publicar <i class="fa-regular fa-file-lines"></i>
+        </button>
+      </div>
+      <div class="col-md-9">
+        <Table class="table table-striped table-bordered">
+          <thead>
+            <tr class=''>
+              <th class='text-center bg-info'>#</th>
+              <th class='text-center bg-info'>Categoria</th>
+              <th class='text-center bg-info'>tag <code>&lt;i&gt;</code></th>
+              <th class='text-center bg-info'>Renderizado</th>
+              <th class='text-center bg-info'>Ação</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for cat in category  %}
+            <tr>
+              <td class='text-center'>{{forloop.counter}}</td>
+              <td class='text-center'>{{cat.nome}}</td>
+              <td class='text-center'>{{cat.svg}}</td>
+              <td class='text-center'>{{cat.svg|safe}}</td>
+              <td class='text-center'>Editar</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </Table>
+      </div>
+    </div>      
+    
+</form>
+
+{% endblock content %}
+
