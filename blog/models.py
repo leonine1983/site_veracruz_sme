@@ -197,31 +197,31 @@ class ReuniaoConselho(models.Model):
 @receiver(post_migrate)
 def criar_registros_exemplo(sender, **kwargs):
     # Verifica se o ano 2025 já existe, se não, cria
-    if not Ano.objects.exists:
+    if not Ano.objects.exists():
         ano_2025, created = Ano.objects.get_or_create(ano=2025)    
 
-    if not Prefeitura.objects.exists:
+    if not Prefeitura.objects.exists():
         # Cria a prefeitura se não existir
+        ano = Ano.objects.get(id=1)
         prefeitura, created = Prefeitura.objects.get_or_create(
-
-            nome="Prefeitura Municipal de Exemplo", prefeito="Igor Pinho", ano=ano_2025
+            nome="Prefeitura Municipal de Exemplo", prefeito="Igor Pinho", ano=ano
         )
-    if not PastaAdministrativa.objects.exists:
+    if not PastaAdministrativa.objects.exists():
         # Cria pasta administrativa
         pastaAdministrativa, created = PastaAdministrativa.objects.get_or_create(
             prefeitura = Prefeitura.objects.get(nome="Prefeitura Municipal de Exemplo"),
             nome = "Secretaria Municipal da Educação Educação",
             nome_filter = "educação"
         )
-    if not Secretario.objects.exists:
+    if not Secretario.objects.exists():
         # Cria o secretário se não existir
         secretario, created = Secretario.objects.get_or_create(
             nome="Silvano Sulzart",
-            pasta=PastaAdministrativa.objects.get(nome = "Educação"),
-            prefeitura=prefeitura,
+            pasta=PastaAdministrativa.objects.get(id = 1),
+            prefeitura=Prefeitura.objects.get(id=1),
             data_inicio="2025-01-01"
         )
-    if not TipoPublicacao.objects.exists:
+    if not TipoPublicacao.objects.exists():
         # Adiciona uma publicação de exemplo
         tipo_publicacao, created = TipoPublicacao.objects.get_or_create(nome="Edital")
         Publicacao.objects.get_or_create(
