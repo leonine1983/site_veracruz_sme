@@ -64,7 +64,7 @@ class PublicacaoDetailView(LoginRequiredMixin, DetailView):
 class PublicacaoCreateView(LoginRequiredMixin, CreateView):
     model = Publicacao
     template_name = 'publicar/creater_publica.html'
-    fields = ['titulo', 'descricao',  'tipo_publicacao', 'secretario', 'imagem', 'video']
+    fields = ['titulo', 'descricao','em_destaque','em_urgentes','ocultar_titulo_carrocel', 'tipo_publicacao', 'secretario', 'imagem', 'video']
     success_url = reverse_lazy('painel:publicacao_list')
 
     def form_valid(self, form):

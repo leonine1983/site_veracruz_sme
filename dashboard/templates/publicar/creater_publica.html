@@ -65,11 +65,7 @@ button {
 button:hover {
     background-color: #005A9E;
 }
-
 </style>
-
-
-
 <form action="" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.media }}    
@@ -90,21 +86,7 @@ button:hover {
           {{form.secretario}}
           {{form.secretario.error}}
         </div>
-        <div>
-          {{form.em_destaque.label}}<br>
-          {{form.em_destaque}}
-          {{form.em_destaque.error}}
-        </div>
-        <div>
-          {{form.em_urgentes.label}}<br>
-          {{form.em_urgentes}}
-          {{form.em_urgentes.error}}
-        </div>
-        <div>
-          {{form.ocultar_titulo_carrocel.label}}<br>
-          {{form.ocultar_titulo_carrocel}}
-          {{form.ocultar_titulo_carrocel.error}}
-        </div>
+        
         <div>
           {{form.imagem.label}}<br>
           {{form.imagem}}
@@ -123,6 +105,23 @@ button:hover {
         <style>
           .django-ckeditor-widget{width: 100%!important;}
         </style>
+        <div class='m-5 p-2 d-flex gap-2 bg-danger-subtle'>
+          <div class='text-center border p-2'>
+            {{form.em_destaque.label}}<br> 
+            {{form.em_destaque}}
+            {{form.em_destaque.error}}
+          </div>
+          <div class='text-center border p-2'>
+            {{form.em_urgentes.label}}<br>
+            {{form.em_urgentes}}
+            {{form.em_urgentes.error}}
+          </div>
+          <div class='text-center border p-2'>
+            {{form.ocultar_titulo_carrocel.label}}<br>
+            {{form.ocultar_titulo_carrocel}}
+            {{form.ocultar_titulo_carrocel.error}}
+          </div>          
+        </div>
         {{form.descricao.label}}<br>
         {{form.descricao}}
         {{form.descricao.error}}
