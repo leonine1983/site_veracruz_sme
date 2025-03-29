@@ -59,6 +59,12 @@
             cursor: pointer;
             border-radius: 5px;
         }
+
+       
+      .carousel-item {
+          transition: transform 1.5s ease-in-out !important;
+      }
+      
 </style>
 
 
@@ -66,7 +72,7 @@
     <div class="container-fluid"> 
         <div class="row">
           {% if context %}
-<div id="carouselExampleCaptions" class="carousel slide" style="width: 58%;" data-ride="carousel">
+<div id="carouselExampleCaptions" class="carousel slide" style="width: 58%;"  data-interval="5000" data-ride="carousel">
 
     <!-- Indicadores -->
     <ol class="carousel-indicators">
@@ -83,8 +89,15 @@
                 <img class="d-block w-100" src="{{ publicacao.imagem.url }}" alt="{{ publicacao.titulo }}">
             {% endif %}
             <div class="carousel-caption d-none d-md-block">
-                <h5>{{ publicacao.titulo }}</h5>
-                <p>{{ publicacao.descricao|safe|truncatewords:"20" }}</p>
+              <div class="overlay">
+                {% if not publicacao.ocultar_titulo_carrocel %}
+                  <div class="mb-2">
+                      <a class="badge-primary fs-5 p-2 mr-2" href="{% url "blog:visualizaPost" publicacao.pk %}">{{ publicacao.titulo }}</a>
+                      <a class="text-white" href="{% url "blog:visualizaPost" publicacao.pk %}">{{publicacao.data_publicacao}}</a>
+                  </div>
+                  <a class="h4 m-0 text-white " href="{% url "blog:visualizaPost" publicacao.pk %}">{{ publicacao.descricao|truncatewords:'15'|safe }}</a>
+                {% endif %}
+              </div>
             </div>
         </div>
         {% endfor %}
