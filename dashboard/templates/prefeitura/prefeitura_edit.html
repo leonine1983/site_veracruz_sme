@@ -1,0 +1,113 @@
+
+{% extends "dashboard.html" %}
+{% load static %}
+{% block page_title %}
+<img height='50' src="{% static 'icones/nova post verde.svg' %}" alt="">
+Criar Postagem{% endblock page_title %}
+{% block content %}
+<h2>Esta é a área de edição do site, onde você pode criar e personalizar suas publicações, classificando-as por categorias.</h2>
+<style>   
+form {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+label {
+    font-weight: 600;
+    margin-bottom: 5px;
+    display: block;
+    color: #333;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: #0078D4;
+    box-shadow: 0 0 5px rgba(0, 120, 212, 0.3);
+}
+
+input[type="checkbox"] {
+    width: auto;    
+    scale: 3;
+    margin: 10px;
+    
+}
+
+input[type="file"] {
+    padding: 5px;
+}
+
+button {
+    background-color: #0078D4;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background 0.3s;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #005A9E;
+}
+</style>
+<table class='table'>
+  <thead>
+    <tr>
+      <th>Nome</th>              
+      <th>Email</th>
+      <th>Telefone</th>
+      <th>Prefeito</th>
+      <th>Endereço</th>
+      <th>Ação</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% if not edit %}
+      {% for obj in object_list  %}
+      <tr>
+        <td>{{obj.nome}}</td>
+        <td>{{obj.email}}</td>
+        <td>{{obj.telefone}}</td>
+        <td>{{obj.prefeito}}</td>
+        <td>{{obj.endereco}}</td>
+        <td><a href="{% url "painel:Prefeitura_edit" obj.pk %}">Editar</a></td>
+      </tr>
+      {% endfor %}      
+      {% else %}
+      <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.media }}  
+        <tr>
+          <td>{{form.nome}}{{form.nome.error}}</td>
+          <td>{{form.email}}</td>
+          <td>{{form.telefone}}</td>
+          <td>{{form.prefeito}}</td>
+          <td>{{form.endereco}}</td>
+          <td><button type="submit">Atualizar<i class="fa-regular fa-file-lines"></i>
+          </button></td>
+        </tr>
+      </form>
+    {% endif %}
+  </tbody>
+</table>
+
+
+
+{% endblock content %}
+

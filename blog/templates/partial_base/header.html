@@ -101,6 +101,56 @@
               
               <ul class="navbar-nav mx-auto">
                 <li class="nav-item pe-1 px-1 border-end d-flex">
+                  <a class="nav-link  text-light pt-2 align-middle mt-2" href="{% url "painel:Prefeitura" %}">
+                    <i class="fa-solid fa-building-user"></i>  Prefeitura
+                  </a>
+                  <!--
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a class="dropdown-item" aria-current="page" href="{% url 'painel:publicacao_list' %}">                        
+                        <img height="37px" src="{% static "icones/nova post.svg" %}" alt=""> 
+                        Todas as Categorias
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="{% url 'painel:publicacao_create' %}">
+                        <img height='40' src="{% static 'icones/nova post verde.svg' %}" alt="">
+                        Nova Postagem
+                      </a>
+                    </li>
+                    <li>
+                      <hr class="dropdown-divider">
+                    </li>
+                  </ul>
+                  -->
+                </li>
+
+                <li class="nav-item pe-1 px-1 border-end d-flex">
+                  <a class="nav-link  text-light pt-2 mt-2 align-middle" href="{% url "painel:Secretaria" %}">
+                    <i class="fa-solid fa-user-tie"></i>  Secretário(a)
+                  </a>
+                  <!--
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a class="dropdown-item" aria-current="page" href="{% url 'painel:publicacao_list' %}">                        
+                        <img height="37px" src="{% static "icones/nova post.svg" %}" alt=""> 
+                        Todas as Categorias
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="{% url 'painel:publicacao_create' %}">
+                        <img height='40' src="{% static 'icones/nova post verde.svg' %}" alt="">
+                        Nova Postagem
+                      </a>
+                    </li>
+                    <li>
+                      <hr class="dropdown-divider">
+                    </li>
+                  </ul>
+                  -->
+                </li>
+
+                <li class="nav-item pe-1 px-1 border-end d-flex">
                   <a class="nav-link  text-light pt-2 align-middle" href="{% url "painel:tiposPublicacao_create" %}">
                     <i class="fa-solid fa-list fs-2"></i>  Categorias
                   </a>
@@ -124,7 +174,7 @@
                   </ul>
                   -->
                 </li>
-
+                
                 <li class="nav-item dropdown pe-1 px-1 border-end">
                   <a class="nav-link dropdown-toggle text-light pt-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <img height="37px" src="{% static "icones/nova post.svg" %}" alt="">  Postagens

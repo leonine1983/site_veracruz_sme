@@ -1,4 +1,4 @@
-from  blog.models import TipoPublicacao, Publicacao
+from  blog.models import TipoPublicacao, Publicacao, Prefeitura, Secretario
 from .models import Link
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -100,11 +100,92 @@ class PublicacaoUpdateView(LoginRequiredMixin, UpdateView):
         return super().form_valid(form)
     
 
+#PREFEITURA ------------------------------------------------
+# list de prefeitura
+class  ListPrefeituraView(LoginRequiredMixin, ListView):
+    model = Prefeitura
+    template_name = 'prefeitura/prefeitura_edit.html'  
+    
+
+# Edição de prefeitura
+class EditaPrefeituraView(LoginRequiredMixin, UpdateView):
+    model = Prefeitura
+    template_name = 'prefeitura/prefeitura_edit.html'
+    fields = ['nome', 'email', 'endereco', 'telefone', 'prefeito', 'link ']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['object_list'] = Prefeitura.objects.all()
+        context['edit'] = True
+        return context
+
+    def form_valid(self, form):
+        if self.request.user.first_name:
+            author = f'{self.request.user.first_name} {self.request.user.last_name}'
+        else:
+            author = f'{self.request.user}'
+
+        # Você pode adicionar lógica adicional para salvar o formulário ou fazer algo antes de salvar
+        form.save(commit=False)
+        form.instance.author = author
+        form.save()
+
+        # Adiciona uma mensagem de sucesso
+        messages.success(self.request, "Prefeitura atualizada com sucesso!")
+
+        return super().form_valid(form)
+    
+    def get_success_url(self):
+        return reverse_lazy('painel:Prefeitura_edit', kwargs = {'pk': self.get_object().pk})
+    
+
+# SECRETARIA ------------------------------------------------
+# list de secretaria
+class  ListSecretarioView(LoginRequiredMixin, ListView):
+    model = Secretario
+    template_name = 'secretaria/secretaria_edit.html'  
+    
+
+# Edição de prefeitura
+class EditaSecretarioView(LoginRequiredMixin, UpdateView):
+    model = Secretario
+    template_name = 'secretaria/secretaria_edit.html'  
+    fields = ['nome', 'pasta', 'email', 'endereco', 'telefone', 'ativo']    
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['object_list'] = Secretario.objects.all()
+        context['edit'] = True
+        return context
+
+    def form_valid(self, form):
+        if self.request.user.first_name:
+            author = f'{self.request.user.first_name} {self.request.user.last_name}'
+        else:
+            author = f'{self.request.user}'
+
+        # Você pode adicionar lógica adicional para salvar o formulário ou fazer algo antes de salvar
+        form.save(commit=False)
+        form.instance.author = author
+        form.save()
+
+        # Adiciona uma mensagem de sucesso
+        messages.success(self.request, "Informações da Secretaria atualizada com sucesso!")
+
+        return super().form_valid(form)
+    
+    def get_success_url(self):
+        return reverse_lazy('painel:Secretaria_edit', kwargs = {'pk': self.get_object().pk})
+    
+
+    
+
 # Exclusão de publicação
 class PublicacaoDeleteView(LoginRequiredMixin, DeleteView):
     model = Publicacao
     template_name = 'publicacoes/publicacao_confirm_delete.html'
     success_url = reverse_lazy('publicacao_list')
+
 
 
 # Views para a criação de links --------------------------------
@@ -130,6 +211,7 @@ class LinkUpdateView(UpdateView):
     template_name = 'links/link_form.html'
     fields = ['nome', 'url', 'icone', 'descricao']
     success_url = reverse_lazy('link_list')
+
 
 
 

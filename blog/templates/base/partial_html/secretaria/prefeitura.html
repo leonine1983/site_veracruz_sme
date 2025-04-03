@@ -1,0 +1,38 @@
+{% load static %}
+<div class="col-lg-3 col-md-7 mb-6  mb-1 p-2 m-2 ">
+    <div class='d-flex'>
+        <img src="{% static 'prefeitura-branco.png' %}" height='50' alt="" srcset="">
+        <h4 class='pt-3 px-2 text-light'>{{footer.prefeitura}}</h4>                
+    </div>
+    <div class='mx-4'>
+        <h5 class="mb-4 text-white text-uppercase font-weight-bold fs-7"> </h5>
+        <p class="font-weight-medium"><i class="fa-solid fa-user-tie"></i> Prefeito {{footer.prefeitura.prefeito}}</p>
+        <p class="font-weight-medium"><i class="fa fa-map-marker-alt mr-2"></i>{{footer.prefeitura.endereco}}</p>
+        <p class="font-weight-medium"><i class="fa fa-phone-alt mr-2"></i>{{footer.prefeitura.telefone}}</p>
+        <p class="font-weight-medium"><i class="fa fa-envelope mr-2"></i>{{footer.prefeitura.email}}</p>
+    </div>
+    <!--<h6 class="mt-4 mb-3 text-white text-uppercase font-weight-bold fs-7">Siga-nos em nossas redes sociais! 😊</h6>
+    <div class="d-flex justify-content-start">
+        
+
+        {% if footer.twitter %}
+        <a class="btn btn-lg btn-secondary btn-lg-square mr-2" href="{{footer.twitter}}" title='Twitter'><i class="fab fa-twitter"></i></a>
+        {% endif %}
+        
+        {% if footer.facebook %}
+        <a class="btn btn-lg btn-secondary btn-lg-square mr-2" href="{{footer.facebook|safe}}" title='Facebook'><i class="fab fa-facebook-f"></i></a>
+        {% endif %}
+
+        {% if footer.linkedin %}
+        <a class="btn btn-lg btn-secondary btn-lg-square mr-2" href="{{footer.linkedin}}" title='Linkedin'><i class="fab fa-linkedin-in"></i></a>
+        {% endif %}
+
+        {% if footer.instagram %}
+        <a class="btn btn-lg btn-secondary btn-lg-square mr-2" href="{{footer.instagram}}" title='Instagram'><i class="fab fa-instagram"></i></a>
+        {% endif %}
+
+        {% if footer.youtube %}
+        <a class="btn btn-lg btn-secondary btn-lg-square" href="#" title='Youtube'><i class="fab fa-youtube"></i></a>
+        {% endif %}      
+    </div> -->                
+</div>   

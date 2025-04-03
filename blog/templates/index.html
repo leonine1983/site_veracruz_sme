@@ -68,54 +68,63 @@
 </style>
 
 
-{% block carrocel_slide %}
-    <div class="container-fluid"> 
-        <div class="row">
-          {% if context %}
-<div id="carouselExampleCaptions" class="carousel slide" style="width: 58%;"  data-interval="5000" data-ride="carousel">
-
-    <!-- Indicadores -->
-    <ol class="carousel-indicators">
-        {% for publicacao in context %}
-        <li data-target="#carouselExampleCaptions" data-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}"></li>
-        {% endfor %}
-    </ol>
-
-    <!-- Itens do Carrossel -->
-    <div class="carousel-inner">
-        {% for publicacao in context %}
-        <div class="carousel-item {% if forloop.first %}active{% endif %}">
-            {% if publicacao.imagem %}
-                <img class="d-block w-100" src="{{ publicacao.imagem.url }}" alt="{{ publicacao.titulo }}">
-            {% endif %}
-            <div class="carousel-caption d-none d-md-block">
-              <div class="overlay">
-                {% if not publicacao.ocultar_titulo_carrocel %}
-                  <div class="mb-2">
-                      <a class="badge-primary fs-5 p-2 mr-2" href="{% url "blog:visualizaPost" publicacao.pk %}">{{ publicacao.titulo }}</a>
-                      <a class="text-white" href="{% url "blog:visualizaPost" publicacao.pk %}">{{publicacao.data_publicacao}}</a>
-                  </div>
-                  <a class="h4 m-0 text-white " href="{% url "blog:visualizaPost" publicacao.pk %}">{{ publicacao.descricao|truncatewords:'15'|safe }}</a>
+          {% block carrocel_slide %}
+          <div class="container-fluid"> 
+            <div class="row bg-light">
+              {% if context %}
+            <div id="carouselExampleCaptions" class="carousel slide " style="width: 58%;"  data-interval="5000" data-ride="carousel">
+            <!-- Indicadores -->
+            <ol class="carousel-indicators">
+                {% for publicacao in context %}
+                <li data-target="#carouselExampleCaptions" data-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}"></li>
+                {% endfor %}
+            </ol>
+            <!-- Itens do Carrossel -->
+            <div class="carousel-inner">
+              {% for publicacao in context %}
+              <div class="carousel-item {% if forloop.first %}active{% endif %}" style='max-height: 500px;'>
+                {% if publicacao.imagem %}
+                    <img class="d-block w-100" src="{{ publicacao.imagem.url }}" alt="{{ publicacao.titulo }}">
+                  {% elif  publicacao.video %}
+                      <video class="d-block w-100" controls>
+                        <source src="{{ publicacao.video.url }}" type="video/mp4">
+                        Seu navegador não suporta o elemento de vídeo.
+                    </video>
+                  {% else %}
+                  <svg class="bd-placeholder-img" width="100%" height="500px" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+                      <rect width="100%" height="100%" fill="var(--bs-secondary-color)"/>
+                  </svg>
                 {% endif %}
+                <div class="carousel-caption d-none d-md-block  w-75" height="500px" style="background: rgba(0, 0, 0, 0.6) !important;width:90%!important ; margin:auto /* Fundo escuro com transparência */">
+                  <div class="text-start p-3">
+                    {% if not publicacao.ocultar_titulo_carrocel %}
+                      <div class="mb-2 ">
+                        <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"  href="{% url "blog:visualizaPost" publicacao.pk %}">
+                          {{ publicacao.tipo_publicacao }}
+                        </a>
+                      </div>
+                      
+                      <a class=" fs-5 p-2 mr-2" href="{% url "blog:visualizaPost" publicacao.pk %}">
+                        {{ publicacao.titulo }}</a></br>
+                      <small class="text-white p-2 mr-2 fs-7" href="{% url "blog:visualizaPost" publicacao.pk %}"><i class="fa-solid fa-calendar-days mx-2"></i> {{publicacao.data_publicacao}}</small>
+                      <div class='text-center w-75'><a class=" m-0 text-white mx-5" href="{% url "blog:visualizaPost" publicacao.pk %}">{{ publicacao.descricao|truncatewords:'30'|safe }}</a></div>
+                    {% endif %}
+                  </div>
+                </div>
               </div>
+              {% endfor %}
             </div>
-        </div>
-        {% endfor %}
-    </div>
-
-    <!-- Controles -->
-    <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Anterior</span>
-    </a>
-    <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Próximo</span>
-    </a>
-
-</div>
-{% endif %}
-
+            <!-- Controles -->
+            <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Anterior</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Próximo</span>
+            </a>
+          </div>
+          {% endif %}
           
           <!--
             <div class="col-lg-7 px-0">              

@@ -9,6 +9,14 @@ urlpatterns = [
     path('/login', loginCreated, name='login'),
     path('logout/', user_logout, name='logout'),
 
+    # Prefeitura
+    path('list/prefeitura', ListPrefeituraView.as_view(), name='Prefeitura'),
+    path('<int:pk>/editar/prefeitura', EditaPrefeituraView.as_view(), name='Prefeitura_edit'),
+
+    # Secretaria
+    path('list/secretaria', ListSecretarioView.as_view(), name='Secretaria'),
+    path('<int:pk>/editar/secretaria', EditaSecretarioView.as_view(), name='Secretaria_edit'),
+
     # Tipos publicação
     path('criar/tiposPublicacao/', TiposPublicacaoCreateView.as_view(), name='tiposPublicacao_create'),
     

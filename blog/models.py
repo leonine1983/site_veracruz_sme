@@ -16,6 +16,7 @@ class Prefeitura(models.Model):
     email = models.EmailField(max_length=200, null=True, blank=True, verbose_name="E-mail")
     endereco = models.CharField(max_length=255, null=True, blank=True, verbose_name="Endereço")
     telefone = models.CharField(max_length=20, null=True, blank=True, verbose_name="Telefone")
+    link = models.CharField(max_length=200, null=True, blank=True, verbose_name="Link | URL")
 
     prefeito = models.CharField(max_length=50)
     ano = models.ForeignKey(Ano, related_name='prefeituras', on_delete=models.CASCADE)
@@ -50,6 +51,10 @@ class Secretario(models.Model):
     nome = models.CharField(max_length=100)
     pasta = models.ForeignKey(PastaAdministrativa, related_name='pastaAdministrativa_related', on_delete=models.CASCADE)
     prefeitura = models.ForeignKey(Prefeitura, related_name='secretarios', on_delete=models.CASCADE)
+    email = models.EmailField(max_length=200, null=True, blank=True, verbose_name="E-mail")
+    endereco = models.CharField(max_length=255, null=True, blank=True, verbose_name="Endereço")
+    telefone = models.CharField(max_length=20, null=True, blank=True, verbose_name="Telefone")
+
     data_inicio = models.DateField()
     data_fim = models.DateField(null=True, blank=True)
     ativo = models.BooleanField(default=True)
