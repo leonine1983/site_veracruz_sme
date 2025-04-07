@@ -13,6 +13,10 @@ urlpatterns = [
     path('list/prefeitura', ListPrefeituraView.as_view(), name='Prefeitura'),
     path('<int:pk>/editar/prefeitura', EditaPrefeituraView.as_view(), name='Prefeitura_edit'),
 
+    # PastaAdministrativa
+    path('list/PastaAdmin', ListPastaAdminView.as_view(), name='PastaAdmin'),
+    path('<int:pk>/editar/PastaAdmin', EditaPastaAdminView.as_view(), name='PastaAdmin_edit'),
+
     # Secretaria
     path('list/secretaria', ListSecretarioView.as_view(), name='Secretaria'),
     path('<int:pk>/editar/secretaria', EditaSecretarioView.as_view(), name='Secretaria_edit'),

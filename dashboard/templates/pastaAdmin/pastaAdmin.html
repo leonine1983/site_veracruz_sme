@@ -1,0 +1,155 @@
+
+{% extends "dashboard.html" %}
+{% load static %}
+{% block page_title %}
+<i class="fa-regular fa-folder-open fs-2"></i>
+Informações sobre a Pasta Administrativa{% endblock page_title %}
+{% block content %}
+<h2>Esta é a área de edição do site, onde você pode personalizar as informações relacionadas a pasta administrativa.</h2>
+<style>   
+form {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+label {
+    font-weight: 600;
+    margin-bottom: 5px;
+    display: block;
+    color: #333;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: #0078D4;
+    box-shadow: 0 0 5px rgba(0, 120, 212, 0.3);
+}
+
+input[type="checkbox"] {
+    width: auto;    
+    scale: 3;
+    margin: 10px;
+    
+}
+
+input[type="file"] {
+    padding: 5px;
+}
+
+button {
+    background-color: #0078D4;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background 0.3s;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #005A9E;
+}
+</style>
+<table class='table table-bordered'>
+  <thead>
+    <tr >
+      <th class='bg-secondary-subtle'>Nome</th>  
+      <th class='bg-secondary-subtle'>Endereço</th>            
+      <th class='bg-secondary-subtle'>Email</th>
+      <th class='bg-secondary-subtle'>Telefone</th>
+      
+      <th scope="col" class='text-center bg-secondary-subtle'>Facebook</th>
+      <th scope="col" class='text-center bg-secondary-subtle'>Instagram</th>
+      <th scope="col" class='text-center bg-secondary-subtle'>Twitter</th>
+      <th scope="col" class='text-center bg-secondary-subtle'>Linkedin</th>
+      <th scope="col" class='text-center bg-secondary-subtle'>YouTube</th>
+      <th class='text-center bg-secondary-subtle'>Ação</th>
+    </tr>
+  </thead>
+  <tbody>
+ 
+    {% if not edit %}
+      {% for obj in object_list %}
+      <tr>
+        <td>{{obj.nome}}</td>        
+        <td>{{obj.endereco}}</td>
+        <td>{{obj.email}}</td>
+        <td>{{obj.telefone}}</td>
+
+        <td class='text-center'>{% if obj.facebook %}{{obj.facebook}} {% else %} Não adicionou {% endif %}</td>
+        <td class='text-center'>{% if obj.instagram %}{{obj.instagram}} {% else %} Não adicionou {% endif %}</td>
+        <td class='text-center'>{% if obj.twitter %}{{obj.twitter}} {% else %} Não adicionou {% endif %}</td>
+        <td class='text-center'>{% if obj.linkedin %}{{obj.linkedin}} {% else %} Não adicionou {% endif %}</td>        
+        <td class='text-center'>{% if obj.youtube %}{{obj.youtube}} {% else %} Não adicionou {% endif %}</td>
+        
+        <td><a href="{% url "painel:PastaAdmin_edit" obj.pk %}">Editar</a></td>
+      </tr>
+      {% endfor %}      
+      {% else %}
+      <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.media }}  
+        <tr>
+          <td>
+            {{ form.nome }}
+            {% if form.nome.errors %}
+              <div class="text-danger">{{ form.nome.errors }}</div>
+            {% endif %}
+          </td>          
+          <td>
+            {{ form.endereco }}
+            {% if form.endereco.errors %}
+              <div class="text-danger">{{ form.endereco.errors }}</div>
+            {% endif %}
+          </td>
+          <td>
+            {{ form.email }}
+            {% if form.email.errors %}
+              <div class="text-danger">{{ form.email.errors }}</div>
+            {% endif %}
+          </td>
+          <td>
+            {{ form.telefone }}
+            {% if form.telefone.errors %}
+              <div class="text-danger">{{ form.telefone.errors }}</div>
+            {% endif %}
+          </td>
+          
+          <td>{{ form.ativo }}</td>
+          <td>{{ form.facebook }}</td>
+          <td>{{ form.instagram }}</td>
+          <td>{{ form.twitter }}</td>
+          <td>{{ form.linkedin }}</td>
+          <td>{{ form.youtube }}</td>
+          <td class='d-flex gap-2'>
+            <a class='btn btn-sm btn-secondary' href="{% url 'painel:PastaAdmin' %}">
+              <i class="fa-solid fa-angles-left"></i> Voltar
+            </a>
+            <button type="submit">Atualizar <i class="fa-regular fa-file-lines"></i></button>
+          </td>
+        </tr>
+      </form>
+      
+    {% endif %}
+  </tbody>
+</table>
+
+
+{% endblock content %}
+

@@ -1,10 +1,10 @@
-from  blog.models import TipoPublicacao, Publicacao, Prefeitura, Secretario
+from  blog.models import TipoPublicacao, Publicacao, Prefeitura, Secretario, PastaAdministrativa
 from .models import Link
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import send_mail
@@ -139,6 +139,46 @@ class EditaPrefeituraView(LoginRequiredMixin, UpdateView):
         return reverse_lazy('painel:Prefeitura_edit', kwargs = {'pk': self.get_object().pk})
     
 
+# PASTA ADMINISTRATIVA
+# lista PastaAdministrativa
+class  ListPastaAdminView(LoginRequiredMixin, ListView):
+    model = PastaAdministrativa
+    template_name = 'pastaAdmin/pastaAdmin.html'  
+
+
+# Edição de prefeitura
+class EditaPastaAdminView(LoginRequiredMixin, UpdateView):
+    model = PastaAdministrativa
+    template_name = 'pastaAdmin/pastaAdmin.html'  
+    fields = ['nome', 'email', 'endereco','telefone', 'facebook', 'instagram', 'twitter', 'linkedin', 'youtube']   
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['object_list'] = Secretario.objects.all()
+        context['edit'] = True
+        return context
+    
+    def form_valid(self, form):
+        if self.request.user.first_name:
+            author = f'{self.request.user.first_name} {self.request.user.last_name}'
+        else:
+            author = f'{self.request.user}'
+
+        # Você pode adicionar lógica adicional para salvar o formulário ou fazer algo antes de salvar
+        form.save(commit=False)
+        form.instance.author = author
+        form.save()
+
+        # Adiciona uma mensagem de sucesso
+        messages.success(self.request, "Informações da Secretaria atualizada com sucesso!")
+
+        return super().form_valid(form)
+    
+    def get_success_url(self):
+        return reverse_lazy('painel:PastaAdmin')    
+       
+    
+
 # SECRETARIA ------------------------------------------------
 # list de secretaria
 class  ListSecretarioView(LoginRequiredMixin, ListView):
@@ -150,7 +190,7 @@ class  ListSecretarioView(LoginRequiredMixin, ListView):
 class EditaSecretarioView(LoginRequiredMixin, UpdateView):
     model = Secretario
     template_name = 'secretaria/secretaria_edit.html'  
-    fields = ['nome', 'pasta', 'email', 'endereco', 'telefone', 'ativo']    
+    fields = ['nome', 'pasta', 'email', 'endereco', 'telefone', 'ativo']   
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
